@@ -1,0 +1,2 @@
+export const TOGGLE_SIDE_BAR = "TOGGLE_SIDE_BAR";
+export const CHANGE_CURRENCY = "CHANGE_CURRENCY";
