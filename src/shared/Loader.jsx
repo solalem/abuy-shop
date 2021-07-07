@@ -1,7 +1,7 @@
 import React from "react";
-import "./Index.css";
+import "./Loader.css";
 
-const Index = () => {
+const Loader = () => {
   return (
     <div className="loader-container">
       <div className="loader">Loading...</div>
@@ -9,4 +9,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Loader;

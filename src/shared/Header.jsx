@@ -1,11 +1,11 @@
 import React from 'react';
-import Menu from '../UI/Menu/Menu';
-import MenuComponent from '../Menus/MenuComponent';
+import Menu from './Menu';
+import MenuItem from './MenuItem';
 //import Search from '../../modules/products/components/Search';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
-const MainMenu = (props) => {
+const Header = (props) => {
     
     return (
         <nav className="navbar navbar-expand-md navbar-light bg-light">
@@ -21,7 +21,7 @@ const MainMenu = (props) => {
 
                 <div className="collapse navbar-collapse">
                     <Menu menuClasses="navbar-nav ml-auto mt-2 mt-lg-0">
-                        <MenuComponent />
+                        <MenuItem linkTo={'/profile'}>Profile</MenuItem>
                     </Menu>
 
                     {/* <Search searchString={searchString} /> */}
@@ -31,8 +31,8 @@ const MainMenu = (props) => {
     )
 };
 
-MainMenu.propTypes = {
+Header.propTypes = {
     toggleSideBar: PropTypes.func.isRequired,
 };
 
-export default MainMenu;
+export default Header;

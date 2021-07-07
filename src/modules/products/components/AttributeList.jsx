@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { removeAttribute } from "../states/productsActions";
-import NoData from "../../../shared/UI/NoData";
-import Modal from "../../../shared/UI/Modal/Modal";
+import NoData from "../../../shared/NoData";
+import Modal from "../../../shared/Modal";
 import PropTypes from "prop-types";
 import { FaEdit } from "react-icons/fa";
 

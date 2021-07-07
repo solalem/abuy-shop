@@ -28,15 +28,6 @@ class App extends Component {
               <Route key={ "product" + i } path={route.path} exact component={route.component} />
             ))}
             
-            <Route
-              path={"/product/:productSlug"}
-              render={(props) => (
-                <ProductModule.ProductDetail
-                  key={props.match.params.productSlug}
-                  {...props}
-                />
-              )}
-            />
             {/*always redirect to index*/}
             <Redirect to={"/"} />
           </Switch>

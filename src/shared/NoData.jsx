@@ -1,5 +1,6 @@
 import React from 'react';
 import * as FaIcons from 'react-icons/fa';
+
 const NoData = () => {
   return (
     <div className="text-center m-4">

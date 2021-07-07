@@ -1,8 +1,8 @@
 import React from "react";
-import MainWrapper from "../shared/UI/Wrappers/MainPageWrapper";
-import ContentWrapper from "../shared/UI/Wrappers/PageContentWrapper";
-import MainMenu from "../shared/Menus/MainMenu";
-import Footer from "../shared/Footer/Index";
+import MainWrapper from "../shared/Wrappers/MainPageWrapper";
+import ContentWrapper from "../shared/Wrappers/PageContentWrapper";
+import Header from "../shared/Header";
+import Footer from "../shared/Footer";
 import Sidebar from "../Home/components/Sidebar";
 import PropTypes from "prop-types";
 
@@ -12,7 +12,7 @@ const MainLayout = (props) => {
       <MainWrapper>
         <ContentWrapper>
           <header>
-            <MainMenu
+            <Header
               //cartItemNumber={props.storeCartCount}
               toggleSideBar={props.toggleSideBar}
             />

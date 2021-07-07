@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import SelloutCards from "./components/SelloutCards";
-import Loader from "../shared/Loader/Index";
+import Loader from "../shared/Loader";
 import "./Home.css";
 
 class Home extends Component {

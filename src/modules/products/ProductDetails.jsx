@@ -6,8 +6,8 @@ import AttributeList from "./components/AttributeList";
 import EditAttribute from "./components/EditAttribute";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-import Search from "../../shared/UI/Search";
-import Modal from "../../shared/UI/Modal/Modal";
+import Search from "../../shared/Search";
+import Modal from "../../shared/Modal";
 
 class ProductDetails extends Component {
   constructor(props) {

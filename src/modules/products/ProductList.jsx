@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { retrieveProducts, findProductsByTitle, deleteProduct } from "./states/productsActions";
-import Search from "../../shared/UI/Search";
-import NoData from "../../shared/UI/NoData";
+import Search from "../../shared/Search";
+import NoData from "../../shared/NoData";
 import ProductDetails from "./ProductDetails";
 import { NavLink } from 'react-router-dom';
 

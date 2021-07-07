@@ -11,12 +11,6 @@ import App from "./App";
 const app = (
   <Provider store={store}>
     <BrowserRouter>
-      {/* StripeProvider initializes the stripe and passes in the publishable key */}
-      {/* <StripeProvider apiKey={process.env.REACT_APP_STRIPE_KEY}>
-        <Elements>
-          <App />
-        </Elements>
-      </StripeProvider> */}
       <App />
     </BrowserRouter>
   </Provider>

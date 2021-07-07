@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import BreadCrumbs from "../shared/UI/BreadCrumbs/BreadCrumbs";
+import BreadCrumbs from "../shared/BreadCrumbs/BreadCrumbs";
 
 const SecondaryLayout = (props) => {
   return (

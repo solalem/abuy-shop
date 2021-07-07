@@ -1,7 +1,6 @@
 import React from "react";
-import "./Footer.css";
 
-const Index = () => {
+const Footer = () => {
   return (
     <React.Fragment>
       <small>copyright @ solalem</small>
@@ -9,4 +8,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Footer;
