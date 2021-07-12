@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import SelloutCards from "./components/SelloutCards";
 import Loader from "../shared/Loader";
 import "./Home.css";
 
@@ -19,7 +18,7 @@ class Home extends Component {
       <Loader />
     ) : (
       <React.Fragment>
-        <SelloutCards />
+        <h3>Welcome!</h3>
       </React.Fragment>
     );
   }

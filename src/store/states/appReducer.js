@@ -1,4 +1,4 @@
-import * as actionTypes from "./actionTypes";
+import * as ActionTypes from "./actionTypes";
 
 const initialState = {
   showSideNavigation: false,
@@ -23,26 +23,25 @@ const initialState = {
   currencySymbols: {
     KES: "Ksh ",
     USD: "$",
-    GBP: "£",
-    EUR: "€",
+    GBP: "�",
+    EUR: "�",
     TZS: "TSh ",
     UGX: "USh ",
-    NGN: "₦",
-    INR: "₹",
+    NGN: "?",
+    INR: "?",
   },
-  productMaxShowModal: false,
 };//Data;
 
 const appReducer = (state = initialState, action) => {
   switch (action.type) {
 
-    case actionTypes.TOGGLE_SIDE_BAR:
+    case ActionTypes.TOGGLE_SIDE_BAR:
       return {
         ...state,
         showSideNavigation: !state.showSideNavigation,
       };
 
-    case actionTypes.CHANGE_CURRENCY: {
+    case ActionTypes.CHANGE_CURRENCY: {
       let currencyName = null;
       let currencyValue = null;
       let currencyObj = {};

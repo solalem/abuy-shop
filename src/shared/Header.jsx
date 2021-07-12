@@ -1,7 +1,6 @@
 import React from 'react';
 import Menu from './Menu';
 import MenuItem from './MenuItem';
-//import Search from '../../modules/products/components/Search';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
@@ -11,7 +10,7 @@ const Header = (props) => {
         <nav className="navbar navbar-expand-md navbar-light bg-light">
             <div className="container">
                 <span className="navbar-brand">
-                    <NavLink to={'/'} exact className="text-primary">ABUY</NavLink>
+                    <NavLink to={'/'} exact className="text-primary">LOGO</NavLink>
                 </span>
                 <button
                     className="navbar-toggler"

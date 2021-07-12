@@ -1,0 +1,26 @@
+export const CREATE_LISTING = "CREATE_LISTING";
+export const UPDATE_LISTING = "UPDATE_LISTING";
+export const DELETE_LISTING = "DELETE_LISTING";
+export const RETRIEVE_LISTINGS = "RETRIEVE_LISTINGS";
+export const SET_LISTING_PRICE_FILTER = "SET_LISTING_PRICE_FILTER";
+
+// Variants
+export const ADD_VARIANT = "ADD_VARIANT";
+export const UPDATE_VARIANT = "UPDATE_VARIANT";
+export const REMOVE_VARIANT = "REMOVE_VARIANT";
+// Images
+export const ADD_IMAGE = "ADD_IMAGE";
+export const UPDATE_IMAGE = "UPDATE_IMAGE";
+export const REMOVE_IMAGE = "REMOVE_IMAGE";
+// Coupons
+export const ADD_COUPON = "ADD_COUPON";
+export const UPDATE_COUPON = "UPDATE_COUPON";
+export const REMOVE_COUPON = "REMOVE_COUPON";
+// Discounts
+export const ADD_DISCOUNT = "ADD_DISCOUNT";
+export const UPDATE_DISCOUNT = "UPDATE_DISCOUNT";
+export const REMOVE_DISCOUNT = "REMOVE_DISCOUNT";
+// Affiliates
+export const ADD_AFFILIATE = "ADD_AFFILIATE";
+export const UPDATE_AFFILIATE = "UPDATE_AFFILIATE";
+export const REMOVE_AFFILIATE = "REMOVE_AFFILIATE";
