@@ -5,9 +5,9 @@ import ComparisonsService from "./services/api-service";
 import ComparisonItemList from "./components/ComparisonItemList";
 import EditComparisonItem from "./components/EditComparisonItem";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import 'react-tabs/style/react-tabs.css';
 import Search from "../../shared/Search";
 import Modal from "../../shared/Modal";
+import 'react-tabs/style/react-tabs.css';
 
 class ComparisonDetails extends Component {
   constructor(props) {
@@ -24,7 +24,6 @@ class ComparisonDetails extends Component {
     this.state = {
       currentComparison: this.props.currentComparison,
       openedModal: null,
-      attributesSearchString: "",
       message: "",
     };
   }
@@ -183,7 +182,6 @@ class ComparisonDetails extends Component {
                   />
                 </div>
               </div>
-
               <div className="">
                 <button
                   type="submit"
@@ -195,8 +193,8 @@ class ComparisonDetails extends Component {
                 &nbsp;
 
                 <button
-                className="btn text-danger mr-2"
-                onClick={this.removeComparison}
+                  className="btn text-danger mr-2"
+                  onClick={this.removeComparison}
                 >
                   Delete
                 </button>
@@ -213,22 +211,23 @@ class ComparisonDetails extends Component {
             </TabList>
 
             <TabPanel>
-              <Search searchString={this.state.attributesSearchString}>
+              <Search searchClick={() => {}}>
                 <button 
-                onClick={() => this.openAddDialog("attribute")}
+                onClick={() => this.openAddDialog("comparisonItem")}
                 className="btn text-success">Add</button>
               </Search>
               
-              {this.state.openedModal === 'attribute' ? (
+              {this.state.openedModal === 'comparisonItem' ? (
               <Modal 
-                showModal={this.state.openedModal === 'attribute'} 
+                showModal={this.state.openedModal === 'comparisonItem'} 
                 closeModalClick={this.closeDialog}>
                 <EditComparisonItem />
               </Modal>
               ): null}
 
-              <ComparisonItemList Comparison={currentComparison} editComparisonItemClick={(attribute) => this.openEditDialog('attribute')} />
+              <ComparisonItemList Comparison={currentComparison} editComparisonItemClick={(i) => this.openEditDialog('comparisonItem')} />
             </TabPanel>
+
             <TabPanel>
               <p>More content</p>
             </TabPanel>

@@ -74,6 +74,19 @@ export const setReviewPriceFilter = (price) => {
   return { type: ActionTypes.SET_REVIEW_PRICE_FILTER, price: price };
 };
 
+export const getByReviewerId = (id) => async (dispatch) => {
+  try {
+    const res = await ApiService.getByReviewerId(id);
+
+    dispatch({
+      type: ActionTypes.GET_BY_REVIEWERID,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 // Comments
 export const addComment = (id, data) => async (dispatch) => {
   try {

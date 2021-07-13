@@ -4,16 +4,17 @@ import { retrieveListings, findListingsByTitle, deleteListing } from "./states/a
 import Search from "../../shared/Search";
 import NoData from "../../shared/NoData";
 import ListingDetails from "./ListingDetails";
+import ListingList from "./components/ListingList";
 import { NavLink } from 'react-router-dom';
 
-class ListingsList extends Component {
+class ListingIndex extends Component {
   constructor(props) {
     super(props);
-    this.onChangeSearchTitle = this.onChangeSearchTitle.bind(this);
+    this.onChangeSearchString = this.onChangeSearchString.bind(this);
     this.refreshData = this.refreshData.bind(this);
     this.setActiveListing = this.setActiveListing.bind(this);
     this.findByTitle = this.findByTitle.bind(this);
-    this.removeAllListings = this.removeAllListings.bind(this);
+    this.removeListing = this.removeListing.bind(this);
 
     this.state = {
       currentListing: this.props.currentListing,
@@ -26,7 +27,7 @@ class ListingsList extends Component {
     this.props.retrieveListings();
   }
 
-  onChangeSearchTitle(e) {
+  onChangeSearchString(e) {
     const searchTitle = e.target.value;
 
     this.setState({
@@ -48,9 +49,9 @@ class ListingsList extends Component {
     });
   }
 
-  removeAllListings() {
+  removeListing(item) {
     this.props
-      .deleteListing()
+      .deleteListing(item)
       .then((response) => {
         console.log(response);
         this.refreshData();
@@ -73,7 +74,7 @@ class ListingsList extends Component {
 
     return (
       <>
-        <Search searchString={searchTitle}>
+        <Search searchString={searchTitle} searchClick={ this.onChangeSearchString}>
           <NavLink to={'/listings/new'} exact className="btn text-success">New</NavLink>
         </Search>
 
@@ -104,61 +105,15 @@ class ListingsList extends Component {
           </div>
         ) : (
           <div>
-            <table className="table table-sm table-striped table-hover">
-              <thead>
-                <tr>
-                  <td>Name</td>
-                  <td>Category</td>
-                  <td>Price</td>
-                  <td>OldPrice</td>
-                  <td>ItemsQuantity</td>
-                  <td>Packaging</td>
-                  <td>Delivery</td>
-                  <td>Terms</td>
-                  <td>ReturnPolicy</td>
-                  <td>ItemId</td>
-                  <td></td>
-                </tr>
-              </thead>
-              <tbody>
-                {listings && listings.map((item, index) => (
-                <tr
-                  className={(index === currentIndex ? "active" : "")}
-                  onClick={() => this.setActiveListing(item, index)}
-                  key={index}
-                >
-                  <td>{item.name}</td>
-                  <td>{item.category}</td>
-                  <td>{item.price}</td>
-                  <td>{item.oldPrice}</td>
-                  <td>{item.itemsQuantity}</td>
-                  <td>{item.packaging}</td>
-                  <td>{item.delivery}</td>
-                  <td>{item.terms}</td>
-                  <td>{item.returnPolicy}</td>
-                  <td>{item.itemId}</td>
-                  <td>
-                    <button
-                      className="btn btn-sm text-danger"
-                      onClick={this.removeListing}
-                    >
-                      <i className="fa fa-trash" />
-                      ?
-                    </button>
-                  </td>
-                </tr>
-              ))}
-              </tbody>
-            </table>
-            { count === 0 &&
-              <NoData />
-            }
+            <ListingList listings={this.listings} removeListingClick={() => {}} editListingClick={(i) => {}} />
+
           </div>
         )}
       </>
     );
   }
 }
+
 const mapStateToProps = (state) => {
   return {
     listings: state.listings.listings,
@@ -166,4 +121,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { retrieveListings, findListingsByTitle, deleteListing })(ListingsList);
+export default connect(mapStateToProps, { retrieveListings, findListingsByTitle, deleteListing })(ListingIndex);

@@ -4,16 +4,17 @@ import { retrieveBusinessTemplates, findBusinessTemplatesByTitle, deleteBusiness
 import Search from "../../shared/Search";
 import NoData from "../../shared/NoData";
 import BusinessTemplateDetails from "./BusinessTemplateDetails";
+import BusinessTemplateList from "./components/BusinessTemplateList";
 import { NavLink } from 'react-router-dom';
 
-class BusinessTemplatesList extends Component {
+class BusinessTemplateIndex extends Component {
   constructor(props) {
     super(props);
-    this.onChangeSearchTitle = this.onChangeSearchTitle.bind(this);
+    this.onChangeSearchString = this.onChangeSearchString.bind(this);
     this.refreshData = this.refreshData.bind(this);
     this.setActiveBusinessTemplate = this.setActiveBusinessTemplate.bind(this);
     this.findByTitle = this.findByTitle.bind(this);
-    this.removeAllBusinessTemplates = this.removeAllBusinessTemplates.bind(this);
+    this.removeBusinessTemplate = this.removeBusinessTemplate.bind(this);
 
     this.state = {
       currentBusinessTemplate: this.props.currentBusinessTemplate,
@@ -26,7 +27,7 @@ class BusinessTemplatesList extends Component {
     this.props.retrieveBusinessTemplates();
   }
 
-  onChangeSearchTitle(e) {
+  onChangeSearchString(e) {
     const searchTitle = e.target.value;
 
     this.setState({
@@ -48,9 +49,9 @@ class BusinessTemplatesList extends Component {
     });
   }
 
-  removeAllBusinessTemplates() {
+  removeBusinessTemplate(item) {
     this.props
-      .deleteBusinessTemplate()
+      .deleteBusinessTemplate(item)
       .then((response) => {
         console.log(response);
         this.refreshData();
@@ -73,7 +74,7 @@ class BusinessTemplatesList extends Component {
 
     return (
       <>
-        <Search searchString={searchTitle}>
+        <Search searchString={searchTitle} searchClick={ this.onChangeSearchString}>
           <NavLink to={'/business-templates/new'} exact className="btn text-success">New</NavLink>
         </Search>
 
@@ -104,47 +105,15 @@ class BusinessTemplatesList extends Component {
           </div>
         ) : (
           <div>
-            <table className="table table-sm table-striped table-hover">
-              <thead>
-                <tr>
-                  <td>Name</td>
-                  <td>DepartmentId</td>
-                  <td>CommodyIds</td>
-                  <td></td>
-                </tr>
-              </thead>
-              <tbody>
-                {businessTemplates && businessTemplates.map((item, index) => (
-                <tr
-                  className={(index === currentIndex ? "active" : "")}
-                  onClick={() => this.setActiveBusinessTemplate(item, index)}
-                  key={index}
-                >
-                  <td>{item.name}</td>
-                  <td>{item.departmentId}</td>
-                  <td>{item.commodyIds}</td>
-                  <td>
-                    <button
-                      className="btn btn-sm text-danger"
-                      onClick={this.removeBusinessTemplate}
-                    >
-                      <i className="fa fa-trash" />
-                      ?
-                    </button>
-                  </td>
-                </tr>
-              ))}
-              </tbody>
-            </table>
-            { count === 0 &&
-              <NoData />
-            }
+            <BusinessTemplateList businessTemplates={this.businessTemplates} removeBusinessTemplateClick={() => {}} editBusinessTemplateClick={(i) => {}} />
+
           </div>
         )}
       </>
     );
   }
 }
+
 const mapStateToProps = (state) => {
   return {
     businessTemplates: state.businessTemplates.businessTemplates,
@@ -152,4 +121,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { retrieveBusinessTemplates, findBusinessTemplatesByTitle, deleteBusinessTemplate })(BusinessTemplatesList);
+export default connect(mapStateToProps, { retrieveBusinessTemplates, findBusinessTemplatesByTitle, deleteBusinessTemplate })(BusinessTemplateIndex);

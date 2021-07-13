@@ -4,16 +4,17 @@ import { retrieveReviews, findReviewsByTitle, deleteReview } from "./states/acti
 import Search from "../../shared/Search";
 import NoData from "../../shared/NoData";
 import ReviewDetails from "./ReviewDetails";
+import ReviewList from "./components/ReviewList";
 import { NavLink } from 'react-router-dom';
 
-class ReviewsList extends Component {
+class ReviewIndex extends Component {
   constructor(props) {
     super(props);
-    this.onChangeSearchTitle = this.onChangeSearchTitle.bind(this);
+    this.onChangeSearchString = this.onChangeSearchString.bind(this);
     this.refreshData = this.refreshData.bind(this);
     this.setActiveReview = this.setActiveReview.bind(this);
     this.findByTitle = this.findByTitle.bind(this);
-    this.removeAllReviews = this.removeAllReviews.bind(this);
+    this.removeReview = this.removeReview.bind(this);
 
     this.state = {
       currentReview: this.props.currentReview,
@@ -26,7 +27,7 @@ class ReviewsList extends Component {
     this.props.retrieveReviews();
   }
 
-  onChangeSearchTitle(e) {
+  onChangeSearchString(e) {
     const searchTitle = e.target.value;
 
     this.setState({
@@ -48,9 +49,9 @@ class ReviewsList extends Component {
     });
   }
 
-  removeAllReviews() {
+  removeReview(item) {
     this.props
-      .deleteReview()
+      .deleteReview(item)
       .then((response) => {
         console.log(response);
         this.refreshData();
@@ -73,7 +74,7 @@ class ReviewsList extends Component {
 
     return (
       <>
-        <Search searchString={searchTitle}>
+        <Search searchString={searchTitle} searchClick={ this.onChangeSearchString}>
           <NavLink to={'/reviews/new'} exact className="btn text-success">New</NavLink>
         </Search>
 
@@ -104,55 +105,15 @@ class ReviewsList extends Component {
           </div>
         ) : (
           <div>
-            <table className="table table-sm table-striped table-hover">
-              <thead>
-                <tr>
-                  <td>Title</td>
-                  <td>Body</td>
-                  <td>Rating</td>
-                  <td>IsApproved</td>
-                  <td>ItemId</td>
-                  <td>ItemCode</td>
-                  <td>ReviewerId</td>
-                  <td></td>
-                </tr>
-              </thead>
-              <tbody>
-                {reviews && reviews.map((item, index) => (
-                <tr
-                  className={(index === currentIndex ? "active" : "")}
-                  onClick={() => this.setActiveReview(item, index)}
-                  key={index}
-                >
-                  <td>{item.title}</td>
-                  <td>{item.body}</td>
-                  <td>{item.rating}</td>
-                  <td>{item.isApproved}</td>
-                  <td>{item.itemId}</td>
-                  <td>{item.itemCode}</td>
-                  <td>{item.reviewerId}</td>
-                  <td>
-                    <button
-                      className="btn btn-sm text-danger"
-                      onClick={this.removeReview}
-                    >
-                      <i className="fa fa-trash" />
-                      ?
-                    </button>
-                  </td>
-                </tr>
-              ))}
-              </tbody>
-            </table>
-            { count === 0 &&
-              <NoData />
-            }
+            <ReviewList reviews={this.reviews} removeReviewClick={() => {}} editReviewClick={(i) => {}} />
+
           </div>
         )}
       </>
     );
   }
 }
+
 const mapStateToProps = (state) => {
   return {
     reviews: state.reviews.reviews,
@@ -160,4 +121,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { retrieveReviews, findReviewsByTitle, deleteReview })(ReviewsList);
+export default connect(mapStateToProps, { retrieveReviews, findReviewsByTitle, deleteReview })(ReviewIndex);

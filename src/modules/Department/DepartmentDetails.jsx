@@ -2,10 +2,13 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { updateDepartment, deleteDepartment } from "./states/actions";
 import DepartmentsService from "./services/api-service";
+import CategoryList from "../Category/components/CategoryList";
+import BusinessTemplateList from "../BusinessTemplate/components/BusinessTemplateList";
+import SellerList from "../Seller/components/SellerList";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import 'react-tabs/style/react-tabs.css';
 import Search from "../../shared/Search";
 import Modal from "../../shared/Modal";
+import 'react-tabs/style/react-tabs.css';
 
 class DepartmentDetails extends Component {
   constructor(props) {
@@ -21,7 +24,6 @@ class DepartmentDetails extends Component {
     this.state = {
       currentDepartment: this.props.currentDepartment,
       openedModal: null,
-      attributesSearchString: "",
       message: "",
     };
   }
@@ -180,7 +182,6 @@ class DepartmentDetails extends Component {
                   />
                 </div>
               </div>
-
               <div className="">
                 <button
                   type="submit"
@@ -192,8 +193,8 @@ class DepartmentDetails extends Component {
                 &nbsp;
 
                 <button
-                className="btn text-danger mr-2"
-                onClick={this.removeDepartment}
+                  className="btn text-danger mr-2"
+                  onClick={this.removeDepartment}
                 >
                   Delete
                 </button>
@@ -205,8 +206,27 @@ class DepartmentDetails extends Component {
 
           <Tabs>
             <TabList>
+              <Tab>Categories</Tab>
+              <Tab>BusinessTemplates</Tab>
+              <Tab>Sellers</Tab>
               <Tab>More</Tab>
             </TabList>
+
+            <TabPanel>
+              <Search />
+              
+              <CategoryList />
+            </TabPanel>
+            <TabPanel>
+              <Search />
+              
+              <BusinessTemplateList />
+            </TabPanel>
+            <TabPanel>
+              <Search />
+              
+              <SellerList />
+            </TabPanel>
 
             <TabPanel>
               <p>More content</p>

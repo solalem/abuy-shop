@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { removeCommodityAttribute } from "../states/actions";
 import NoData from "../../../shared/NoData";
 import Modal from "../../../shared/Modal";
 import PropTypes from "prop-types";
@@ -17,7 +16,7 @@ class CommodityAttributeList extends Component {
   }
 
   render() {
-    const { commodityAttributes } = this.props.CommodityAttribute;
+    const { commodityAttributes } = this.props;
     let count = commodityAttributes? commodityAttributes.length : 0;
 
     return (
@@ -34,9 +33,9 @@ class CommodityAttributeList extends Component {
           <tbody>
             {commodityAttributes && commodityAttributes.map((item, index) => (
             <tr key={index}>
-                  <td>{item.attribute}</td>
-                  <td>{item.defaultValue}</td>
-                  <td>{item.commodityId}</td>
+              <td>{item.attribute}</td>
+              <td>{item.defaultValue}</td>
+              <td>{item.commodityId}</td>
               <td>
                 <button
                   className="btn btn-sm text-primary"
@@ -46,7 +45,7 @@ class CommodityAttributeList extends Component {
                 </button>
                 <button
                   className="btn btn-sm btn-danger"
-                  onClick={() => this.props.removeCommodityAttributeProp(item)}
+                  onClick={() => this.props.removeCommodityAttributeClick(item)}
                 >
                   <i className="fa fa-trash" />
                   ?
@@ -65,19 +64,10 @@ class CommodityAttributeList extends Component {
   }
 }
 
-Modal.propTypes = {
+CommodityAttributeList.propTypes = {
   editCommodityAttributeClick: PropTypes.func.isRequired,
+  removeCommodityAttributeClick: PropTypes.func.isRequired,
+  commodityAttributes: PropTypes.any.isRequired
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    removeCommodityAttributeProp: (commodityAttribute) => removeCommodityAttribute(commodityAttribute),
-  }, dispatch);
-};
-// function mapDispatchToProps(dispatch) {
-//   return(bindActionCreators({
-//       deleteFromArray: (array) => {getTheArray(array)}
-//   }, dispatch))
-// }
-
-export default connect(null, mapDispatchToProps)(CommodityAttributeList);
+export default connect(null, null)(CommodityAttributeList);

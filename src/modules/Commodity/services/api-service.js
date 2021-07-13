@@ -21,8 +21,9 @@ class ApiService {
     return http.delete(`/commodities/${id}`);
   }
 
-  findByTitle(title) {
-    return http.get(`/commodities?title=${title}`);
+
+  getByCategoryId(id) {
+    return http.get(`/get-commodities-by-category-id?id=${id}`);
   }
 
   addTag(data) {

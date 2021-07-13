@@ -5,9 +5,9 @@ import PurchaseOrdersService from "./services/api-service";
 import OrderLineList from "./components/OrderLineList";
 import EditOrderLine from "./components/EditOrderLine";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import 'react-tabs/style/react-tabs.css';
 import Search from "../../shared/Search";
 import Modal from "../../shared/Modal";
+import 'react-tabs/style/react-tabs.css';
 
 class PurchaseOrderDetails extends Component {
   constructor(props) {
@@ -33,7 +33,6 @@ class PurchaseOrderDetails extends Component {
     this.state = {
       currentPurchaseOrder: this.props.currentPurchaseOrder,
       openedModal: null,
-      attributesSearchString: "",
       message: "",
     };
   }
@@ -384,7 +383,6 @@ class PurchaseOrderDetails extends Component {
                   />
                 </div>
               </div>
-
               <div className="">
                 <button
                   type="submit"
@@ -396,8 +394,8 @@ class PurchaseOrderDetails extends Component {
                 &nbsp;
 
                 <button
-                className="btn text-danger mr-2"
-                onClick={this.removePurchaseOrder}
+                  className="btn text-danger mr-2"
+                  onClick={this.removePurchaseOrder}
                 >
                   Delete
                 </button>
@@ -414,22 +412,23 @@ class PurchaseOrderDetails extends Component {
             </TabList>
 
             <TabPanel>
-              <Search searchString={this.state.attributesSearchString}>
+              <Search searchClick={() => {}}>
                 <button 
-                onClick={() => this.openAddDialog("attribute")}
+                onClick={() => this.openAddDialog("orderLine")}
                 className="btn text-success">Add</button>
               </Search>
               
-              {this.state.openedModal === 'attribute' ? (
+              {this.state.openedModal === 'orderLine' ? (
               <Modal 
-                showModal={this.state.openedModal === 'attribute'} 
+                showModal={this.state.openedModal === 'orderLine'} 
                 closeModalClick={this.closeDialog}>
                 <EditOrderLine />
               </Modal>
               ): null}
 
-              <OrderLineList PurchaseOrder={currentPurchaseOrder} editOrderLineClick={(attribute) => this.openEditDialog('attribute')} />
+              <OrderLineList PurchaseOrder={currentPurchaseOrder} editOrderLineClick={(i) => this.openEditDialog('orderLine')} />
             </TabPanel>
+
             <TabPanel>
               <p>More content</p>
             </TabPanel>

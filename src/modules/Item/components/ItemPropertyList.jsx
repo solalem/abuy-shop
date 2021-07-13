@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { removeItemProperty } from "../states/actions";
 import NoData from "../../../shared/NoData";
 import Modal from "../../../shared/Modal";
 import PropTypes from "prop-types";
@@ -17,7 +16,7 @@ class ItemPropertyList extends Component {
   }
 
   render() {
-    const { itemProperties } = this.props.ItemProperty;
+    const { itemProperties } = this.props;
     let count = itemProperties? itemProperties.length : 0;
 
     return (
@@ -34,9 +33,9 @@ class ItemPropertyList extends Component {
           <tbody>
             {itemProperties && itemProperties.map((item, index) => (
             <tr key={index}>
-                  <td>{item.attribute}</td>
-                  <td>{item.value}</td>
-                  <td>{item.itemId}</td>
+              <td>{item.attribute}</td>
+              <td>{item.value}</td>
+              <td>{item.itemId}</td>
               <td>
                 <button
                   className="btn btn-sm text-primary"
@@ -46,7 +45,7 @@ class ItemPropertyList extends Component {
                 </button>
                 <button
                   className="btn btn-sm btn-danger"
-                  onClick={() => this.props.removeItemPropertyProp(item)}
+                  onClick={() => this.props.removeItemPropertyClick(item)}
                 >
                   <i className="fa fa-trash" />
                   ?
@@ -65,19 +64,10 @@ class ItemPropertyList extends Component {
   }
 }
 
-Modal.propTypes = {
+ItemPropertyList.propTypes = {
   editItemPropertyClick: PropTypes.func.isRequired,
+  removeItemPropertyClick: PropTypes.func.isRequired,
+  itemProperties: PropTypes.any.isRequired
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    removeItemPropertyProp: (itemProperty) => removeItemProperty(itemProperty),
-  }, dispatch);
-};
-// function mapDispatchToProps(dispatch) {
-//   return(bindActionCreators({
-//       deleteFromArray: (array) => {getTheArray(array)}
-//   }, dispatch))
-// }
-
-export default connect(null, mapDispatchToProps)(ItemPropertyList);
+export default connect(null, null)(ItemPropertyList);

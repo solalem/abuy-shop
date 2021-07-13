@@ -21,8 +21,9 @@ class ApiService {
     return http.delete(`/comparisons/${id}`);
   }
 
-  findByTitle(title) {
-    return http.get(`/comparisons?title=${title}`);
+
+  getByBuyerId(id) {
+    return http.get(`/get-comparisons-by-buyer-id?id=${id}`);
   }
 
   addComparisonItem(data) {

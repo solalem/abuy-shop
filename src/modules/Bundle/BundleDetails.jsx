@@ -5,9 +5,9 @@ import BundlesService from "./services/api-service";
 import BundleItemList from "./components/BundleItemList";
 import EditBundleItem from "./components/EditBundleItem";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import 'react-tabs/style/react-tabs.css';
 import Search from "../../shared/Search";
 import Modal from "../../shared/Modal";
+import 'react-tabs/style/react-tabs.css';
 
 class BundleDetails extends Component {
   constructor(props) {
@@ -24,7 +24,6 @@ class BundleDetails extends Component {
     this.state = {
       currentBundle: this.props.currentBundle,
       openedModal: null,
-      attributesSearchString: "",
       message: "",
     };
   }
@@ -195,7 +194,6 @@ class BundleDetails extends Component {
                   />
                 </div>
               </div>
-
               <div className="">
                 <button
                   type="submit"
@@ -207,8 +205,8 @@ class BundleDetails extends Component {
                 &nbsp;
 
                 <button
-                className="btn text-danger mr-2"
-                onClick={this.removeBundle}
+                  className="btn text-danger mr-2"
+                  onClick={this.removeBundle}
                 >
                   Delete
                 </button>
@@ -225,22 +223,23 @@ class BundleDetails extends Component {
             </TabList>
 
             <TabPanel>
-              <Search searchString={this.state.attributesSearchString}>
+              <Search searchClick={() => {}}>
                 <button 
-                onClick={() => this.openAddDialog("attribute")}
+                onClick={() => this.openAddDialog("bundleItem")}
                 className="btn text-success">Add</button>
               </Search>
               
-              {this.state.openedModal === 'attribute' ? (
+              {this.state.openedModal === 'bundleItem' ? (
               <Modal 
-                showModal={this.state.openedModal === 'attribute'} 
+                showModal={this.state.openedModal === 'bundleItem'} 
                 closeModalClick={this.closeDialog}>
                 <EditBundleItem />
               </Modal>
               ): null}
 
-              <BundleItemList Bundle={currentBundle} editBundleItemClick={(attribute) => this.openEditDialog('attribute')} />
+              <BundleItemList Bundle={currentBundle} editBundleItemClick={(i) => this.openEditDialog('bundleItem')} />
             </TabPanel>
+
             <TabPanel>
               <p>More content</p>
             </TabPanel>

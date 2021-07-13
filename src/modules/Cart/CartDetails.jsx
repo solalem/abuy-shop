@@ -5,9 +5,9 @@ import CartsService from "./services/api-service";
 import CartLineList from "./components/CartLineList";
 import EditCartLine from "./components/EditCartLine";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import 'react-tabs/style/react-tabs.css';
 import Search from "../../shared/Search";
 import Modal from "../../shared/Modal";
+import 'react-tabs/style/react-tabs.css';
 
 class CartDetails extends Component {
   constructor(props) {
@@ -25,7 +25,6 @@ class CartDetails extends Component {
     this.state = {
       currentCart: this.props.currentCart,
       openedModal: null,
-      attributesSearchString: "",
       message: "",
     };
   }
@@ -208,7 +207,6 @@ class CartDetails extends Component {
                   />
                 </div>
               </div>
-
               <div className="">
                 <button
                   type="submit"
@@ -220,8 +218,8 @@ class CartDetails extends Component {
                 &nbsp;
 
                 <button
-                className="btn text-danger mr-2"
-                onClick={this.removeCart}
+                  className="btn text-danger mr-2"
+                  onClick={this.removeCart}
                 >
                   Delete
                 </button>
@@ -238,22 +236,23 @@ class CartDetails extends Component {
             </TabList>
 
             <TabPanel>
-              <Search searchString={this.state.attributesSearchString}>
+              <Search searchClick={() => {}}>
                 <button 
-                onClick={() => this.openAddDialog("attribute")}
+                onClick={() => this.openAddDialog("cartLine")}
                 className="btn text-success">Add</button>
               </Search>
               
-              {this.state.openedModal === 'attribute' ? (
+              {this.state.openedModal === 'cartLine' ? (
               <Modal 
-                showModal={this.state.openedModal === 'attribute'} 
+                showModal={this.state.openedModal === 'cartLine'} 
                 closeModalClick={this.closeDialog}>
                 <EditCartLine />
               </Modal>
               ): null}
 
-              <CartLineList Cart={currentCart} editCartLineClick={(attribute) => this.openEditDialog('attribute')} />
+              <CartLineList Cart={currentCart} editCartLineClick={(i) => this.openEditDialog('cartLine')} />
             </TabPanel>
+
             <TabPanel>
               <p>More content</p>
             </TabPanel>

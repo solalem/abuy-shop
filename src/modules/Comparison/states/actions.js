@@ -74,6 +74,19 @@ export const setComparisonPriceFilter = (price) => {
   return { type: ActionTypes.SET_COMPARISON_PRICE_FILTER, price: price };
 };
 
+export const getByBuyerId = (id) => async (dispatch) => {
+  try {
+    const res = await ApiService.getByBuyerId(id);
+
+    dispatch({
+      type: ActionTypes.GET_BY_BUYERID,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 // ComparisonItems
 export const addComparisonItem = (id, data) => async (dispatch) => {
   try {

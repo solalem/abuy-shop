@@ -21,9 +21,6 @@ class ApiService {
     return http.delete(`/stores/${id}`);
   }
 
-  findByTitle(title) {
-    return http.get(`/stores?title=${title}`);
-  }
 
   addBussinessHour(data) {
     return http.post("/stores/add-bussiness-hour", data);

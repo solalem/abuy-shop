@@ -5,9 +5,9 @@ import ItemsService from "./services/api-service";
 import ItemPropertyList from "./components/ItemPropertyList";
 import EditItemProperty from "./components/EditItemProperty";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import 'react-tabs/style/react-tabs.css';
 import Search from "../../shared/Search";
 import Modal from "../../shared/Modal";
+import 'react-tabs/style/react-tabs.css';
 
 class ItemDetails extends Component {
   constructor(props) {
@@ -36,7 +36,6 @@ class ItemDetails extends Component {
     this.state = {
       currentItem: this.props.currentItem,
       openedModal: null,
-      attributesSearchString: "",
       message: "",
     };
   }
@@ -447,7 +446,6 @@ class ItemDetails extends Component {
                   />
                 </div>
               </div>
-
               <div className="">
                 <button
                   type="submit"
@@ -459,8 +457,8 @@ class ItemDetails extends Component {
                 &nbsp;
 
                 <button
-                className="btn text-danger mr-2"
-                onClick={this.removeItem}
+                  className="btn text-danger mr-2"
+                  onClick={this.removeItem}
                 >
                   Delete
                 </button>
@@ -477,22 +475,23 @@ class ItemDetails extends Component {
             </TabList>
 
             <TabPanel>
-              <Search searchString={this.state.attributesSearchString}>
+              <Search searchClick={() => {}}>
                 <button 
-                onClick={() => this.openAddDialog("attribute")}
+                onClick={() => this.openAddDialog("itemProperty")}
                 className="btn text-success">Add</button>
               </Search>
               
-              {this.state.openedModal === 'attribute' ? (
+              {this.state.openedModal === 'itemProperty' ? (
               <Modal 
-                showModal={this.state.openedModal === 'attribute'} 
+                showModal={this.state.openedModal === 'itemProperty'} 
                 closeModalClick={this.closeDialog}>
                 <EditItemProperty />
               </Modal>
               ): null}
 
-              <ItemPropertyList Item={currentItem} editItemPropertyClick={(attribute) => this.openEditDialog('attribute')} />
+              <ItemPropertyList Item={currentItem} editItemPropertyClick={(i) => this.openEditDialog('itemProperty')} />
             </TabPanel>
+
             <TabPanel>
               <p>More content</p>
             </TabPanel>

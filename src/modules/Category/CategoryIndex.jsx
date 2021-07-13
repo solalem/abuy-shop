@@ -4,16 +4,17 @@ import { retrieveCategories, findCategoriesByTitle, deleteCategory } from "./sta
 import Search from "../../shared/Search";
 import NoData from "../../shared/NoData";
 import CategoryDetails from "./CategoryDetails";
+import CategoryList from "./components/CategoryList";
 import { NavLink } from 'react-router-dom';
 
-class CategoriesList extends Component {
+class CategoryIndex extends Component {
   constructor(props) {
     super(props);
-    this.onChangeSearchTitle = this.onChangeSearchTitle.bind(this);
+    this.onChangeSearchString = this.onChangeSearchString.bind(this);
     this.refreshData = this.refreshData.bind(this);
     this.setActiveCategory = this.setActiveCategory.bind(this);
     this.findByTitle = this.findByTitle.bind(this);
-    this.removeAllCategories = this.removeAllCategories.bind(this);
+    this.removeCategory = this.removeCategory.bind(this);
 
     this.state = {
       currentCategory: this.props.currentCategory,
@@ -26,7 +27,7 @@ class CategoriesList extends Component {
     this.props.retrieveCategories();
   }
 
-  onChangeSearchTitle(e) {
+  onChangeSearchString(e) {
     const searchTitle = e.target.value;
 
     this.setState({
@@ -48,9 +49,9 @@ class CategoriesList extends Component {
     });
   }
 
-  removeAllCategories() {
+  removeCategory(item) {
     this.props
-      .deleteCategory()
+      .deleteCategory(item)
       .then((response) => {
         console.log(response);
         this.refreshData();
@@ -73,7 +74,7 @@ class CategoriesList extends Component {
 
     return (
       <>
-        <Search searchString={searchTitle}>
+        <Search searchString={searchTitle} searchClick={ this.onChangeSearchString}>
           <NavLink to={'/categories/new'} exact className="btn text-success">New</NavLink>
         </Search>
 
@@ -104,51 +105,15 @@ class CategoriesList extends Component {
           </div>
         ) : (
           <div>
-            <table className="table table-sm table-striped table-hover">
-              <thead>
-                <tr>
-                  <td>Name</td>
-                  <td>Description</td>
-                  <td>IsOpen</td>
-                  <td>DepartmentId</td>
-                  <td>ParentId</td>
-                  <td></td>
-                </tr>
-              </thead>
-              <tbody>
-                {categories && categories.map((item, index) => (
-                <tr
-                  className={(index === currentIndex ? "active" : "")}
-                  onClick={() => this.setActiveCategory(item, index)}
-                  key={index}
-                >
-                  <td>{item.name}</td>
-                  <td>{item.description}</td>
-                  <td>{item.isOpen}</td>
-                  <td>{item.departmentId}</td>
-                  <td>{item.parentId}</td>
-                  <td>
-                    <button
-                      className="btn btn-sm text-danger"
-                      onClick={this.removeCategory}
-                    >
-                      <i className="fa fa-trash" />
-                      ?
-                    </button>
-                  </td>
-                </tr>
-              ))}
-              </tbody>
-            </table>
-            { count === 0 &&
-              <NoData />
-            }
+            <CategoryList categories={this.categories} removeCategoryClick={() => {}} editCategoryClick={(i) => {}} />
+
           </div>
         )}
       </>
     );
   }
 }
+
 const mapStateToProps = (state) => {
   return {
     categories: state.categories.categories,
@@ -156,4 +121,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { retrieveCategories, findCategoriesByTitle, deleteCategory })(CategoriesList);
+export default connect(mapStateToProps, { retrieveCategories, findCategoriesByTitle, deleteCategory })(CategoryIndex);

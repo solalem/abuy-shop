@@ -44,6 +44,12 @@ const bundlesReducer = (state = initialState, action) => {
         priceFilter: BundlePriceFilter,
       };
 
+    case ActionTypes.GET_BY_SELLERID:
+      return {
+        ...state,
+        bundles: payload
+      };
+
     // BundleItems
     case ActionTypes.ADD_BUNDLEITEM:
       return [...state.currentBundle.bundleItems, payload];

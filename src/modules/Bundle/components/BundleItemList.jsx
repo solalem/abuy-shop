@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { removeBundleItem } from "../states/actions";
 import NoData from "../../../shared/NoData";
 import Modal from "../../../shared/Modal";
 import PropTypes from "prop-types";
@@ -17,7 +16,7 @@ class BundleItemList extends Component {
   }
 
   render() {
-    const { bundleItems } = this.props.BundleItem;
+    const { bundleItems } = this.props;
     let count = bundleItems? bundleItems.length : 0;
 
     return (
@@ -34,9 +33,9 @@ class BundleItemList extends Component {
           <tbody>
             {bundleItems && bundleItems.map((item, index) => (
             <tr key={index}>
-                  <td>{item.itemId}</td>
-                  <td>{item.bundleId}</td>
-                  <td>{item.amount}</td>
+              <td>{item.itemId}</td>
+              <td>{item.bundleId}</td>
+              <td>{item.amount}</td>
               <td>
                 <button
                   className="btn btn-sm text-primary"
@@ -46,7 +45,7 @@ class BundleItemList extends Component {
                 </button>
                 <button
                   className="btn btn-sm btn-danger"
-                  onClick={() => this.props.removeBundleItemProp(item)}
+                  onClick={() => this.props.removeBundleItemClick(item)}
                 >
                   <i className="fa fa-trash" />
                   ?
@@ -65,19 +64,10 @@ class BundleItemList extends Component {
   }
 }
 
-Modal.propTypes = {
+BundleItemList.propTypes = {
   editBundleItemClick: PropTypes.func.isRequired,
+  removeBundleItemClick: PropTypes.func.isRequired,
+  bundleItems: PropTypes.any.isRequired
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    removeBundleItemProp: (bundleItem) => removeBundleItem(bundleItem),
-  }, dispatch);
-};
-// function mapDispatchToProps(dispatch) {
-//   return(bindActionCreators({
-//       deleteFromArray: (array) => {getTheArray(array)}
-//   }, dispatch))
-// }
-
-export default connect(null, mapDispatchToProps)(BundleItemList);
+export default connect(null, null)(BundleItemList);

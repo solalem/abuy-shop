@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { removeDiscount } from "../states/actions";
 import NoData from "../../../shared/NoData";
 import Modal from "../../../shared/Modal";
 import PropTypes from "prop-types";
@@ -17,7 +16,7 @@ class DiscountList extends Component {
   }
 
   render() {
-    const { discounts } = this.props.Discount;
+    const { discounts } = this.props;
     let count = discounts? discounts.length : 0;
 
     return (
@@ -37,12 +36,12 @@ class DiscountList extends Component {
           <tbody>
             {discounts && discounts.map((item, index) => (
             <tr key={index}>
-                  <td>{item.name}</td>
-                  <td>{item.startDate}</td>
-                  <td>{item.endDate}</td>
-                  <td>{item.percentDiscount}</td>
-                  <td>{item.amountDiscount}</td>
-                  <td>{item.listingId}</td>
+              <td>{item.name}</td>
+              <td>{item.startDate}</td>
+              <td>{item.endDate}</td>
+              <td>{item.percentDiscount}</td>
+              <td>{item.amountDiscount}</td>
+              <td>{item.listingId}</td>
               <td>
                 <button
                   className="btn btn-sm text-primary"
@@ -52,7 +51,7 @@ class DiscountList extends Component {
                 </button>
                 <button
                   className="btn btn-sm btn-danger"
-                  onClick={() => this.props.removeDiscountProp(item)}
+                  onClick={() => this.props.removeDiscountClick(item)}
                 >
                   <i className="fa fa-trash" />
                   ?
@@ -71,19 +70,10 @@ class DiscountList extends Component {
   }
 }
 
-Modal.propTypes = {
+DiscountList.propTypes = {
   editDiscountClick: PropTypes.func.isRequired,
+  removeDiscountClick: PropTypes.func.isRequired,
+  discounts: PropTypes.any.isRequired
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    removeDiscountProp: (discount) => removeDiscount(discount),
-  }, dispatch);
-};
-// function mapDispatchToProps(dispatch) {
-//   return(bindActionCreators({
-//       deleteFromArray: (array) => {getTheArray(array)}
-//   }, dispatch))
-// }
-
-export default connect(null, mapDispatchToProps)(DiscountList);
+export default connect(null, null)(DiscountList);

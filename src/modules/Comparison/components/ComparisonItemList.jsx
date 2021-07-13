@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { removeComparisonItem } from "../states/actions";
 import NoData from "../../../shared/NoData";
 import Modal from "../../../shared/Modal";
 import PropTypes from "prop-types";
@@ -17,7 +16,7 @@ class ComparisonItemList extends Component {
   }
 
   render() {
-    const { comparisonItems } = this.props.ComparisonItem;
+    const { comparisonItems } = this.props;
     let count = comparisonItems? comparisonItems.length : 0;
 
     return (
@@ -35,10 +34,10 @@ class ComparisonItemList extends Component {
           <tbody>
             {comparisonItems && comparisonItems.map((item, index) => (
             <tr key={index}>
-                  <td>{item.listingId}</td>
-                  <td>{item.comparisionId}</td>
-                  <td>{item.price}</td>
-                  <td>{item.specifications}</td>
+              <td>{item.listingId}</td>
+              <td>{item.comparisionId}</td>
+              <td>{item.price}</td>
+              <td>{item.specifications}</td>
               <td>
                 <button
                   className="btn btn-sm text-primary"
@@ -48,7 +47,7 @@ class ComparisonItemList extends Component {
                 </button>
                 <button
                   className="btn btn-sm btn-danger"
-                  onClick={() => this.props.removeComparisonItemProp(item)}
+                  onClick={() => this.props.removeComparisonItemClick(item)}
                 >
                   <i className="fa fa-trash" />
                   ?
@@ -67,19 +66,10 @@ class ComparisonItemList extends Component {
   }
 }
 
-Modal.propTypes = {
+ComparisonItemList.propTypes = {
   editComparisonItemClick: PropTypes.func.isRequired,
+  removeComparisonItemClick: PropTypes.func.isRequired,
+  comparisonItems: PropTypes.any.isRequired
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    removeComparisonItemProp: (comparisonItem) => removeComparisonItem(comparisonItem),
-  }, dispatch);
-};
-// function mapDispatchToProps(dispatch) {
-//   return(bindActionCreators({
-//       deleteFromArray: (array) => {getTheArray(array)}
-//   }, dispatch))
-// }
-
-export default connect(null, mapDispatchToProps)(ComparisonItemList);
+export default connect(null, null)(ComparisonItemList);

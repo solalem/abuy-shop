@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { removeFavouriteItem } from "../states/actions";
 import NoData from "../../../shared/NoData";
 import Modal from "../../../shared/Modal";
 import PropTypes from "prop-types";
@@ -17,7 +16,7 @@ class FavouriteItemList extends Component {
   }
 
   render() {
-    const { favouriteItems } = this.props.FavouriteItem;
+    const { favouriteItems } = this.props;
     let count = favouriteItems? favouriteItems.length : 0;
 
     return (
@@ -34,9 +33,9 @@ class FavouriteItemList extends Component {
           <tbody>
             {favouriteItems && favouriteItems.map((item, index) => (
             <tr key={index}>
-                  <td>{item.addedOn}</td>
-                  <td>{item.listingId}</td>
-                  <td>{item.buyerId}</td>
+              <td>{item.addedOn}</td>
+              <td>{item.listingId}</td>
+              <td>{item.buyerId}</td>
               <td>
                 <button
                   className="btn btn-sm text-primary"
@@ -46,7 +45,7 @@ class FavouriteItemList extends Component {
                 </button>
                 <button
                   className="btn btn-sm btn-danger"
-                  onClick={() => this.props.removeFavouriteItemProp(item)}
+                  onClick={() => this.props.removeFavouriteItemClick(item)}
                 >
                   <i className="fa fa-trash" />
                   ?
@@ -65,19 +64,10 @@ class FavouriteItemList extends Component {
   }
 }
 
-Modal.propTypes = {
+FavouriteItemList.propTypes = {
   editFavouriteItemClick: PropTypes.func.isRequired,
+  removeFavouriteItemClick: PropTypes.func.isRequired,
+  favouriteItems: PropTypes.any.isRequired
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    removeFavouriteItemProp: (favouriteItem) => removeFavouriteItem(favouriteItem),
-  }, dispatch);
-};
-// function mapDispatchToProps(dispatch) {
-//   return(bindActionCreators({
-//       deleteFromArray: (array) => {getTheArray(array)}
-//   }, dispatch))
-// }
-
-export default connect(null, mapDispatchToProps)(FavouriteItemList);
+export default connect(null, null)(FavouriteItemList);

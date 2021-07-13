@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { removeCartLine } from "../states/actions";
 import NoData from "../../../shared/NoData";
 import Modal from "../../../shared/Modal";
 import PropTypes from "prop-types";
@@ -17,7 +16,7 @@ class CartLineList extends Component {
   }
 
   render() {
-    const { cartLines } = this.props.CartLine;
+    const { cartLines } = this.props;
     let count = cartLines? cartLines.length : 0;
 
     return (
@@ -38,13 +37,13 @@ class CartLineList extends Component {
           <tbody>
             {cartLines && cartLines.map((item, index) => (
             <tr key={index}>
-                  <td>{item.listingId}</td>
-                  <td>{item.quantity}</td>
-                  <td>{item.unitPrice}</td>
-                  <td>{item.couponCode}</td>
-                  <td>{item.promotionCode}</td>
-                  <td>{item.affiliateCode}</td>
-                  <td>{item.cartId}</td>
+              <td>{item.listingId}</td>
+              <td>{item.quantity}</td>
+              <td>{item.unitPrice}</td>
+              <td>{item.couponCode}</td>
+              <td>{item.promotionCode}</td>
+              <td>{item.affiliateCode}</td>
+              <td>{item.cartId}</td>
               <td>
                 <button
                   className="btn btn-sm text-primary"
@@ -54,7 +53,7 @@ class CartLineList extends Component {
                 </button>
                 <button
                   className="btn btn-sm btn-danger"
-                  onClick={() => this.props.removeCartLineProp(item)}
+                  onClick={() => this.props.removeCartLineClick(item)}
                 >
                   <i className="fa fa-trash" />
                   ?
@@ -73,19 +72,10 @@ class CartLineList extends Component {
   }
 }
 
-Modal.propTypes = {
+CartLineList.propTypes = {
   editCartLineClick: PropTypes.func.isRequired,
+  removeCartLineClick: PropTypes.func.isRequired,
+  cartLines: PropTypes.any.isRequired
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    removeCartLineProp: (cartLine) => removeCartLine(cartLine),
-  }, dispatch);
-};
-// function mapDispatchToProps(dispatch) {
-//   return(bindActionCreators({
-//       deleteFromArray: (array) => {getTheArray(array)}
-//   }, dispatch))
-// }
-
-export default connect(null, mapDispatchToProps)(CartLineList);
+export default connect(null, null)(CartLineList);

@@ -44,6 +44,12 @@ const reviewsReducer = (state = initialState, action) => {
         priceFilter: ReviewPriceFilter,
       };
 
+    case ActionTypes.GET_BY_REVIEWERID:
+      return {
+        ...state,
+        reviews: payload
+      };
+
     // Comments
     case ActionTypes.ADD_COMMENT:
       return [...state.currentReview.comments, payload];

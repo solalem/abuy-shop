@@ -5,9 +5,9 @@ import ReviewsService from "./services/api-service";
 import CommentList from "./components/CommentList";
 import EditComment from "./components/EditComment";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import 'react-tabs/style/react-tabs.css';
 import Search from "../../shared/Search";
 import Modal from "../../shared/Modal";
+import 'react-tabs/style/react-tabs.css';
 
 class ReviewDetails extends Component {
   constructor(props) {
@@ -28,7 +28,6 @@ class ReviewDetails extends Component {
     this.state = {
       currentReview: this.props.currentReview,
       openedModal: null,
-      attributesSearchString: "",
       message: "",
     };
   }
@@ -295,7 +294,6 @@ class ReviewDetails extends Component {
                   />
                 </div>
               </div>
-
               <div className="">
                 <button
                   type="submit"
@@ -307,8 +305,8 @@ class ReviewDetails extends Component {
                 &nbsp;
 
                 <button
-                className="btn text-danger mr-2"
-                onClick={this.removeReview}
+                  className="btn text-danger mr-2"
+                  onClick={this.removeReview}
                 >
                   Delete
                 </button>
@@ -325,22 +323,23 @@ class ReviewDetails extends Component {
             </TabList>
 
             <TabPanel>
-              <Search searchString={this.state.attributesSearchString}>
+              <Search searchClick={() => {}}>
                 <button 
-                onClick={() => this.openAddDialog("attribute")}
+                onClick={() => this.openAddDialog("comment")}
                 className="btn text-success">Add</button>
               </Search>
               
-              {this.state.openedModal === 'attribute' ? (
+              {this.state.openedModal === 'comment' ? (
               <Modal 
-                showModal={this.state.openedModal === 'attribute'} 
+                showModal={this.state.openedModal === 'comment'} 
                 closeModalClick={this.closeDialog}>
                 <EditComment />
               </Modal>
               ): null}
 
-              <CommentList Review={currentReview} editCommentClick={(attribute) => this.openEditDialog('attribute')} />
+              <CommentList Review={currentReview} editCommentClick={(i) => this.openEditDialog('comment')} />
             </TabPanel>
+
             <TabPanel>
               <p>More content</p>
             </TabPanel>

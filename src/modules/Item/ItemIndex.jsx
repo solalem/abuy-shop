@@ -4,16 +4,17 @@ import { retrieveItems, findItemsByTitle, deleteItem } from "./states/actions";
 import Search from "../../shared/Search";
 import NoData from "../../shared/NoData";
 import ItemDetails from "./ItemDetails";
+import ItemList from "./components/ItemList";
 import { NavLink } from 'react-router-dom';
 
-class ItemsList extends Component {
+class ItemIndex extends Component {
   constructor(props) {
     super(props);
-    this.onChangeSearchTitle = this.onChangeSearchTitle.bind(this);
+    this.onChangeSearchString = this.onChangeSearchString.bind(this);
     this.refreshData = this.refreshData.bind(this);
     this.setActiveItem = this.setActiveItem.bind(this);
     this.findByTitle = this.findByTitle.bind(this);
-    this.removeAllItems = this.removeAllItems.bind(this);
+    this.removeItem = this.removeItem.bind(this);
 
     this.state = {
       currentItem: this.props.currentItem,
@@ -26,7 +27,7 @@ class ItemsList extends Component {
     this.props.retrieveItems();
   }
 
-  onChangeSearchTitle(e) {
+  onChangeSearchString(e) {
     const searchTitle = e.target.value;
 
     this.setState({
@@ -48,9 +49,9 @@ class ItemsList extends Component {
     });
   }
 
-  removeAllItems() {
+  removeItem(item) {
     this.props
-      .deleteItem()
+      .deleteItem(item)
       .then((response) => {
         console.log(response);
         this.refreshData();
@@ -73,7 +74,7 @@ class ItemsList extends Component {
 
     return (
       <>
-        <Search searchString={searchTitle}>
+        <Search searchString={searchTitle} searchClick={ this.onChangeSearchString}>
           <NavLink to={'/items/new'} exact className="btn text-success">New</NavLink>
         </Search>
 
@@ -104,63 +105,15 @@ class ItemsList extends Component {
           </div>
         ) : (
           <div>
-            <table className="table table-sm table-striped table-hover">
-              <thead>
-                <tr>
-                  <td>Name</td>
-                  <td>Brand</td>
-                  <td>CommodityId</td>
-                  <td>Model</td>
-                  <td>OldPrice</td>
-                  <td>Price</td>
-                  <td>MPN</td>
-                  <td>GTIN</td>
-                  <td>ReservedQuantity</td>
-                  <td>AvalableQuantity</td>
-                  <td>SellerId</td>
-                  <td></td>
-                </tr>
-              </thead>
-              <tbody>
-                {items && items.map((item, index) => (
-                <tr
-                  className={(index === currentIndex ? "active" : "")}
-                  onClick={() => this.setActiveItem(item, index)}
-                  key={index}
-                >
-                  <td>{item.name}</td>
-                  <td>{item.brand}</td>
-                  <td>{item.commodityId}</td>
-                  <td>{item.model}</td>
-                  <td>{item.oldPrice}</td>
-                  <td>{item.price}</td>
-                  <td>{item.mPN}</td>
-                  <td>{item.gTIN}</td>
-                  <td>{item.reservedQuantity}</td>
-                  <td>{item.avalableQuantity}</td>
-                  <td>{item.sellerId}</td>
-                  <td>
-                    <button
-                      className="btn btn-sm text-danger"
-                      onClick={this.removeItem}
-                    >
-                      <i className="fa fa-trash" />
-                      ?
-                    </button>
-                  </td>
-                </tr>
-              ))}
-              </tbody>
-            </table>
-            { count === 0 &&
-              <NoData />
-            }
+            <ItemList items={this.items} removeItemClick={() => {}} editItemClick={(i) => {}} />
+
           </div>
         )}
       </>
     );
   }
 }
+
 const mapStateToProps = (state) => {
   return {
     items: state.items.items,
@@ -168,4 +121,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { retrieveItems, findItemsByTitle, deleteItem })(ItemsList);
+export default connect(mapStateToProps, { retrieveItems, findItemsByTitle, deleteItem })(ItemIndex);

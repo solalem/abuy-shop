@@ -21,8 +21,9 @@ class ApiService {
     return http.delete(`/business-templates/${id}`);
   }
 
-  findByTitle(title) {
-    return http.get(`/business-templates?title=${title}`);
+
+  getByDepartmentId(id) {
+    return http.get(`/get-business-templates-by-department-id?id=${id}`);
   }
 
 }

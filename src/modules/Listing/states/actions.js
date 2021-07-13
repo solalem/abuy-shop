@@ -74,6 +74,7 @@ export const setListingPriceFilter = (price) => {
   return { type: ActionTypes.SET_LISTING_PRICE_FILTER, price: price };
 };
 
+
 // Variants
 export const addVariant = (id, data) => async (dispatch) => {
   try {

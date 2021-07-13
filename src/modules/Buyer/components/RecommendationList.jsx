@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { removeRecommendation } from "../states/actions";
 import NoData from "../../../shared/NoData";
 import Modal from "../../../shared/Modal";
 import PropTypes from "prop-types";
@@ -17,7 +16,7 @@ class RecommendationList extends Component {
   }
 
   render() {
-    const { recommendations } = this.props.Recommendation;
+    const { recommendations } = this.props;
     let count = recommendations? recommendations.length : 0;
 
     return (
@@ -34,9 +33,9 @@ class RecommendationList extends Component {
           <tbody>
             {recommendations && recommendations.map((item, index) => (
             <tr key={index}>
-                  <td>{item.score}</td>
-                  <td>{item.listingId}</td>
-                  <td>{item.buyerId}</td>
+              <td>{item.score}</td>
+              <td>{item.listingId}</td>
+              <td>{item.buyerId}</td>
               <td>
                 <button
                   className="btn btn-sm text-primary"
@@ -46,7 +45,7 @@ class RecommendationList extends Component {
                 </button>
                 <button
                   className="btn btn-sm btn-danger"
-                  onClick={() => this.props.removeRecommendationProp(item)}
+                  onClick={() => this.props.removeRecommendationClick(item)}
                 >
                   <i className="fa fa-trash" />
                   ?
@@ -65,19 +64,10 @@ class RecommendationList extends Component {
   }
 }
 
-Modal.propTypes = {
+RecommendationList.propTypes = {
   editRecommendationClick: PropTypes.func.isRequired,
+  removeRecommendationClick: PropTypes.func.isRequired,
+  recommendations: PropTypes.any.isRequired
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    removeRecommendationProp: (recommendation) => removeRecommendation(recommendation),
-  }, dispatch);
-};
-// function mapDispatchToProps(dispatch) {
-//   return(bindActionCreators({
-//       deleteFromArray: (array) => {getTheArray(array)}
-//   }, dispatch))
-// }
-
-export default connect(null, mapDispatchToProps)(RecommendationList);
+export default connect(null, null)(RecommendationList);

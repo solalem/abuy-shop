@@ -21,9 +21,6 @@ class ApiService {
     return http.delete(`/purchase-orders/${id}`);
   }
 
-  findByTitle(title) {
-    return http.get(`/purchase-orders?title=${title}`);
-  }
 
   addOrderLine(data) {
     return http.post("/purchase-orders/add-order-line", data);

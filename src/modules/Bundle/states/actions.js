@@ -74,6 +74,19 @@ export const setBundlePriceFilter = (price) => {
   return { type: ActionTypes.SET_BUNDLE_PRICE_FILTER, price: price };
 };
 
+export const getBySellerId = (id) => async (dispatch) => {
+  try {
+    const res = await ApiService.getBySellerId(id);
+
+    dispatch({
+      type: ActionTypes.GET_BY_SELLERID,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 // BundleItems
 export const addBundleItem = (id, data) => async (dispatch) => {
   try {

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { removeVariant } from "../states/actions";
 import NoData from "../../../shared/NoData";
 import Modal from "../../../shared/Modal";
 import PropTypes from "prop-types";
@@ -17,7 +16,7 @@ class VariantList extends Component {
   }
 
   render() {
-    const { variants } = this.props.Variant;
+    const { variants } = this.props;
     let count = variants? variants.length : 0;
 
     return (
@@ -36,11 +35,11 @@ class VariantList extends Component {
           <tbody>
             {variants && variants.map((item, index) => (
             <tr key={index}>
-                  <td>{item.variationOn}</td>
-                  <td>{item.variation}</td>
-                  <td>{item.sKU}</td>
-                  <td>{item.listingId}</td>
-                  <td>{item.itemId}</td>
+              <td>{item.variationOn}</td>
+              <td>{item.variation}</td>
+              <td>{item.sKU}</td>
+              <td>{item.listingId}</td>
+              <td>{item.itemId}</td>
               <td>
                 <button
                   className="btn btn-sm text-primary"
@@ -50,7 +49,7 @@ class VariantList extends Component {
                 </button>
                 <button
                   className="btn btn-sm btn-danger"
-                  onClick={() => this.props.removeVariantProp(item)}
+                  onClick={() => this.props.removeVariantClick(item)}
                 >
                   <i className="fa fa-trash" />
                   ?
@@ -69,19 +68,10 @@ class VariantList extends Component {
   }
 }
 
-Modal.propTypes = {
+VariantList.propTypes = {
   editVariantClick: PropTypes.func.isRequired,
+  removeVariantClick: PropTypes.func.isRequired,
+  variants: PropTypes.any.isRequired
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    removeVariantProp: (variant) => removeVariant(variant),
-  }, dispatch);
-};
-// function mapDispatchToProps(dispatch) {
-//   return(bindActionCreators({
-//       deleteFromArray: (array) => {getTheArray(array)}
-//   }, dispatch))
-// }
-
-export default connect(null, mapDispatchToProps)(VariantList);
+export default connect(null, null)(VariantList);

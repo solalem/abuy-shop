@@ -4,16 +4,17 @@ import { retrieveComparisons, findComparisonsByTitle, deleteComparison } from ".
 import Search from "../../shared/Search";
 import NoData from "../../shared/NoData";
 import ComparisonDetails from "./ComparisonDetails";
+import ComparisonList from "./components/ComparisonList";
 import { NavLink } from 'react-router-dom';
 
-class ComparisonsList extends Component {
+class ComparisonIndex extends Component {
   constructor(props) {
     super(props);
-    this.onChangeSearchTitle = this.onChangeSearchTitle.bind(this);
+    this.onChangeSearchString = this.onChangeSearchString.bind(this);
     this.refreshData = this.refreshData.bind(this);
     this.setActiveComparison = this.setActiveComparison.bind(this);
     this.findByTitle = this.findByTitle.bind(this);
-    this.removeAllComparisons = this.removeAllComparisons.bind(this);
+    this.removeComparison = this.removeComparison.bind(this);
 
     this.state = {
       currentComparison: this.props.currentComparison,
@@ -26,7 +27,7 @@ class ComparisonsList extends Component {
     this.props.retrieveComparisons();
   }
 
-  onChangeSearchTitle(e) {
+  onChangeSearchString(e) {
     const searchTitle = e.target.value;
 
     this.setState({
@@ -48,9 +49,9 @@ class ComparisonsList extends Component {
     });
   }
 
-  removeAllComparisons() {
+  removeComparison(item) {
     this.props
-      .deleteComparison()
+      .deleteComparison(item)
       .then((response) => {
         console.log(response);
         this.refreshData();
@@ -73,7 +74,7 @@ class ComparisonsList extends Component {
 
     return (
       <>
-        <Search searchString={searchTitle}>
+        <Search searchString={searchTitle} searchClick={ this.onChangeSearchString}>
           <NavLink to={'/comparisons/new'} exact className="btn text-success">New</NavLink>
         </Search>
 
@@ -104,45 +105,15 @@ class ComparisonsList extends Component {
           </div>
         ) : (
           <div>
-            <table className="table table-sm table-striped table-hover">
-              <thead>
-                <tr>
-                  <td>BuyerId</td>
-                  <td>Date</td>
-                  <td></td>
-                </tr>
-              </thead>
-              <tbody>
-                {comparisons && comparisons.map((item, index) => (
-                <tr
-                  className={(index === currentIndex ? "active" : "")}
-                  onClick={() => this.setActiveComparison(item, index)}
-                  key={index}
-                >
-                  <td>{item.buyerId}</td>
-                  <td>{item.date}</td>
-                  <td>
-                    <button
-                      className="btn btn-sm text-danger"
-                      onClick={this.removeComparison}
-                    >
-                      <i className="fa fa-trash" />
-                      ?
-                    </button>
-                  </td>
-                </tr>
-              ))}
-              </tbody>
-            </table>
-            { count === 0 &&
-              <NoData />
-            }
+            <ComparisonList comparisons={this.comparisons} removeComparisonClick={() => {}} editComparisonClick={(i) => {}} />
+
           </div>
         )}
       </>
     );
   }
 }
+
 const mapStateToProps = (state) => {
   return {
     comparisons: state.comparisons.comparisons,
@@ -150,4 +121,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { retrieveComparisons, findComparisonsByTitle, deleteComparison })(ComparisonsList);
+export default connect(mapStateToProps, { retrieveComparisons, findComparisonsByTitle, deleteComparison })(ComparisonIndex);

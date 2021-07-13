@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { removeMamila } from "../states/actions";
 import NoData from "../../../shared/NoData";
 import Modal from "../../../shared/Modal";
 import PropTypes from "prop-types";
@@ -17,7 +16,7 @@ class MamilaList extends Component {
   }
 
   render() {
-    const { mamilas } = this.props.Mamila;
+    const { mamilas } = this.props;
     let count = mamilas? mamilas.length : 0;
 
     return (
@@ -35,10 +34,10 @@ class MamilaList extends Component {
           <tbody>
             {mamilas && mamilas.map((item, index) => (
             <tr key={index}>
-                  <td>{item.on}</td>
-                  <td>{item.sellerName}</td>
-                  <td>{item.sellerId}</td>
-                  <td>{item.buyerId}</td>
+              <td>{item.on}</td>
+              <td>{item.sellerName}</td>
+              <td>{item.sellerId}</td>
+              <td>{item.buyerId}</td>
               <td>
                 <button
                   className="btn btn-sm text-primary"
@@ -48,7 +47,7 @@ class MamilaList extends Component {
                 </button>
                 <button
                   className="btn btn-sm btn-danger"
-                  onClick={() => this.props.removeMamilaProp(item)}
+                  onClick={() => this.props.removeMamilaClick(item)}
                 >
                   <i className="fa fa-trash" />
                   ?
@@ -67,19 +66,10 @@ class MamilaList extends Component {
   }
 }
 
-Modal.propTypes = {
+MamilaList.propTypes = {
   editMamilaClick: PropTypes.func.isRequired,
+  removeMamilaClick: PropTypes.func.isRequired,
+  mamilas: PropTypes.any.isRequired
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    removeMamilaProp: (mamila) => removeMamila(mamila),
-  }, dispatch);
-};
-// function mapDispatchToProps(dispatch) {
-//   return(bindActionCreators({
-//       deleteFromArray: (array) => {getTheArray(array)}
-//   }, dispatch))
-// }
-
-export default connect(null, mapDispatchToProps)(MamilaList);
+export default connect(null, null)(MamilaList);

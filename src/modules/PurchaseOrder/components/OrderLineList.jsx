@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { removeOrderLine } from "../states/actions";
 import NoData from "../../../shared/NoData";
 import Modal from "../../../shared/Modal";
 import PropTypes from "prop-types";
@@ -17,7 +16,7 @@ class OrderLineList extends Component {
   }
 
   render() {
-    const { orderLines } = this.props.OrderLine;
+    const { orderLines } = this.props;
     let count = orderLines? orderLines.length : 0;
 
     return (
@@ -37,12 +36,12 @@ class OrderLineList extends Component {
           <tbody>
             {orderLines && orderLines.map((item, index) => (
             <tr key={index}>
-                  <td>{item.itemName}</td>
-                  <td>{item.itemCode}</td>
-                  <td>{item.orderId}</td>
-                  <td>{item.quantity}</td>
-                  <td>{item.unitPrice}</td>
-                  <td>{item.totalPrice}</td>
+              <td>{item.itemName}</td>
+              <td>{item.itemCode}</td>
+              <td>{item.orderId}</td>
+              <td>{item.quantity}</td>
+              <td>{item.unitPrice}</td>
+              <td>{item.totalPrice}</td>
               <td>
                 <button
                   className="btn btn-sm text-primary"
@@ -52,7 +51,7 @@ class OrderLineList extends Component {
                 </button>
                 <button
                   className="btn btn-sm btn-danger"
-                  onClick={() => this.props.removeOrderLineProp(item)}
+                  onClick={() => this.props.removeOrderLineClick(item)}
                 >
                   <i className="fa fa-trash" />
                   ?
@@ -71,19 +70,10 @@ class OrderLineList extends Component {
   }
 }
 
-Modal.propTypes = {
+OrderLineList.propTypes = {
   editOrderLineClick: PropTypes.func.isRequired,
+  removeOrderLineClick: PropTypes.func.isRequired,
+  orderLines: PropTypes.any.isRequired
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    removeOrderLineProp: (orderLine) => removeOrderLine(orderLine),
-  }, dispatch);
-};
-// function mapDispatchToProps(dispatch) {
-//   return(bindActionCreators({
-//       deleteFromArray: (array) => {getTheArray(array)}
-//   }, dispatch))
-// }
-
-export default connect(null, mapDispatchToProps)(OrderLineList);
+export default connect(null, null)(OrderLineList);

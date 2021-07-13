@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import { updateBusinessTemplate, deleteBusinessTemplate } from "./states/actions";
 import BusinessTemplatesService from "./services/api-service";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import 'react-tabs/style/react-tabs.css';
 import Search from "../../shared/Search";
 import Modal from "../../shared/Modal";
+import 'react-tabs/style/react-tabs.css';
 
 class BusinessTemplateDetails extends Component {
   constructor(props) {
@@ -21,7 +21,6 @@ class BusinessTemplateDetails extends Component {
     this.state = {
       currentBusinessTemplate: this.props.currentBusinessTemplate,
       openedModal: null,
-      attributesSearchString: "",
       message: "",
     };
   }
@@ -180,7 +179,6 @@ class BusinessTemplateDetails extends Component {
                   />
                 </div>
               </div>
-
               <div className="">
                 <button
                   type="submit"
@@ -192,8 +190,8 @@ class BusinessTemplateDetails extends Component {
                 &nbsp;
 
                 <button
-                className="btn text-danger mr-2"
-                onClick={this.removeBusinessTemplate}
+                  className="btn text-danger mr-2"
+                  onClick={this.removeBusinessTemplate}
                 >
                   Delete
                 </button>
@@ -207,6 +205,7 @@ class BusinessTemplateDetails extends Component {
             <TabList>
               <Tab>More</Tab>
             </TabList>
+
 
             <TabPanel>
               <p>More content</p>

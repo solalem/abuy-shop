@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { updateSeller, deleteSeller } from "./states/actions";
 import SellersService from "./services/api-service";
+import ItemList from "../Item/components/ItemList";
+import BundleList from "../Bundle/components/BundleList";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import 'react-tabs/style/react-tabs.css';
 import Search from "../../shared/Search";
 import Modal from "../../shared/Modal";
+import 'react-tabs/style/react-tabs.css';
 
 class SellerDetails extends Component {
   constructor(props) {
@@ -21,7 +23,6 @@ class SellerDetails extends Component {
     this.state = {
       currentSeller: this.props.currentSeller,
       openedModal: null,
-      attributesSearchString: "",
       message: "",
     };
   }
@@ -180,7 +181,6 @@ class SellerDetails extends Component {
                   />
                 </div>
               </div>
-
               <div className="">
                 <button
                   type="submit"
@@ -192,8 +192,8 @@ class SellerDetails extends Component {
                 &nbsp;
 
                 <button
-                className="btn text-danger mr-2"
-                onClick={this.removeSeller}
+                  className="btn text-danger mr-2"
+                  onClick={this.removeSeller}
                 >
                   Delete
                 </button>
@@ -205,8 +205,21 @@ class SellerDetails extends Component {
 
           <Tabs>
             <TabList>
+              <Tab>Items</Tab>
+              <Tab>Bundles</Tab>
               <Tab>More</Tab>
             </TabList>
+
+            <TabPanel>
+              <Search />
+              
+              <ItemList />
+            </TabPanel>
+            <TabPanel>
+              <Search />
+              
+              <BundleList />
+            </TabPanel>
 
             <TabPanel>
               <p>More content</p>

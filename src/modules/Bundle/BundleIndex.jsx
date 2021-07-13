@@ -4,16 +4,17 @@ import { retrieveBundles, findBundlesByTitle, deleteBundle } from "./states/acti
 import Search from "../../shared/Search";
 import NoData from "../../shared/NoData";
 import BundleDetails from "./BundleDetails";
+import BundleList from "./components/BundleList";
 import { NavLink } from 'react-router-dom';
 
-class BundlesList extends Component {
+class BundleIndex extends Component {
   constructor(props) {
     super(props);
-    this.onChangeSearchTitle = this.onChangeSearchTitle.bind(this);
+    this.onChangeSearchString = this.onChangeSearchString.bind(this);
     this.refreshData = this.refreshData.bind(this);
     this.setActiveBundle = this.setActiveBundle.bind(this);
     this.findByTitle = this.findByTitle.bind(this);
-    this.removeAllBundles = this.removeAllBundles.bind(this);
+    this.removeBundle = this.removeBundle.bind(this);
 
     this.state = {
       currentBundle: this.props.currentBundle,
@@ -26,7 +27,7 @@ class BundlesList extends Component {
     this.props.retrieveBundles();
   }
 
-  onChangeSearchTitle(e) {
+  onChangeSearchString(e) {
     const searchTitle = e.target.value;
 
     this.setState({
@@ -48,9 +49,9 @@ class BundlesList extends Component {
     });
   }
 
-  removeAllBundles() {
+  removeBundle(item) {
     this.props
-      .deleteBundle()
+      .deleteBundle(item)
       .then((response) => {
         console.log(response);
         this.refreshData();
@@ -73,7 +74,7 @@ class BundlesList extends Component {
 
     return (
       <>
-        <Search searchString={searchTitle}>
+        <Search searchString={searchTitle} searchClick={ this.onChangeSearchString}>
           <NavLink to={'/bundles/new'} exact className="btn text-success">New</NavLink>
         </Search>
 
@@ -104,47 +105,15 @@ class BundlesList extends Component {
           </div>
         ) : (
           <div>
-            <table className="table table-sm table-striped table-hover">
-              <thead>
-                <tr>
-                  <td>Name</td>
-                  <td>Description</td>
-                  <td>SellerId</td>
-                  <td></td>
-                </tr>
-              </thead>
-              <tbody>
-                {bundles && bundles.map((item, index) => (
-                <tr
-                  className={(index === currentIndex ? "active" : "")}
-                  onClick={() => this.setActiveBundle(item, index)}
-                  key={index}
-                >
-                  <td>{item.name}</td>
-                  <td>{item.description}</td>
-                  <td>{item.sellerId}</td>
-                  <td>
-                    <button
-                      className="btn btn-sm text-danger"
-                      onClick={this.removeBundle}
-                    >
-                      <i className="fa fa-trash" />
-                      ?
-                    </button>
-                  </td>
-                </tr>
-              ))}
-              </tbody>
-            </table>
-            { count === 0 &&
-              <NoData />
-            }
+            <BundleList bundles={this.bundles} removeBundleClick={() => {}} editBundleClick={(i) => {}} />
+
           </div>
         )}
       </>
     );
   }
 }
+
 const mapStateToProps = (state) => {
   return {
     bundles: state.bundles.bundles,
@@ -152,4 +121,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { retrieveBundles, findBundlesByTitle, deleteBundle })(BundlesList);
+export default connect(mapStateToProps, { retrieveBundles, findBundlesByTitle, deleteBundle })(BundleIndex);

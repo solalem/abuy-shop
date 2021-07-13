@@ -44,6 +44,7 @@ const storesReducer = (state = initialState, action) => {
         priceFilter: StorePriceFilter,
       };
 
+
     // BussinessHours
     case ActionTypes.ADD_BUSSINESSHOUR:
       return [...state.currentStore.bussinessHours, payload];

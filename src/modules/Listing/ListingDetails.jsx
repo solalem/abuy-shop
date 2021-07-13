@@ -13,9 +13,9 @@ import EditDiscount from "./components/EditDiscount";
 import AffiliateList from "./components/AffiliateList";
 import EditAffiliate from "./components/EditAffiliate";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import 'react-tabs/style/react-tabs.css';
 import Search from "../../shared/Search";
 import Modal from "../../shared/Modal";
+import 'react-tabs/style/react-tabs.css';
 
 class ListingDetails extends Component {
   constructor(props) {
@@ -45,7 +45,6 @@ class ListingDetails extends Component {
     this.state = {
       currentListing: this.props.currentListing,
       openedModal: null,
-      attributesSearchString: "",
       message: "",
     };
   }
@@ -456,7 +455,6 @@ class ListingDetails extends Component {
                   />
                 </div>
               </div>
-
               <div className="">
                 <button
                   type="submit"
@@ -468,8 +466,8 @@ class ListingDetails extends Component {
                 &nbsp;
 
                 <button
-                className="btn text-danger mr-2"
-                onClick={this.removeListing}
+                  className="btn text-danger mr-2"
+                  onClick={this.removeListing}
                 >
                   Delete
                 </button>
@@ -490,90 +488,91 @@ class ListingDetails extends Component {
             </TabList>
 
             <TabPanel>
-              <Search searchString={this.state.attributesSearchString}>
+              <Search searchClick={() => {}}>
                 <button 
-                onClick={() => this.openAddDialog("attribute")}
+                onClick={() => this.openAddDialog("variant")}
                 className="btn text-success">Add</button>
               </Search>
               
-              {this.state.openedModal === 'attribute' ? (
+              {this.state.openedModal === 'variant' ? (
               <Modal 
-                showModal={this.state.openedModal === 'attribute'} 
+                showModal={this.state.openedModal === 'variant'} 
                 closeModalClick={this.closeDialog}>
                 <EditVariant />
               </Modal>
               ): null}
 
-              <VariantList Listing={currentListing} editVariantClick={(attribute) => this.openEditDialog('attribute')} />
+              <VariantList Listing={currentListing} editVariantClick={(i) => this.openEditDialog('variant')} />
             </TabPanel>
             <TabPanel>
-              <Search searchString={this.state.attributesSearchString}>
+              <Search searchClick={() => {}}>
                 <button 
-                onClick={() => this.openAddDialog("attribute")}
+                onClick={() => this.openAddDialog("image")}
                 className="btn text-success">Add</button>
               </Search>
               
-              {this.state.openedModal === 'attribute' ? (
+              {this.state.openedModal === 'image' ? (
               <Modal 
-                showModal={this.state.openedModal === 'attribute'} 
+                showModal={this.state.openedModal === 'image'} 
                 closeModalClick={this.closeDialog}>
                 <EditImage />
               </Modal>
               ): null}
 
-              <ImageList Listing={currentListing} editImageClick={(attribute) => this.openEditDialog('attribute')} />
+              <ImageList Listing={currentListing} editImageClick={(i) => this.openEditDialog('image')} />
             </TabPanel>
             <TabPanel>
-              <Search searchString={this.state.attributesSearchString}>
+              <Search searchClick={() => {}}>
                 <button 
-                onClick={() => this.openAddDialog("attribute")}
+                onClick={() => this.openAddDialog("coupon")}
                 className="btn text-success">Add</button>
               </Search>
               
-              {this.state.openedModal === 'attribute' ? (
+              {this.state.openedModal === 'coupon' ? (
               <Modal 
-                showModal={this.state.openedModal === 'attribute'} 
+                showModal={this.state.openedModal === 'coupon'} 
                 closeModalClick={this.closeDialog}>
                 <EditCoupon />
               </Modal>
               ): null}
 
-              <CouponList Listing={currentListing} editCouponClick={(attribute) => this.openEditDialog('attribute')} />
+              <CouponList Listing={currentListing} editCouponClick={(i) => this.openEditDialog('coupon')} />
             </TabPanel>
             <TabPanel>
-              <Search searchString={this.state.attributesSearchString}>
+              <Search searchClick={() => {}}>
                 <button 
-                onClick={() => this.openAddDialog("attribute")}
+                onClick={() => this.openAddDialog("discount")}
                 className="btn text-success">Add</button>
               </Search>
               
-              {this.state.openedModal === 'attribute' ? (
+              {this.state.openedModal === 'discount' ? (
               <Modal 
-                showModal={this.state.openedModal === 'attribute'} 
+                showModal={this.state.openedModal === 'discount'} 
                 closeModalClick={this.closeDialog}>
                 <EditDiscount />
               </Modal>
               ): null}
 
-              <DiscountList Listing={currentListing} editDiscountClick={(attribute) => this.openEditDialog('attribute')} />
+              <DiscountList Listing={currentListing} editDiscountClick={(i) => this.openEditDialog('discount')} />
             </TabPanel>
             <TabPanel>
-              <Search searchString={this.state.attributesSearchString}>
+              <Search searchClick={() => {}}>
                 <button 
-                onClick={() => this.openAddDialog("attribute")}
+                onClick={() => this.openAddDialog("affiliate")}
                 className="btn text-success">Add</button>
               </Search>
               
-              {this.state.openedModal === 'attribute' ? (
+              {this.state.openedModal === 'affiliate' ? (
               <Modal 
-                showModal={this.state.openedModal === 'attribute'} 
+                showModal={this.state.openedModal === 'affiliate'} 
                 closeModalClick={this.closeDialog}>
                 <EditAffiliate />
               </Modal>
               ): null}
 
-              <AffiliateList Listing={currentListing} editAffiliateClick={(attribute) => this.openEditDialog('attribute')} />
+              <AffiliateList Listing={currentListing} editAffiliateClick={(i) => this.openEditDialog('affiliate')} />
             </TabPanel>
+
             <TabPanel>
               <p>More content</p>
             </TabPanel>

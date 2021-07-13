@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { removePartner } from "../states/actions";
 import NoData from "../../../shared/NoData";
 import Modal from "../../../shared/Modal";
 import PropTypes from "prop-types";
@@ -17,7 +16,7 @@ class PartnerList extends Component {
   }
 
   render() {
-    const { partners } = this.props.Partner;
+    const { partners } = this.props;
     let count = partners? partners.length : 0;
 
     return (
@@ -35,10 +34,10 @@ class PartnerList extends Component {
           <tbody>
             {partners && partners.map((item, index) => (
             <tr key={index}>
-                  <td>{item.partnerName}</td>
-                  <td>{item.date}</td>
-                  <td>{item.sellerId}</td>
-                  <td>{item.partnerSellerId}</td>
+              <td>{item.partnerName}</td>
+              <td>{item.date}</td>
+              <td>{item.sellerId}</td>
+              <td>{item.partnerSellerId}</td>
               <td>
                 <button
                   className="btn btn-sm text-primary"
@@ -48,7 +47,7 @@ class PartnerList extends Component {
                 </button>
                 <button
                   className="btn btn-sm btn-danger"
-                  onClick={() => this.props.removePartnerProp(item)}
+                  onClick={() => this.props.removePartnerClick(item)}
                 >
                   <i className="fa fa-trash" />
                   ?
@@ -67,19 +66,10 @@ class PartnerList extends Component {
   }
 }
 
-Modal.propTypes = {
+PartnerList.propTypes = {
   editPartnerClick: PropTypes.func.isRequired,
+  removePartnerClick: PropTypes.func.isRequired,
+  partners: PropTypes.any.isRequired
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    removePartnerProp: (partner) => removePartner(partner),
-  }, dispatch);
-};
-// function mapDispatchToProps(dispatch) {
-//   return(bindActionCreators({
-//       deleteFromArray: (array) => {getTheArray(array)}
-//   }, dispatch))
-// }
-
-export default connect(null, mapDispatchToProps)(PartnerList);
+export default connect(null, null)(PartnerList);

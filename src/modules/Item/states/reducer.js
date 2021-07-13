@@ -44,6 +44,12 @@ const itemsReducer = (state = initialState, action) => {
         priceFilter: ItemPriceFilter,
       };
 
+    case ActionTypes.GET_BY_SELLERID:
+      return {
+        ...state,
+        items: payload
+      };
+
     // ItemPropertys
     case ActionTypes.ADD_ITEMPROPERTY:
       return [...state.currentItem.itemProperties, payload];

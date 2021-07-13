@@ -44,6 +44,7 @@ const listingsReducer = (state = initialState, action) => {
         priceFilter: ListingPriceFilter,
       };
 
+
     // Variants
     case ActionTypes.ADD_VARIANT:
       return [...state.currentListing.variants, payload];

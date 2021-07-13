@@ -73,3 +73,16 @@ export const findBusinessTemplatesByTitle = (title) => async (dispatch) => {
 export const setBusinessTemplatePriceFilter = (price) => {
   return { type: ActionTypes.SET_BUSINESSTEMPLATE_PRICE_FILTER, price: price };
 };
+
+export const getByDepartmentId = (id) => async (dispatch) => {
+  try {
+    const res = await ApiService.getByDepartmentId(id);
+
+    dispatch({
+      type: ActionTypes.GET_BY_DEPARTMENTID,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};

@@ -21,8 +21,9 @@ class ApiService {
     return http.delete(`/carts/${id}`);
   }
 
-  findByTitle(title) {
-    return http.get(`/carts?title=${title}`);
+
+  getByBuyerId(id) {
+    return http.get(`/get-carts-by-buyer-id?id=${id}`);
   }
 
   addCartLine(data) {

@@ -4,16 +4,17 @@ import { retrieveStores, findStoresByTitle, deleteStore } from "./states/actions
 import Search from "../../shared/Search";
 import NoData from "../../shared/NoData";
 import StoreDetails from "./StoreDetails";
+import StoreList from "./components/StoreList";
 import { NavLink } from 'react-router-dom';
 
-class StoresList extends Component {
+class StoreIndex extends Component {
   constructor(props) {
     super(props);
-    this.onChangeSearchTitle = this.onChangeSearchTitle.bind(this);
+    this.onChangeSearchString = this.onChangeSearchString.bind(this);
     this.refreshData = this.refreshData.bind(this);
     this.setActiveStore = this.setActiveStore.bind(this);
     this.findByTitle = this.findByTitle.bind(this);
-    this.removeAllStores = this.removeAllStores.bind(this);
+    this.removeStore = this.removeStore.bind(this);
 
     this.state = {
       currentStore: this.props.currentStore,
@@ -26,7 +27,7 @@ class StoresList extends Component {
     this.props.retrieveStores();
   }
 
-  onChangeSearchTitle(e) {
+  onChangeSearchString(e) {
     const searchTitle = e.target.value;
 
     this.setState({
@@ -48,9 +49,9 @@ class StoresList extends Component {
     });
   }
 
-  removeAllStores() {
+  removeStore(item) {
     this.props
-      .deleteStore()
+      .deleteStore(item)
       .then((response) => {
         console.log(response);
         this.refreshData();
@@ -73,7 +74,7 @@ class StoresList extends Component {
 
     return (
       <>
-        <Search searchString={searchTitle}>
+        <Search searchString={searchTitle} searchClick={ this.onChangeSearchString}>
           <NavLink to={'/stores/new'} exact className="btn text-success">New</NavLink>
         </Search>
 
@@ -104,55 +105,15 @@ class StoresList extends Component {
           </div>
         ) : (
           <div>
-            <table className="table table-sm table-striped table-hover">
-              <thead>
-                <tr>
-                  <td>Name</td>
-                  <td>Gebeya</td>
-                  <td>Address</td>
-                  <td>Latitude</td>
-                  <td>Longitude</td>
-                  <td>OpenedOn</td>
-                  <td>OwnerId</td>
-                  <td></td>
-                </tr>
-              </thead>
-              <tbody>
-                {stores && stores.map((item, index) => (
-                <tr
-                  className={(index === currentIndex ? "active" : "")}
-                  onClick={() => this.setActiveStore(item, index)}
-                  key={index}
-                >
-                  <td>{item.name}</td>
-                  <td>{item.gebeya}</td>
-                  <td>{item.address}</td>
-                  <td>{item.latitude}</td>
-                  <td>{item.longitude}</td>
-                  <td>{item.openedOn}</td>
-                  <td>{item.ownerId}</td>
-                  <td>
-                    <button
-                      className="btn btn-sm text-danger"
-                      onClick={this.removeStore}
-                    >
-                      <i className="fa fa-trash" />
-                      ?
-                    </button>
-                  </td>
-                </tr>
-              ))}
-              </tbody>
-            </table>
-            { count === 0 &&
-              <NoData />
-            }
+            <StoreList stores={this.stores} removeStoreClick={() => {}} editStoreClick={(i) => {}} />
+
           </div>
         )}
       </>
     );
   }
 }
+
 const mapStateToProps = (state) => {
   return {
     stores: state.stores.stores,
@@ -160,4 +121,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { retrieveStores, findStoresByTitle, deleteStore })(StoresList);
+export default connect(mapStateToProps, { retrieveStores, findStoresByTitle, deleteStore })(StoreIndex);

@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { updateCategory, deleteCategory } from "./states/actions";
 import CategoriesService from "./services/api-service";
+import CategoryList from "../Category/components/CategoryList";
+import CommodityList from "../Commodity/components/CommodityList";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import 'react-tabs/style/react-tabs.css';
 import Search from "../../shared/Search";
 import Modal from "../../shared/Modal";
+import 'react-tabs/style/react-tabs.css';
 
 class CategoryDetails extends Component {
   constructor(props) {
@@ -23,7 +25,6 @@ class CategoryDetails extends Component {
     this.state = {
       currentCategory: this.props.currentCategory,
       openedModal: null,
-      attributesSearchString: "",
       message: "",
     };
   }
@@ -230,7 +231,6 @@ class CategoryDetails extends Component {
                   />
                 </div>
               </div>
-
               <div className="">
                 <button
                   type="submit"
@@ -242,8 +242,8 @@ class CategoryDetails extends Component {
                 &nbsp;
 
                 <button
-                className="btn text-danger mr-2"
-                onClick={this.removeCategory}
+                  className="btn text-danger mr-2"
+                  onClick={this.removeCategory}
                 >
                   Delete
                 </button>
@@ -255,8 +255,21 @@ class CategoryDetails extends Component {
 
           <Tabs>
             <TabList>
+              <Tab>Categories</Tab>
+              <Tab>Commodities</Tab>
               <Tab>More</Tab>
             </TabList>
+
+            <TabPanel>
+              <Search />
+              
+              <CategoryList />
+            </TabPanel>
+            <TabPanel>
+              <Search />
+              
+              <CommodityList />
+            </TabPanel>
 
             <TabPanel>
               <p>More content</p>

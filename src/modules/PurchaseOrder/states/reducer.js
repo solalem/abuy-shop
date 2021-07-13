@@ -44,6 +44,7 @@ const purchaseOrdersReducer = (state = initialState, action) => {
         priceFilter: PurchaseOrderPriceFilter,
       };
 
+
     // OrderLines
     case ActionTypes.ADD_ORDERLINE:
       return [...state.currentPurchaseOrder.orderLines, payload];

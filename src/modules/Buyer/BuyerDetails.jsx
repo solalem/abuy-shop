@@ -2,10 +2,13 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { updateBuyer, deleteBuyer } from "./states/actions";
 import BuyersService from "./services/api-service";
+import CartList from "../Cart/components/CartList";
+import ComparisonList from "../Comparison/components/ComparisonList";
+import ReviewList from "../Review/components/ReviewList";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import 'react-tabs/style/react-tabs.css';
 import Search from "../../shared/Search";
 import Modal from "../../shared/Modal";
+import 'react-tabs/style/react-tabs.css';
 
 class BuyerDetails extends Component {
   constructor(props) {
@@ -27,7 +30,6 @@ class BuyerDetails extends Component {
     this.state = {
       currentBuyer: this.props.currentBuyer,
       openedModal: null,
-      attributesSearchString: "",
       message: "",
     };
   }
@@ -306,7 +308,6 @@ class BuyerDetails extends Component {
                   />
                 </div>
               </div>
-
               <div className="">
                 <button
                   type="submit"
@@ -318,8 +319,8 @@ class BuyerDetails extends Component {
                 &nbsp;
 
                 <button
-                className="btn text-danger mr-2"
-                onClick={this.removeBuyer}
+                  className="btn text-danger mr-2"
+                  onClick={this.removeBuyer}
                 >
                   Delete
                 </button>
@@ -331,8 +332,27 @@ class BuyerDetails extends Component {
 
           <Tabs>
             <TabList>
+              <Tab>Carts</Tab>
+              <Tab>Comparisons</Tab>
+              <Tab>Reviews</Tab>
               <Tab>More</Tab>
             </TabList>
+
+            <TabPanel>
+              <Search />
+              
+              <CartList />
+            </TabPanel>
+            <TabPanel>
+              <Search />
+              
+              <ComparisonList />
+            </TabPanel>
+            <TabPanel>
+              <Search />
+              
+              <ReviewList />
+            </TabPanel>
 
             <TabPanel>
               <p>More content</p>

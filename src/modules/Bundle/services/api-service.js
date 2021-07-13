@@ -21,8 +21,9 @@ class ApiService {
     return http.delete(`/bundles/${id}`);
   }
 
-  findByTitle(title) {
-    return http.get(`/bundles?title=${title}`);
+
+  getBySellerId(id) {
+    return http.get(`/get-bundles-by-seller-id?id=${id}`);
   }
 
   addBundleItem(data) {

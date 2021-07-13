@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { removeAffiliate } from "../states/actions";
 import NoData from "../../../shared/NoData";
 import Modal from "../../../shared/Modal";
 import PropTypes from "prop-types";
@@ -17,7 +16,7 @@ class AffiliateList extends Component {
   }
 
   render() {
-    const { affiliates } = this.props.Affiliate;
+    const { affiliates } = this.props;
     let count = affiliates? affiliates.length : 0;
 
     return (
@@ -37,12 +36,12 @@ class AffiliateList extends Component {
           <tbody>
             {affiliates && affiliates.map((item, index) => (
             <tr key={index}>
-                  <td>{item.name}</td>
-                  <td>{item.startDate}</td>
-                  <td>{item.endDate}</td>
-                  <td>{item.percentDiscount}</td>
-                  <td>{item.amountDiscount}</td>
-                  <td>{item.listingId}</td>
+              <td>{item.name}</td>
+              <td>{item.startDate}</td>
+              <td>{item.endDate}</td>
+              <td>{item.percentDiscount}</td>
+              <td>{item.amountDiscount}</td>
+              <td>{item.listingId}</td>
               <td>
                 <button
                   className="btn btn-sm text-primary"
@@ -52,7 +51,7 @@ class AffiliateList extends Component {
                 </button>
                 <button
                   className="btn btn-sm btn-danger"
-                  onClick={() => this.props.removeAffiliateProp(item)}
+                  onClick={() => this.props.removeAffiliateClick(item)}
                 >
                   <i className="fa fa-trash" />
                   ?
@@ -71,19 +70,10 @@ class AffiliateList extends Component {
   }
 }
 
-Modal.propTypes = {
+AffiliateList.propTypes = {
   editAffiliateClick: PropTypes.func.isRequired,
+  removeAffiliateClick: PropTypes.func.isRequired,
+  affiliates: PropTypes.any.isRequired
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    removeAffiliateProp: (affiliate) => removeAffiliate(affiliate),
-  }, dispatch);
-};
-// function mapDispatchToProps(dispatch) {
-//   return(bindActionCreators({
-//       deleteFromArray: (array) => {getTheArray(array)}
-//   }, dispatch))
-// }
-
-export default connect(null, mapDispatchToProps)(AffiliateList);
+export default connect(null, null)(AffiliateList);

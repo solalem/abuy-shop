@@ -44,6 +44,12 @@ const comparisonsReducer = (state = initialState, action) => {
         priceFilter: ComparisonPriceFilter,
       };
 
+    case ActionTypes.GET_BY_BUYERID:
+      return {
+        ...state,
+        comparisons: payload
+      };
+
     // ComparisonItems
     case ActionTypes.ADD_COMPARISONITEM:
       return [...state.currentComparison.comparisonItems, payload];

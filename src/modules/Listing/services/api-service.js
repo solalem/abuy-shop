@@ -21,9 +21,6 @@ class ApiService {
     return http.delete(`/listings/${id}`);
   }
 
-  findByTitle(title) {
-    return http.get(`/listings?title=${title}`);
-  }
 
   addVariant(data) {
     return http.post("/listings/add-variant", data);

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { removeComment } from "../states/actions";
 import NoData from "../../../shared/NoData";
 import Modal from "../../../shared/Modal";
 import PropTypes from "prop-types";
@@ -17,7 +16,7 @@ class CommentList extends Component {
   }
 
   render() {
-    const { comments } = this.props.Comment;
+    const { comments } = this.props;
     let count = comments? comments.length : 0;
 
     return (
@@ -35,10 +34,10 @@ class CommentList extends Component {
           <tbody>
             {comments && comments.map((item, index) => (
             <tr key={index}>
-                  <td>{item.body}</td>
-                  <td>{item.reviewId}</td>
-                  <td>{item.buyerId}</td>
-                  <td>{item.date}</td>
+              <td>{item.body}</td>
+              <td>{item.reviewId}</td>
+              <td>{item.buyerId}</td>
+              <td>{item.date}</td>
               <td>
                 <button
                   className="btn btn-sm text-primary"
@@ -48,7 +47,7 @@ class CommentList extends Component {
                 </button>
                 <button
                   className="btn btn-sm btn-danger"
-                  onClick={() => this.props.removeCommentProp(item)}
+                  onClick={() => this.props.removeCommentClick(item)}
                 >
                   <i className="fa fa-trash" />
                   ?
@@ -67,19 +66,10 @@ class CommentList extends Component {
   }
 }
 
-Modal.propTypes = {
+CommentList.propTypes = {
   editCommentClick: PropTypes.func.isRequired,
+  removeCommentClick: PropTypes.func.isRequired,
+  comments: PropTypes.any.isRequired
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    removeCommentProp: (comment) => removeComment(comment),
-  }, dispatch);
-};
-// function mapDispatchToProps(dispatch) {
-//   return(bindActionCreators({
-//       deleteFromArray: (array) => {getTheArray(array)}
-//   }, dispatch))
-// }
-
-export default connect(null, mapDispatchToProps)(CommentList);
+export default connect(null, null)(CommentList);

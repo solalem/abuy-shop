@@ -4,16 +4,17 @@ import { retrieveCommodities, findCommoditiesByTitle, deleteCommodity } from "./
 import Search from "../../shared/Search";
 import NoData from "../../shared/NoData";
 import CommodityDetails from "./CommodityDetails";
+import CommodityList from "./components/CommodityList";
 import { NavLink } from 'react-router-dom';
 
-class CommoditiesList extends Component {
+class CommodityIndex extends Component {
   constructor(props) {
     super(props);
-    this.onChangeSearchTitle = this.onChangeSearchTitle.bind(this);
+    this.onChangeSearchString = this.onChangeSearchString.bind(this);
     this.refreshData = this.refreshData.bind(this);
     this.setActiveCommodity = this.setActiveCommodity.bind(this);
     this.findByTitle = this.findByTitle.bind(this);
-    this.removeAllCommodities = this.removeAllCommodities.bind(this);
+    this.removeCommodity = this.removeCommodity.bind(this);
 
     this.state = {
       currentCommodity: this.props.currentCommodity,
@@ -26,7 +27,7 @@ class CommoditiesList extends Component {
     this.props.retrieveCommodities();
   }
 
-  onChangeSearchTitle(e) {
+  onChangeSearchString(e) {
     const searchTitle = e.target.value;
 
     this.setState({
@@ -48,9 +49,9 @@ class CommoditiesList extends Component {
     });
   }
 
-  removeAllCommodities() {
+  removeCommodity(item) {
     this.props
-      .deleteCommodity()
+      .deleteCommodity(item)
       .then((response) => {
         console.log(response);
         this.refreshData();
@@ -73,7 +74,7 @@ class CommoditiesList extends Component {
 
     return (
       <>
-        <Search searchString={searchTitle}>
+        <Search searchString={searchTitle} searchClick={ this.onChangeSearchString}>
           <NavLink to={'/commodities/new'} exact className="btn text-success">New</NavLink>
         </Search>
 
@@ -104,53 +105,15 @@ class CommoditiesList extends Component {
           </div>
         ) : (
           <div>
-            <table className="table table-sm table-striped table-hover">
-              <thead>
-                <tr>
-                  <td>CategoryId</td>
-                  <td>Title</td>
-                  <td>Description</td>
-                  <td>Code</td>
-                  <td>IsActive</td>
-                  <td>Model</td>
-                  <td></td>
-                </tr>
-              </thead>
-              <tbody>
-                {commodities && commodities.map((item, index) => (
-                <tr
-                  className={(index === currentIndex ? "active" : "")}
-                  onClick={() => this.setActiveCommodity(item, index)}
-                  key={index}
-                >
-                  <td>{item.categoryId}</td>
-                  <td>{item.title}</td>
-                  <td>{item.description}</td>
-                  <td>{item.code}</td>
-                  <td>{item.isActive}</td>
-                  <td>{item.model}</td>
-                  <td>
-                    <button
-                      className="btn btn-sm text-danger"
-                      onClick={this.removeCommodity}
-                    >
-                      <i className="fa fa-trash" />
-                      ?
-                    </button>
-                  </td>
-                </tr>
-              ))}
-              </tbody>
-            </table>
-            { count === 0 &&
-              <NoData />
-            }
+            <CommodityList commodities={this.commodities} removeCommodityClick={() => {}} editCommodityClick={(i) => {}} />
+
           </div>
         )}
       </>
     );
   }
 }
+
 const mapStateToProps = (state) => {
   return {
     commodities: state.commodities.commodities,
@@ -158,4 +121,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { retrieveCommodities, findCommoditiesByTitle, deleteCommodity })(CommoditiesList);
+export default connect(mapStateToProps, { retrieveCommodities, findCommoditiesByTitle, deleteCommodity })(CommodityIndex);

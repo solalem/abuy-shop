@@ -4,16 +4,17 @@ import { retrieveDepartments, findDepartmentsByTitle, deleteDepartment } from ".
 import Search from "../../shared/Search";
 import NoData from "../../shared/NoData";
 import DepartmentDetails from "./DepartmentDetails";
+import DepartmentList from "./components/DepartmentList";
 import { NavLink } from 'react-router-dom';
 
-class DepartmentsList extends Component {
+class DepartmentIndex extends Component {
   constructor(props) {
     super(props);
-    this.onChangeSearchTitle = this.onChangeSearchTitle.bind(this);
+    this.onChangeSearchString = this.onChangeSearchString.bind(this);
     this.refreshData = this.refreshData.bind(this);
     this.setActiveDepartment = this.setActiveDepartment.bind(this);
     this.findByTitle = this.findByTitle.bind(this);
-    this.removeAllDepartments = this.removeAllDepartments.bind(this);
+    this.removeDepartment = this.removeDepartment.bind(this);
 
     this.state = {
       currentDepartment: this.props.currentDepartment,
@@ -26,7 +27,7 @@ class DepartmentsList extends Component {
     this.props.retrieveDepartments();
   }
 
-  onChangeSearchTitle(e) {
+  onChangeSearchString(e) {
     const searchTitle = e.target.value;
 
     this.setState({
@@ -48,9 +49,9 @@ class DepartmentsList extends Component {
     });
   }
 
-  removeAllDepartments() {
+  removeDepartment(item) {
     this.props
-      .deleteDepartment()
+      .deleteDepartment(item)
       .then((response) => {
         console.log(response);
         this.refreshData();
@@ -73,7 +74,7 @@ class DepartmentsList extends Component {
 
     return (
       <>
-        <Search searchString={searchTitle}>
+        <Search searchString={searchTitle} searchClick={ this.onChangeSearchString}>
           <NavLink to={'/departments/new'} exact className="btn text-success">New</NavLink>
         </Search>
 
@@ -104,47 +105,15 @@ class DepartmentsList extends Component {
           </div>
         ) : (
           <div>
-            <table className="table table-sm table-striped table-hover">
-              <thead>
-                <tr>
-                  <td>Status</td>
-                  <td>Name</td>
-                  <td>Description</td>
-                  <td></td>
-                </tr>
-              </thead>
-              <tbody>
-                {departments && departments.map((item, index) => (
-                <tr
-                  className={(index === currentIndex ? "active" : "")}
-                  onClick={() => this.setActiveDepartment(item, index)}
-                  key={index}
-                >
-                  <td>{item.status}</td>
-                  <td>{item.name}</td>
-                  <td>{item.description}</td>
-                  <td>
-                    <button
-                      className="btn btn-sm text-danger"
-                      onClick={this.removeDepartment}
-                    >
-                      <i className="fa fa-trash" />
-                      ?
-                    </button>
-                  </td>
-                </tr>
-              ))}
-              </tbody>
-            </table>
-            { count === 0 &&
-              <NoData />
-            }
+            <DepartmentList departments={this.departments} removeDepartmentClick={() => {}} editDepartmentClick={(i) => {}} />
+
           </div>
         )}
       </>
     );
   }
 }
+
 const mapStateToProps = (state) => {
   return {
     departments: state.departments.departments,
@@ -152,4 +121,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { retrieveDepartments, findDepartmentsByTitle, deleteDepartment })(DepartmentsList);
+export default connect(mapStateToProps, { retrieveDepartments, findDepartmentsByTitle, deleteDepartment })(DepartmentIndex);

@@ -21,8 +21,13 @@ class ApiService {
     return http.delete(`/categories/${id}`);
   }
 
-  findByTitle(title) {
-    return http.get(`/categories?title=${title}`);
+
+  getByDepartmentId(id) {
+    return http.get(`/get-categories-by-department-id?id=${id}`);
+  }
+
+  getByParentId(id) {
+    return http.get(`/get-categories-by-parent-id?id=${id}`);
   }
 
 }

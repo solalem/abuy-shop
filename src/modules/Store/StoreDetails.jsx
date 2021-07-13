@@ -5,9 +5,9 @@ import StoresService from "./services/api-service";
 import BussinessHourList from "./components/BussinessHourList";
 import EditBussinessHour from "./components/EditBussinessHour";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import 'react-tabs/style/react-tabs.css';
 import Search from "../../shared/Search";
 import Modal from "../../shared/Modal";
+import 'react-tabs/style/react-tabs.css';
 
 class StoreDetails extends Component {
   constructor(props) {
@@ -30,7 +30,6 @@ class StoreDetails extends Component {
     this.state = {
       currentStore: this.props.currentStore,
       openedModal: null,
-      attributesSearchString: "",
       message: "",
     };
   }
@@ -321,7 +320,6 @@ class StoreDetails extends Component {
                   />
                 </div>
               </div>
-
               <div className="">
                 <button
                   type="submit"
@@ -333,8 +331,8 @@ class StoreDetails extends Component {
                 &nbsp;
 
                 <button
-                className="btn text-danger mr-2"
-                onClick={this.removeStore}
+                  className="btn text-danger mr-2"
+                  onClick={this.removeStore}
                 >
                   Delete
                 </button>
@@ -351,22 +349,23 @@ class StoreDetails extends Component {
             </TabList>
 
             <TabPanel>
-              <Search searchString={this.state.attributesSearchString}>
+              <Search searchClick={() => {}}>
                 <button 
-                onClick={() => this.openAddDialog("attribute")}
+                onClick={() => this.openAddDialog("bussinessHour")}
                 className="btn text-success">Add</button>
               </Search>
               
-              {this.state.openedModal === 'attribute' ? (
+              {this.state.openedModal === 'bussinessHour' ? (
               <Modal 
-                showModal={this.state.openedModal === 'attribute'} 
+                showModal={this.state.openedModal === 'bussinessHour'} 
                 closeModalClick={this.closeDialog}>
                 <EditBussinessHour />
               </Modal>
               ): null}
 
-              <BussinessHourList Store={currentStore} editBussinessHourClick={(attribute) => this.openEditDialog('attribute')} />
+              <BussinessHourList Store={currentStore} editBussinessHourClick={(i) => this.openEditDialog('bussinessHour')} />
             </TabPanel>
+
             <TabPanel>
               <p>More content</p>
             </TabPanel>

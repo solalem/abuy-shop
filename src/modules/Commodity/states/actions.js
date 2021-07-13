@@ -74,6 +74,19 @@ export const setCommodityPriceFilter = (price) => {
   return { type: ActionTypes.SET_COMMODITY_PRICE_FILTER, price: price };
 };
 
+export const getByCategoryId = (id) => async (dispatch) => {
+  try {
+    const res = await ApiService.getByCategoryId(id);
+
+    dispatch({
+      type: ActionTypes.GET_BY_CATEGORYID,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 // Tags
 export const addTag = (id, data) => async (dispatch) => {
   try {

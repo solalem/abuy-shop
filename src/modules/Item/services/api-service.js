@@ -21,8 +21,9 @@ class ApiService {
     return http.delete(`/items/${id}`);
   }
 
-  findByTitle(title) {
-    return http.get(`/items?title=${title}`);
+
+  getBySellerId(id) {
+    return http.get(`/get-items-by-seller-id?id=${id}`);
   }
 
   addItemProperty(data) {

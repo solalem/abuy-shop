@@ -44,6 +44,12 @@ const sellersReducer = (state = initialState, action) => {
         priceFilter: SellerPriceFilter,
       };
 
+    case ActionTypes.GET_BY_DEPARTMENTID:
+      return {
+        ...state,
+        sellers: payload
+      };
+
 
     default:
       return {

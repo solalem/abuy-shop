@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { removeImage } from "../states/actions";
 import NoData from "../../../shared/NoData";
 import Modal from "../../../shared/Modal";
 import PropTypes from "prop-types";
@@ -17,7 +16,7 @@ class ImageList extends Component {
   }
 
   render() {
-    const { images } = this.props.Image;
+    const { images } = this.props;
     let count = images? images.length : 0;
 
     return (
@@ -35,10 +34,10 @@ class ImageList extends Component {
           <tbody>
             {images && images.map((item, index) => (
             <tr key={index}>
-                  <td>{item.caption}</td>
-                  <td>{item.uri}</td>
-                  <td>{item.isLocal}</td>
-                  <td>{item.listingId}</td>
+              <td>{item.caption}</td>
+              <td>{item.uri}</td>
+              <td>{item.isLocal}</td>
+              <td>{item.listingId}</td>
               <td>
                 <button
                   className="btn btn-sm text-primary"
@@ -48,7 +47,7 @@ class ImageList extends Component {
                 </button>
                 <button
                   className="btn btn-sm btn-danger"
-                  onClick={() => this.props.removeImageProp(item)}
+                  onClick={() => this.props.removeImageClick(item)}
                 >
                   <i className="fa fa-trash" />
                   ?
@@ -67,19 +66,10 @@ class ImageList extends Component {
   }
 }
 
-Modal.propTypes = {
+ImageList.propTypes = {
   editImageClick: PropTypes.func.isRequired,
+  removeImageClick: PropTypes.func.isRequired,
+  images: PropTypes.any.isRequired
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    removeImageProp: (image) => removeImage(image),
-  }, dispatch);
-};
-// function mapDispatchToProps(dispatch) {
-//   return(bindActionCreators({
-//       deleteFromArray: (array) => {getTheArray(array)}
-//   }, dispatch))
-// }
-
-export default connect(null, mapDispatchToProps)(ImageList);
+export default connect(null, null)(ImageList);

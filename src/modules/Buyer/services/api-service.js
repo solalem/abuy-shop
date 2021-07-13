@@ -21,9 +21,6 @@ class ApiService {
     return http.delete(`/buyers/${id}`);
   }
 
-  findByTitle(title) {
-    return http.get(`/buyers?title=${title}`);
-  }
 
 }
 

@@ -4,16 +4,17 @@ import { retrieveCarts, findCartsByTitle, deleteCart } from "./states/actions";
 import Search from "../../shared/Search";
 import NoData from "../../shared/NoData";
 import CartDetails from "./CartDetails";
+import CartList from "./components/CartList";
 import { NavLink } from 'react-router-dom';
 
-class CartsList extends Component {
+class CartIndex extends Component {
   constructor(props) {
     super(props);
-    this.onChangeSearchTitle = this.onChangeSearchTitle.bind(this);
+    this.onChangeSearchString = this.onChangeSearchString.bind(this);
     this.refreshData = this.refreshData.bind(this);
     this.setActiveCart = this.setActiveCart.bind(this);
     this.findByTitle = this.findByTitle.bind(this);
-    this.removeAllCarts = this.removeAllCarts.bind(this);
+    this.removeCart = this.removeCart.bind(this);
 
     this.state = {
       currentCart: this.props.currentCart,
@@ -26,7 +27,7 @@ class CartsList extends Component {
     this.props.retrieveCarts();
   }
 
-  onChangeSearchTitle(e) {
+  onChangeSearchString(e) {
     const searchTitle = e.target.value;
 
     this.setState({
@@ -48,9 +49,9 @@ class CartsList extends Component {
     });
   }
 
-  removeAllCarts() {
+  removeCart(item) {
     this.props
-      .deleteCart()
+      .deleteCart(item)
       .then((response) => {
         console.log(response);
         this.refreshData();
@@ -73,7 +74,7 @@ class CartsList extends Component {
 
     return (
       <>
-        <Search searchString={searchTitle}>
+        <Search searchString={searchTitle} searchClick={ this.onChangeSearchString}>
           <NavLink to={'/carts/new'} exact className="btn text-success">New</NavLink>
         </Search>
 
@@ -104,47 +105,15 @@ class CartsList extends Component {
           </div>
         ) : (
           <div>
-            <table className="table table-sm table-striped table-hover">
-              <thead>
-                <tr>
-                  <td>BuyerId</td>
-                  <td>CreatedOn</td>
-                  <td>IsSaved</td>
-                  <td></td>
-                </tr>
-              </thead>
-              <tbody>
-                {carts && carts.map((item, index) => (
-                <tr
-                  className={(index === currentIndex ? "active" : "")}
-                  onClick={() => this.setActiveCart(item, index)}
-                  key={index}
-                >
-                  <td>{item.buyerId}</td>
-                  <td>{item.createdOn}</td>
-                  <td>{item.isSaved}</td>
-                  <td>
-                    <button
-                      className="btn btn-sm text-danger"
-                      onClick={this.removeCart}
-                    >
-                      <i className="fa fa-trash" />
-                      ?
-                    </button>
-                  </td>
-                </tr>
-              ))}
-              </tbody>
-            </table>
-            { count === 0 &&
-              <NoData />
-            }
+            <CartList carts={this.carts} removeCartClick={() => {}} editCartClick={(i) => {}} />
+
           </div>
         )}
       </>
     );
   }
 }
+
 const mapStateToProps = (state) => {
   return {
     carts: state.carts.carts,
@@ -152,4 +121,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { retrieveCarts, findCartsByTitle, deleteCart })(CartsList);
+export default connect(mapStateToProps, { retrieveCarts, findCartsByTitle, deleteCart })(CartIndex);

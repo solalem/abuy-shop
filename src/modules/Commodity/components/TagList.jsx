@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { removeTag } from "../states/actions";
 import NoData from "../../../shared/NoData";
 import Modal from "../../../shared/Modal";
 import PropTypes from "prop-types";
@@ -17,7 +16,7 @@ class TagList extends Component {
   }
 
   render() {
-    const { tags } = this.props.Tag;
+    const { tags } = this.props;
     let count = tags? tags.length : 0;
 
     return (
@@ -33,8 +32,8 @@ class TagList extends Component {
           <tbody>
             {tags && tags.map((item, index) => (
             <tr key={index}>
-                  <td>{item.name}</td>
-                  <td>{item.commodityId}</td>
+              <td>{item.name}</td>
+              <td>{item.commodityId}</td>
               <td>
                 <button
                   className="btn btn-sm text-primary"
@@ -44,7 +43,7 @@ class TagList extends Component {
                 </button>
                 <button
                   className="btn btn-sm btn-danger"
-                  onClick={() => this.props.removeTagProp(item)}
+                  onClick={() => this.props.removeTagClick(item)}
                 >
                   <i className="fa fa-trash" />
                   ?
@@ -63,19 +62,10 @@ class TagList extends Component {
   }
 }
 
-Modal.propTypes = {
+TagList.propTypes = {
   editTagClick: PropTypes.func.isRequired,
+  removeTagClick: PropTypes.func.isRequired,
+  tags: PropTypes.any.isRequired
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    removeTagProp: (tag) => removeTag(tag),
-  }, dispatch);
-};
-// function mapDispatchToProps(dispatch) {
-//   return(bindActionCreators({
-//       deleteFromArray: (array) => {getTheArray(array)}
-//   }, dispatch))
-// }
-
-export default connect(null, mapDispatchToProps)(TagList);
+export default connect(null, null)(TagList);

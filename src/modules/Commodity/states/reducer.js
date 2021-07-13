@@ -44,6 +44,12 @@ const commoditiesReducer = (state = initialState, action) => {
         priceFilter: CommodityPriceFilter,
       };
 
+    case ActionTypes.GET_BY_CATEGORYID:
+      return {
+        ...state,
+        commodities: payload
+      };
+
     // Tags
     case ActionTypes.ADD_TAG:
       return [...state.currentCommodity.tags, payload];

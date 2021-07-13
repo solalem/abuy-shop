@@ -21,8 +21,9 @@ class ApiService {
     return http.delete(`/reviews/${id}`);
   }
 
-  findByTitle(title) {
-    return http.get(`/reviews?title=${title}`);
+
+  getByReviewerId(id) {
+    return http.get(`/get-reviews-by-reviewer-id?id=${id}`);
   }
 
   addComment(data) {

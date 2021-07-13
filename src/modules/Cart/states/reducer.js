@@ -44,6 +44,12 @@ const cartsReducer = (state = initialState, action) => {
         priceFilter: CartPriceFilter,
       };
 
+    case ActionTypes.GET_BY_BUYERID:
+      return {
+        ...state,
+        carts: payload
+      };
+
     // CartLines
     case ActionTypes.ADD_CARTLINE:
       return [...state.currentCart.cartLines, payload];

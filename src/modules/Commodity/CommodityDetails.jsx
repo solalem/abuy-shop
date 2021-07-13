@@ -7,9 +7,9 @@ import EditTag from "./components/EditTag";
 import CommodityAttributeList from "./components/CommodityAttributeList";
 import EditCommodityAttribute from "./components/EditCommodityAttribute";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import 'react-tabs/style/react-tabs.css';
 import Search from "../../shared/Search";
 import Modal from "../../shared/Modal";
+import 'react-tabs/style/react-tabs.css';
 
 class CommodityDetails extends Component {
   constructor(props) {
@@ -30,7 +30,6 @@ class CommodityDetails extends Component {
     this.state = {
       currentCommodity: this.props.currentCommodity,
       openedModal: null,
-      attributesSearchString: "",
       message: "",
     };
   }
@@ -285,7 +284,6 @@ class CommodityDetails extends Component {
                   />
                 </div>
               </div>
-
               <div className="">
                 <button
                   type="submit"
@@ -297,8 +295,8 @@ class CommodityDetails extends Component {
                 &nbsp;
 
                 <button
-                className="btn text-danger mr-2"
-                onClick={this.removeCommodity}
+                  className="btn text-danger mr-2"
+                  onClick={this.removeCommodity}
                 >
                   Delete
                 </button>
@@ -316,39 +314,40 @@ class CommodityDetails extends Component {
             </TabList>
 
             <TabPanel>
-              <Search searchString={this.state.attributesSearchString}>
+              <Search searchClick={() => {}}>
                 <button 
-                onClick={() => this.openAddDialog("attribute")}
+                onClick={() => this.openAddDialog("tag")}
                 className="btn text-success">Add</button>
               </Search>
               
-              {this.state.openedModal === 'attribute' ? (
+              {this.state.openedModal === 'tag' ? (
               <Modal 
-                showModal={this.state.openedModal === 'attribute'} 
+                showModal={this.state.openedModal === 'tag'} 
                 closeModalClick={this.closeDialog}>
                 <EditTag />
               </Modal>
               ): null}
 
-              <TagList Commodity={currentCommodity} editTagClick={(attribute) => this.openEditDialog('attribute')} />
+              <TagList Commodity={currentCommodity} editTagClick={(i) => this.openEditDialog('tag')} />
             </TabPanel>
             <TabPanel>
-              <Search searchString={this.state.attributesSearchString}>
+              <Search searchClick={() => {}}>
                 <button 
-                onClick={() => this.openAddDialog("attribute")}
+                onClick={() => this.openAddDialog("commodityAttribute")}
                 className="btn text-success">Add</button>
               </Search>
               
-              {this.state.openedModal === 'attribute' ? (
+              {this.state.openedModal === 'commodityAttribute' ? (
               <Modal 
-                showModal={this.state.openedModal === 'attribute'} 
+                showModal={this.state.openedModal === 'commodityAttribute'} 
                 closeModalClick={this.closeDialog}>
                 <EditCommodityAttribute />
               </Modal>
               ): null}
 
-              <CommodityAttributeList Commodity={currentCommodity} editCommodityAttributeClick={(attribute) => this.openEditDialog('attribute')} />
+              <CommodityAttributeList Commodity={currentCommodity} editCommodityAttributeClick={(i) => this.openEditDialog('commodityAttribute')} />
             </TabPanel>
+
             <TabPanel>
               <p>More content</p>
             </TabPanel>

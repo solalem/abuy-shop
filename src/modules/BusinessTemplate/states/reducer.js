@@ -44,6 +44,12 @@ const businessTemplatesReducer = (state = initialState, action) => {
         priceFilter: BusinessTemplatePriceFilter,
       };
 
+    case ActionTypes.GET_BY_DEPARTMENTID:
+      return {
+        ...state,
+        businessTemplates: payload
+      };
+
 
     default:
       return {

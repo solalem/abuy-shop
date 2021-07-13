@@ -44,6 +44,17 @@ const categoriesReducer = (state = initialState, action) => {
         priceFilter: CategoryPriceFilter,
       };
 
+    case ActionTypes.GET_BY_DEPARTMENTID:
+      return {
+        ...state,
+        categories: payload
+      };
+    case ActionTypes.GET_BY_PARENTID:
+      return {
+        ...state,
+        categories: payload
+      };
+
 
     default:
       return {

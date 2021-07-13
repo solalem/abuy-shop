@@ -45,6 +45,7 @@ const departmentsReducer = (state = initialState, action) => {
       };
 
 
+
     default:
       return {
         ...state,

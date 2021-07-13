@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { removeBussinessHour } from "../states/actions";
 import NoData from "../../../shared/NoData";
 import Modal from "../../../shared/Modal";
 import PropTypes from "prop-types";
@@ -17,7 +16,7 @@ class BussinessHourList extends Component {
   }
 
   render() {
-    const { bussinessHours } = this.props.BussinessHour;
+    const { bussinessHours } = this.props;
     let count = bussinessHours? bussinessHours.length : 0;
 
     return (
@@ -35,10 +34,10 @@ class BussinessHourList extends Component {
           <tbody>
             {bussinessHours && bussinessHours.map((item, index) => (
             <tr key={index}>
-                  <td>{item.storeId}</td>
-                  <td>{item.dayOfWeek}</td>
-                  <td>{item.startTime}</td>
-                  <td>{item.endTime}</td>
+              <td>{item.storeId}</td>
+              <td>{item.dayOfWeek}</td>
+              <td>{item.startTime}</td>
+              <td>{item.endTime}</td>
               <td>
                 <button
                   className="btn btn-sm text-primary"
@@ -48,7 +47,7 @@ class BussinessHourList extends Component {
                 </button>
                 <button
                   className="btn btn-sm btn-danger"
-                  onClick={() => this.props.removeBussinessHourProp(item)}
+                  onClick={() => this.props.removeBussinessHourClick(item)}
                 >
                   <i className="fa fa-trash" />
                   ?
@@ -67,19 +66,10 @@ class BussinessHourList extends Component {
   }
 }
 
-Modal.propTypes = {
+BussinessHourList.propTypes = {
   editBussinessHourClick: PropTypes.func.isRequired,
+  removeBussinessHourClick: PropTypes.func.isRequired,
+  bussinessHours: PropTypes.any.isRequired
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    removeBussinessHourProp: (bussinessHour) => removeBussinessHour(bussinessHour),
-  }, dispatch);
-};
-// function mapDispatchToProps(dispatch) {
-//   return(bindActionCreators({
-//       deleteFromArray: (array) => {getTheArray(array)}
-//   }, dispatch))
-// }
-
-export default connect(null, mapDispatchToProps)(BussinessHourList);
+export default connect(null, null)(BussinessHourList);

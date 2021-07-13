@@ -21,8 +21,9 @@ class ApiService {
     return http.delete(`/sellers/${id}`);
   }
 
-  findByTitle(title) {
-    return http.get(`/sellers?title=${title}`);
+
+  getByDepartmentId(id) {
+    return http.get(`/get-sellers-by-department-id?id=${id}`);
   }
 
 }
