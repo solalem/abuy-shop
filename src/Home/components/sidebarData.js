@@ -4,6 +4,29 @@ import * as FaIcons from "react-icons/fa";
 export const SidebarData = [
         
     {
+		title: "Products",
+		path: "#",
+		icon: <FaIcons.FaCircle style={{ color:"#00a77d" }} />,
+		iconClosed: <FaIcons.FaChevronDown style={{ color:"#00a77d" }} />,
+		iconOpened: <FaIcons.FaChevronUp style={{ color:"#00a77d" }} />,
+
+		subNav: [
+			{
+				title: "List",
+				path: "/products",
+				icon: <FaIcons.FaCircleNotch style={{ color:"#00a77d" }} />,
+				cName: "sub-nav",
+			},
+			{
+				title: "New",
+				path: "/products/new",
+				icon: <FaIcons.FaCircleNotch style={{ color:"#00a77d" }} />,
+				cName: "sub-nav",
+			}
+		],
+	},
+        
+    {
 		title: "Department",
 		path: "#",
 		icon: <FaIcons.FaCircle style={{ color:"#00a77d" }} />,
