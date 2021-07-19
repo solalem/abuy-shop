@@ -5,6 +5,7 @@ import { toogleSideBar } from "./store/states/actions";
 import MainLayout from "./Layouts/MainLayout";
 import Home from "./Home";
         
+import ProductsModule from "./modules/products/index";
 import DepartmentModule from "./modules/Department/index";
         
 import CategoryModule from "./modules/Category/index";
@@ -35,6 +36,10 @@ class App extends Component {
           <Switch>
             <Route path={"/"} exact component={Home} />
             
+        
+            {ProductsModule.routeProps.map((route,i) => ( 
+              <Route key={ "Product" + i } path={route.path} exact component={route.component} />
+            ))}
         
             {DepartmentModule.routeProps.map((route,i) => ( 
               <Route key={ "Department" + i } path={route.path} exact component={route.component} />
