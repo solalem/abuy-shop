@@ -105,7 +105,7 @@ class SellerIndex extends Component {
           </div>
         ) : (
           <div>
-            <SellerList sellers={this.sellers} removeSellerClick={() => {}} editSellerClick={(i) => {}} />
+            <SellerList sellers={this.props.sellers} removeSellerClick={() => {}} editSellerClick={(i) => {}} />
 
           </div>
         )}

@@ -1,29 +1,30 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { updatePurchaseOrder } from "./states/actions";
+import { createPurchaseOrder } from "./states/actions";
 import ApiService from "./services/api-service";
 
 class CreatePurchaseOrder extends Component {
   constructor(props) {
     super(props);
-    this.onChangeId = this.onChangeId.bind(this);
-    this.onChangeName = this.onChangeName.bind(this);
-    this.onChangeEmail = this.onChangeEmail.bind(this);
-    this.onChangeDate = this.onChangeDate.bind(this);
-    this.onChangeStoreId = this.onChangeStoreId.bind(this);
-    this.onChangeStatus = this.onChangeStatus.bind(this);
-    this.onChangeShippingAddress = this.onChangeShippingAddress.bind(this);
-    this.onChangePaymentMethod = this.onChangePaymentMethod.bind(this);
-    this.onChangeDeliveryOption = this.onChangeDeliveryOption.bind(this);
-    this.onChangeBillingInfo = this.onChangeBillingInfo.bind(this);
-    this.onChangeGross = this.onChangeGross.bind(this);
-    this.onChangeTax = this.onChangeTax.bind(this);
-    this.onChangeNet = this.onChangeNet.bind(this);
-    this.onChangeLineItems = this.onChangeLineItems.bind(this);
+
+    this.handleChange = this.handleChange.bind(this);
     this.createPurchaseOrder = this.createPurchaseOrder.bind(this);
 
     this.state = {
-      newPurchaseOrder: {},
+      id: '',
+      name: '',
+      email: '',
+      date: '',
+      storeId: '',
+      status: '',
+      shippingAddress: '',
+      paymentMethod: '',
+      deliveryOption: '',
+      billingInfo: '',
+      gross: '',
+      tax: '',
+      net: '',
+      lineItems: '',
       message: "",
     };
   }
@@ -31,178 +32,28 @@ class CreatePurchaseOrder extends Component {
   componentDidMount() {
   }
 
-  onChangeId(e) {
-    const id = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newPurchaseOrder: {
-          ...prevState.newPurchaseOrder,
-          id: id,
-        },
-      };
-    });
-  }
-  onChangeName(e) {
-    const name = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newPurchaseOrder: {
-          ...prevState.newPurchaseOrder,
-          name: name,
-        },
-      };
-    });
-  }
-  onChangeEmail(e) {
-    const email = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newPurchaseOrder: {
-          ...prevState.newPurchaseOrder,
-          email: email,
-        },
-      };
-    });
-  }
-  onChangeDate(e) {
-    const date = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newPurchaseOrder: {
-          ...prevState.newPurchaseOrder,
-          date: date,
-        },
-      };
-    });
-  }
-  onChangeStoreId(e) {
-    const storeId = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newPurchaseOrder: {
-          ...prevState.newPurchaseOrder,
-          storeId: storeId,
-        },
-      };
-    });
-  }
-  onChangeStatus(e) {
-    const status = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newPurchaseOrder: {
-          ...prevState.newPurchaseOrder,
-          status: status,
-        },
-      };
-    });
-  }
-  onChangeShippingAddress(e) {
-    const shippingAddress = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newPurchaseOrder: {
-          ...prevState.newPurchaseOrder,
-          shippingAddress: shippingAddress,
-        },
-      };
-    });
-  }
-  onChangePaymentMethod(e) {
-    const paymentMethod = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newPurchaseOrder: {
-          ...prevState.newPurchaseOrder,
-          paymentMethod: paymentMethod,
-        },
-      };
-    });
-  }
-  onChangeDeliveryOption(e) {
-    const deliveryOption = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newPurchaseOrder: {
-          ...prevState.newPurchaseOrder,
-          deliveryOption: deliveryOption,
-        },
-      };
-    });
-  }
-  onChangeBillingInfo(e) {
-    const billingInfo = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newPurchaseOrder: {
-          ...prevState.newPurchaseOrder,
-          billingInfo: billingInfo,
-        },
-      };
-    });
-  }
-  onChangeGross(e) {
-    const gross = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newPurchaseOrder: {
-          ...prevState.newPurchaseOrder,
-          gross: gross,
-        },
-      };
-    });
-  }
-  onChangeTax(e) {
-    const tax = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newPurchaseOrder: {
-          ...prevState.newPurchaseOrder,
-          tax: tax,
-        },
-      };
-    });
-  }
-  onChangeNet(e) {
-    const net = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newPurchaseOrder: {
-          ...prevState.newPurchaseOrder,
-          net: net,
-        },
-      };
-    });
-  }
-  onChangeLineItems(e) {
-    const lineItems = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newPurchaseOrder: {
-          ...prevState.newPurchaseOrder,
-          lineItems: lineItems,
-        },
-      };
-    });
+  handleChange(changeObject) {
+    this.setState(changeObject)
   }
 
   createPurchaseOrder() {
-    ApiService.createPurchaseOrder(this.state.newPurchaseOrder)
-      .then((reponse) => {
+    ApiService.createPurchaseOrder(
+      {
+        id: this.state.id,
+        name: this.state.name,
+        email: this.state.email,
+        date: this.state.date,
+        storeId: this.state.storeId,
+        status: this.state.status,
+        shippingAddress: this.state.shippingAddress,
+        paymentMethod: this.state.paymentMethod,
+        deliveryOption: this.state.deliveryOption,
+        billingInfo: this.state.billingInfo,
+        gross: this.state.gross,
+        tax: this.state.tax,
+        net: this.state.net,
+        lineItems: this.state.lineItems,
+      }).then((reponse) => {
         console.log(reponse);
         
         this.setState({ message: "The PurchaseOrder was created successfully!" });
@@ -213,11 +64,9 @@ class CreatePurchaseOrder extends Component {
   }
 
   render() {
-    const { newPurchaseOrder } = this.state;
 
     return (
         <div className="m-2">
-        {newPurchaseOrder ? (
           <div className="edit-form">
             <h4>New PurchaseOrder</h4>
             <form>
@@ -228,8 +77,8 @@ class CreatePurchaseOrder extends Component {
                     type="string"
                     className="form-control"
                     id="name"
-                    value={newPurchaseOrder.name}
-                    onChange={this.onChangeName}
+                    value={this.state.name}
+                    onChange={(e) => this.handleChange({ name: e.target.value })}
                   />
                 </div>
               </div>
@@ -240,8 +89,8 @@ class CreatePurchaseOrder extends Component {
                     type="string"
                     className="form-control"
                     id="email"
-                    value={newPurchaseOrder.email}
-                    onChange={this.onChangeEmail}
+                    value={this.state.email}
+                    onChange={(e) => this.handleChange({ email: e.target.value })}
                   />
                 </div>
               </div>
@@ -252,8 +101,8 @@ class CreatePurchaseOrder extends Component {
                     type="date"
                     className="form-control"
                     id="date"
-                    value={newPurchaseOrder.date}
-                    onChange={this.onChangeDate}
+                    value={this.state.date}
+                    onChange={(e) => this.handleChange({ date: e.target.value })}
                   />
                 </div>
               </div>
@@ -264,8 +113,8 @@ class CreatePurchaseOrder extends Component {
                     type="string"
                     className="form-control"
                     id="storeId"
-                    value={newPurchaseOrder.storeId}
-                    onChange={this.onChangeStoreId}
+                    value={this.state.storeId}
+                    onChange={(e) => this.handleChange({ storeId: e.target.value })}
                   />
                 </div>
               </div>
@@ -276,8 +125,8 @@ class CreatePurchaseOrder extends Component {
                     type="string"
                     className="form-control"
                     id="shippingAddress"
-                    value={newPurchaseOrder.shippingAddress}
-                    onChange={this.onChangeShippingAddress}
+                    value={this.state.shippingAddress}
+                    onChange={(e) => this.handleChange({ shippingAddress: e.target.value })}
                   />
                 </div>
               </div>
@@ -288,8 +137,8 @@ class CreatePurchaseOrder extends Component {
                     type="string"
                     className="form-control"
                     id="billingInfo"
-                    value={newPurchaseOrder.billingInfo}
-                    onChange={this.onChangeBillingInfo}
+                    value={this.state.billingInfo}
+                    onChange={(e) => this.handleChange({ billingInfo: e.target.value })}
                   />
                 </div>
               </div>
@@ -300,8 +149,8 @@ class CreatePurchaseOrder extends Component {
                     type="number"
                     className="form-control"
                     id="gross"
-                    value={newPurchaseOrder.gross}
-                    onChange={this.onChangeGross}
+                    value={this.state.gross}
+                    onChange={(e) => this.handleChange({ gross: e.target.value })}
                   />
                 </div>
               </div>
@@ -312,8 +161,8 @@ class CreatePurchaseOrder extends Component {
                     type="number"
                     className="form-control"
                     id="tax"
-                    value={newPurchaseOrder.tax}
-                    onChange={this.onChangeTax}
+                    value={this.state.tax}
+                    onChange={(e) => this.handleChange({ tax: e.target.value })}
                   />
                 </div>
               </div>
@@ -324,8 +173,8 @@ class CreatePurchaseOrder extends Component {
                     type="number"
                     className="form-control"
                     id="net"
-                    value={newPurchaseOrder.net}
-                    onChange={this.onChangeNet}
+                    value={this.state.net}
+                    onChange={(e) => this.handleChange({ net: e.target.value })}
                   />
                 </div>
               </div>
@@ -340,15 +189,9 @@ class CreatePurchaseOrder extends Component {
 
             <p>{this.state.message}</p>
           </div>
-        ) : (
-          <div>
-            <br />
-            <p>PurchaseOrder not specified</p>
-          </div>
-        )}
       </div>
     );
   }
 }
 
-export default connect(null, { updatePurchaseOrder })(CreatePurchaseOrder);
+export default connect(null, { createPurchaseOrder })(CreatePurchaseOrder);

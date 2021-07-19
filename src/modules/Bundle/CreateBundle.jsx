@@ -1,20 +1,21 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { updateBundle } from "./states/actions";
+import { createBundle } from "./states/actions";
 import ApiService from "./services/api-service";
 
 class CreateBundle extends Component {
   constructor(props) {
     super(props);
-    this.onChangeId = this.onChangeId.bind(this);
-    this.onChangeName = this.onChangeName.bind(this);
-    this.onChangeDescription = this.onChangeDescription.bind(this);
-    this.onChangeSellerId = this.onChangeSellerId.bind(this);
-    this.onChangeItems = this.onChangeItems.bind(this);
+
+    this.handleChange = this.handleChange.bind(this);
     this.createBundle = this.createBundle.bind(this);
 
     this.state = {
-      newBundle: {},
+      id: '',
+      name: '',
+      description: '',
+      sellerId: '',
+      items: '',
       message: "",
     };
   }
@@ -22,70 +23,19 @@ class CreateBundle extends Component {
   componentDidMount() {
   }
 
-  onChangeId(e) {
-    const id = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newBundle: {
-          ...prevState.newBundle,
-          id: id,
-        },
-      };
-    });
-  }
-  onChangeName(e) {
-    const name = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newBundle: {
-          ...prevState.newBundle,
-          name: name,
-        },
-      };
-    });
-  }
-  onChangeDescription(e) {
-    const description = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newBundle: {
-          ...prevState.newBundle,
-          description: description,
-        },
-      };
-    });
-  }
-  onChangeSellerId(e) {
-    const sellerId = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newBundle: {
-          ...prevState.newBundle,
-          sellerId: sellerId,
-        },
-      };
-    });
-  }
-  onChangeItems(e) {
-    const items = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newBundle: {
-          ...prevState.newBundle,
-          items: items,
-        },
-      };
-    });
+  handleChange(changeObject) {
+    this.setState(changeObject)
   }
 
   createBundle() {
-    ApiService.createBundle(this.state.newBundle)
-      .then((reponse) => {
+    ApiService.createBundle(
+      {
+        id: this.state.id,
+        name: this.state.name,
+        description: this.state.description,
+        sellerId: this.state.sellerId,
+        items: this.state.items,
+      }).then((reponse) => {
         console.log(reponse);
         
         this.setState({ message: "The Bundle was created successfully!" });
@@ -96,11 +46,9 @@ class CreateBundle extends Component {
   }
 
   render() {
-    const { newBundle } = this.state;
 
     return (
         <div className="m-2">
-        {newBundle ? (
           <div className="edit-form">
             <h4>New Bundle</h4>
             <form>
@@ -111,8 +59,8 @@ class CreateBundle extends Component {
                     type="string"
                     className="form-control"
                     id="name"
-                    value={newBundle.name}
-                    onChange={this.onChangeName}
+                    value={this.state.name}
+                    onChange={(e) => this.handleChange({ name: e.target.value })}
                   />
                 </div>
               </div>
@@ -123,8 +71,8 @@ class CreateBundle extends Component {
                     type="string"
                     className="form-control"
                     id="description"
-                    value={newBundle.description}
-                    onChange={this.onChangeDescription}
+                    value={this.state.description}
+                    onChange={(e) => this.handleChange({ description: e.target.value })}
                   />
                 </div>
               </div>
@@ -135,8 +83,8 @@ class CreateBundle extends Component {
                     type="string"
                     className="form-control"
                     id="sellerId"
-                    value={newBundle.sellerId}
-                    onChange={this.onChangeSellerId}
+                    value={this.state.sellerId}
+                    onChange={(e) => this.handleChange({ sellerId: e.target.value })}
                   />
                 </div>
               </div>
@@ -151,15 +99,9 @@ class CreateBundle extends Component {
 
             <p>{this.state.message}</p>
           </div>
-        ) : (
-          <div>
-            <br />
-            <p>Bundle not specified</p>
-          </div>
-        )}
       </div>
     );
   }
 }
 
-export default connect(null, { updateBundle })(CreateBundle);
+export default connect(null, { createBundle })(CreateBundle);

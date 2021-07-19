@@ -30,7 +30,7 @@ const reviewsReducer = (state = initialState, action) => {
     case ActionTypes.RETRIEVE_REVIEWS:
       return {
         ...state,
-        reviews: payload
+        reviews: payload.items
       };
 
     case ActionTypes.SET_REVIEW_PRICE_FILTER:
@@ -47,7 +47,7 @@ const reviewsReducer = (state = initialState, action) => {
     case ActionTypes.GET_BY_REVIEWERID:
       return {
         ...state,
-        reviews: payload
+        reviews: payload.items
       };
 
     // Comments

@@ -30,7 +30,7 @@ const bundlesReducer = (state = initialState, action) => {
     case ActionTypes.RETRIEVE_BUNDLES:
       return {
         ...state,
-        bundles: payload
+        bundles: payload.items
       };
 
     case ActionTypes.SET_BUNDLE_PRICE_FILTER:
@@ -47,7 +47,7 @@ const bundlesReducer = (state = initialState, action) => {
     case ActionTypes.GET_BY_SELLERID:
       return {
         ...state,
-        bundles: payload
+        bundles: payload.items
       };
 
     // BundleItems

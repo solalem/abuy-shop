@@ -1,19 +1,20 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { updateSeller } from "./states/actions";
+import { createSeller } from "./states/actions";
 import ApiService from "./services/api-service";
 
 class CreateSeller extends Component {
   constructor(props) {
     super(props);
-    this.onChangeId = this.onChangeId.bind(this);
-    this.onChangeName = this.onChangeName.bind(this);
-    this.onChangeDepartmentId = this.onChangeDepartmentId.bind(this);
-    this.onChangeCommodyIds = this.onChangeCommodyIds.bind(this);
+
+    this.handleChange = this.handleChange.bind(this);
     this.createSeller = this.createSeller.bind(this);
 
     this.state = {
-      newSeller: {},
+      id: '',
+      name: '',
+      departmentId: '',
+      commodyIds: '',
       message: "",
     };
   }
@@ -21,58 +22,18 @@ class CreateSeller extends Component {
   componentDidMount() {
   }
 
-  onChangeId(e) {
-    const id = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newSeller: {
-          ...prevState.newSeller,
-          id: id,
-        },
-      };
-    });
-  }
-  onChangeName(e) {
-    const name = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newSeller: {
-          ...prevState.newSeller,
-          name: name,
-        },
-      };
-    });
-  }
-  onChangeDepartmentId(e) {
-    const departmentId = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newSeller: {
-          ...prevState.newSeller,
-          departmentId: departmentId,
-        },
-      };
-    });
-  }
-  onChangeCommodyIds(e) {
-    const commodyIds = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newSeller: {
-          ...prevState.newSeller,
-          commodyIds: commodyIds,
-        },
-      };
-    });
+  handleChange(changeObject) {
+    this.setState(changeObject)
   }
 
   createSeller() {
-    ApiService.createSeller(this.state.newSeller)
-      .then((reponse) => {
+    ApiService.createSeller(
+      {
+        id: this.state.id,
+        name: this.state.name,
+        departmentId: this.state.departmentId,
+        commodyIds: this.state.commodyIds,
+      }).then((reponse) => {
         console.log(reponse);
         
         this.setState({ message: "The Seller was created successfully!" });
@@ -83,11 +44,9 @@ class CreateSeller extends Component {
   }
 
   render() {
-    const { newSeller } = this.state;
 
     return (
         <div className="m-2">
-        {newSeller ? (
           <div className="edit-form">
             <h4>New Seller</h4>
             <form>
@@ -98,8 +57,8 @@ class CreateSeller extends Component {
                     type="string"
                     className="form-control"
                     id="name"
-                    value={newSeller.name}
-                    onChange={this.onChangeName}
+                    value={this.state.name}
+                    onChange={(e) => this.handleChange({ name: e.target.value })}
                   />
                 </div>
               </div>
@@ -110,8 +69,8 @@ class CreateSeller extends Component {
                     type="string"
                     className="form-control"
                     id="departmentId"
-                    value={newSeller.departmentId}
-                    onChange={this.onChangeDepartmentId}
+                    value={this.state.departmentId}
+                    onChange={(e) => this.handleChange({ departmentId: e.target.value })}
                   />
                 </div>
               </div>
@@ -122,8 +81,8 @@ class CreateSeller extends Component {
                     type="string"
                     className="form-control"
                     id="commodyIds"
-                    value={newSeller.commodyIds}
-                    onChange={this.onChangeCommodyIds}
+                    value={this.state.commodyIds}
+                    onChange={(e) => this.handleChange({ commodyIds: e.target.value })}
                   />
                 </div>
               </div>
@@ -138,15 +97,9 @@ class CreateSeller extends Component {
 
             <p>{this.state.message}</p>
           </div>
-        ) : (
-          <div>
-            <br />
-            <p>Seller not specified</p>
-          </div>
-        )}
       </div>
     );
   }
 }
 
-export default connect(null, { updateSeller })(CreateSeller);
+export default connect(null, { createSeller })(CreateSeller);

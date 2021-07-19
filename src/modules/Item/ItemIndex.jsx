@@ -105,7 +105,7 @@ class ItemIndex extends Component {
           </div>
         ) : (
           <div>
-            <ItemList items={this.items} removeItemClick={() => {}} editItemClick={(i) => {}} />
+            <ItemList items={this.props.items} removeItemClick={() => {}} editItemClick={(i) => {}} />
 
           </div>
         )}

@@ -1,33 +1,34 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { updateListing } from "./states/actions";
+import { createListing } from "./states/actions";
 import ApiService from "./services/api-service";
 
 class CreateListing extends Component {
   constructor(props) {
     super(props);
-    this.onChangeId = this.onChangeId.bind(this);
-    this.onChangeName = this.onChangeName.bind(this);
-    this.onChangeCategory = this.onChangeCategory.bind(this);
-    this.onChangePrice = this.onChangePrice.bind(this);
-    this.onChangeOldPrice = this.onChangeOldPrice.bind(this);
-    this.onChangeItemsQuantity = this.onChangeItemsQuantity.bind(this);
-    this.onChangePackaging = this.onChangePackaging.bind(this);
-    this.onChangeDelivery = this.onChangeDelivery.bind(this);
-    this.onChangeTerms = this.onChangeTerms.bind(this);
-    this.onChangeReturnPolicy = this.onChangeReturnPolicy.bind(this);
-    this.onChangeStatus = this.onChangeStatus.bind(this);
-    this.onChangeDefaultPaymentMethod = this.onChangeDefaultPaymentMethod.bind(this);
-    this.onChangeItemId = this.onChangeItemId.bind(this);
-    this.onChangeVariants = this.onChangeVariants.bind(this);
-    this.onChangeImages = this.onChangeImages.bind(this);
-    this.onChangeCoupons = this.onChangeCoupons.bind(this);
-    this.onChangeDiscounts = this.onChangeDiscounts.bind(this);
-    this.onChangeAffiliates = this.onChangeAffiliates.bind(this);
+
+    this.handleChange = this.handleChange.bind(this);
     this.createListing = this.createListing.bind(this);
 
     this.state = {
-      newListing: {},
+      id: '',
+      name: '',
+      category: '',
+      price: '',
+      oldPrice: '',
+      itemsQuantity: '',
+      packaging: '',
+      delivery: '',
+      terms: '',
+      returnPolicy: '',
+      status: '',
+      defaultPaymentMethod: '',
+      itemId: '',
+      variants: '',
+      images: '',
+      coupons: '',
+      discounts: '',
+      affiliates: '',
       message: "",
     };
   }
@@ -35,226 +36,32 @@ class CreateListing extends Component {
   componentDidMount() {
   }
 
-  onChangeId(e) {
-    const id = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newListing: {
-          ...prevState.newListing,
-          id: id,
-        },
-      };
-    });
-  }
-  onChangeName(e) {
-    const name = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newListing: {
-          ...prevState.newListing,
-          name: name,
-        },
-      };
-    });
-  }
-  onChangeCategory(e) {
-    const category = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newListing: {
-          ...prevState.newListing,
-          category: category,
-        },
-      };
-    });
-  }
-  onChangePrice(e) {
-    const price = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newListing: {
-          ...prevState.newListing,
-          price: price,
-        },
-      };
-    });
-  }
-  onChangeOldPrice(e) {
-    const oldPrice = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newListing: {
-          ...prevState.newListing,
-          oldPrice: oldPrice,
-        },
-      };
-    });
-  }
-  onChangeItemsQuantity(e) {
-    const itemsQuantity = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newListing: {
-          ...prevState.newListing,
-          itemsQuantity: itemsQuantity,
-        },
-      };
-    });
-  }
-  onChangePackaging(e) {
-    const packaging = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newListing: {
-          ...prevState.newListing,
-          packaging: packaging,
-        },
-      };
-    });
-  }
-  onChangeDelivery(e) {
-    const delivery = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newListing: {
-          ...prevState.newListing,
-          delivery: delivery,
-        },
-      };
-    });
-  }
-  onChangeTerms(e) {
-    const terms = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newListing: {
-          ...prevState.newListing,
-          terms: terms,
-        },
-      };
-    });
-  }
-  onChangeReturnPolicy(e) {
-    const returnPolicy = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newListing: {
-          ...prevState.newListing,
-          returnPolicy: returnPolicy,
-        },
-      };
-    });
-  }
-  onChangeStatus(e) {
-    const status = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newListing: {
-          ...prevState.newListing,
-          status: status,
-        },
-      };
-    });
-  }
-  onChangeDefaultPaymentMethod(e) {
-    const defaultPaymentMethod = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newListing: {
-          ...prevState.newListing,
-          defaultPaymentMethod: defaultPaymentMethod,
-        },
-      };
-    });
-  }
-  onChangeItemId(e) {
-    const itemId = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newListing: {
-          ...prevState.newListing,
-          itemId: itemId,
-        },
-      };
-    });
-  }
-  onChangeVariants(e) {
-    const variants = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newListing: {
-          ...prevState.newListing,
-          variants: variants,
-        },
-      };
-    });
-  }
-  onChangeImages(e) {
-    const images = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newListing: {
-          ...prevState.newListing,
-          images: images,
-        },
-      };
-    });
-  }
-  onChangeCoupons(e) {
-    const coupons = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newListing: {
-          ...prevState.newListing,
-          coupons: coupons,
-        },
-      };
-    });
-  }
-  onChangeDiscounts(e) {
-    const discounts = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newListing: {
-          ...prevState.newListing,
-          discounts: discounts,
-        },
-      };
-    });
-  }
-  onChangeAffiliates(e) {
-    const affiliates = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newListing: {
-          ...prevState.newListing,
-          affiliates: affiliates,
-        },
-      };
-    });
+  handleChange(changeObject) {
+    this.setState(changeObject)
   }
 
   createListing() {
-    ApiService.createListing(this.state.newListing)
-      .then((reponse) => {
+    ApiService.createListing(
+      {
+        id: this.state.id,
+        name: this.state.name,
+        category: this.state.category,
+        price: this.state.price,
+        oldPrice: this.state.oldPrice,
+        itemsQuantity: this.state.itemsQuantity,
+        packaging: this.state.packaging,
+        delivery: this.state.delivery,
+        terms: this.state.terms,
+        returnPolicy: this.state.returnPolicy,
+        status: this.state.status,
+        defaultPaymentMethod: this.state.defaultPaymentMethod,
+        itemId: this.state.itemId,
+        variants: this.state.variants,
+        images: this.state.images,
+        coupons: this.state.coupons,
+        discounts: this.state.discounts,
+        affiliates: this.state.affiliates,
+      }).then((reponse) => {
         console.log(reponse);
         
         this.setState({ message: "The Listing was created successfully!" });
@@ -265,11 +72,9 @@ class CreateListing extends Component {
   }
 
   render() {
-    const { newListing } = this.state;
 
     return (
         <div className="m-2">
-        {newListing ? (
           <div className="edit-form">
             <h4>New Listing</h4>
             <form>
@@ -280,8 +85,8 @@ class CreateListing extends Component {
                     type="string"
                     className="form-control"
                     id="name"
-                    value={newListing.name}
-                    onChange={this.onChangeName}
+                    value={this.state.name}
+                    onChange={(e) => this.handleChange({ name: e.target.value })}
                   />
                 </div>
               </div>
@@ -292,8 +97,8 @@ class CreateListing extends Component {
                     type="string"
                     className="form-control"
                     id="category"
-                    value={newListing.category}
-                    onChange={this.onChangeCategory}
+                    value={this.state.category}
+                    onChange={(e) => this.handleChange({ category: e.target.value })}
                   />
                 </div>
               </div>
@@ -304,8 +109,8 @@ class CreateListing extends Component {
                     type="number"
                     className="form-control"
                     id="price"
-                    value={newListing.price}
-                    onChange={this.onChangePrice}
+                    value={this.state.price}
+                    onChange={(e) => this.handleChange({ price: e.target.value })}
                   />
                 </div>
               </div>
@@ -316,8 +121,8 @@ class CreateListing extends Component {
                     type="number"
                     className="form-control"
                     id="oldPrice"
-                    value={newListing.oldPrice}
-                    onChange={this.onChangeOldPrice}
+                    value={this.state.oldPrice}
+                    onChange={(e) => this.handleChange({ oldPrice: e.target.value })}
                   />
                 </div>
               </div>
@@ -328,8 +133,8 @@ class CreateListing extends Component {
                     type="number"
                     className="form-control"
                     id="itemsQuantity"
-                    value={newListing.itemsQuantity}
-                    onChange={this.onChangeItemsQuantity}
+                    value={this.state.itemsQuantity}
+                    onChange={(e) => this.handleChange({ itemsQuantity: e.target.value })}
                   />
                 </div>
               </div>
@@ -340,8 +145,8 @@ class CreateListing extends Component {
                     type="string"
                     className="form-control"
                     id="packaging"
-                    value={newListing.packaging}
-                    onChange={this.onChangePackaging}
+                    value={this.state.packaging}
+                    onChange={(e) => this.handleChange({ packaging: e.target.value })}
                   />
                 </div>
               </div>
@@ -352,8 +157,8 @@ class CreateListing extends Component {
                     type="string"
                     className="form-control"
                     id="delivery"
-                    value={newListing.delivery}
-                    onChange={this.onChangeDelivery}
+                    value={this.state.delivery}
+                    onChange={(e) => this.handleChange({ delivery: e.target.value })}
                   />
                 </div>
               </div>
@@ -364,8 +169,8 @@ class CreateListing extends Component {
                     type="string"
                     className="form-control"
                     id="terms"
-                    value={newListing.terms}
-                    onChange={this.onChangeTerms}
+                    value={this.state.terms}
+                    onChange={(e) => this.handleChange({ terms: e.target.value })}
                   />
                 </div>
               </div>
@@ -376,8 +181,8 @@ class CreateListing extends Component {
                     type="string"
                     className="form-control"
                     id="returnPolicy"
-                    value={newListing.returnPolicy}
-                    onChange={this.onChangeReturnPolicy}
+                    value={this.state.returnPolicy}
+                    onChange={(e) => this.handleChange({ returnPolicy: e.target.value })}
                   />
                 </div>
               </div>
@@ -388,8 +193,8 @@ class CreateListing extends Component {
                     type="string"
                     className="form-control"
                     id="itemId"
-                    value={newListing.itemId}
-                    onChange={this.onChangeItemId}
+                    value={this.state.itemId}
+                    onChange={(e) => this.handleChange({ itemId: e.target.value })}
                   />
                 </div>
               </div>
@@ -404,15 +209,9 @@ class CreateListing extends Component {
 
             <p>{this.state.message}</p>
           </div>
-        ) : (
-          <div>
-            <br />
-            <p>Listing not specified</p>
-          </div>
-        )}
       </div>
     );
   }
 }
 
-export default connect(null, { updateListing })(CreateListing);
+export default connect(null, { createListing })(CreateListing);

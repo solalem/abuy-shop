@@ -2,28 +2,28 @@ import http from "../../../Utility/http";
 
 class ApiService {
   getAll() {
-    return http.get("/reviews");
+    return http.get("/reviews/get-reviews");
   }
 
   get(id) {
-    return http.get(`/reviews/${id}`);
+    return http.get(`/reviews/get-review/${id}`);
   }
 
   create(data) {
-    return http.post("/reviews", data);
+    return http.post("/reviews/create-review", data);
   }
 
   update(id, data) {
-    return http.post(`/reviews/${id}`, data);
+    return http.post(`/reviews/update-review/${id}`, data);
   }
 
   delete(id) {
-    return http.delete(`/reviews/${id}`);
+    return http.delete(`/reviews/archive-review/${id}`);
   }
 
 
   getByReviewerId(id) {
-    return http.get(`/get-reviews-by-reviewer-id?id=${id}`);
+    return http.get(`/reviews/get-reviews-by-reviewer-id?id=${id}`);
   }
 
   addComment(data) {

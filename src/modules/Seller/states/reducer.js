@@ -30,7 +30,7 @@ const sellersReducer = (state = initialState, action) => {
     case ActionTypes.RETRIEVE_SELLERS:
       return {
         ...state,
-        sellers: payload
+        sellers: payload.items
       };
 
     case ActionTypes.SET_SELLER_PRICE_FILTER:
@@ -47,7 +47,7 @@ const sellersReducer = (state = initialState, action) => {
     case ActionTypes.GET_BY_DEPARTMENTID:
       return {
         ...state,
-        sellers: payload
+        sellers: payload.items
       };
 
 

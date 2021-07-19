@@ -1,9 +1,9 @@
 import * as ActionTypes from "./actionTypes";
 import ApiService from "../services/api-service";
 
-export const createBusinessTemplate = (title, description) => async (dispatch) => {
+export const createBusinessTemplate = (data) => async (dispatch) => {
   try {
-    const res = await ApiService.create({ title, description });
+    const res = await ApiService.create(data);
 
     dispatch({
       type: ActionTypes.CREATE_BUSINESSTEMPLATE,

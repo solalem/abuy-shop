@@ -30,7 +30,7 @@ const comparisonsReducer = (state = initialState, action) => {
     case ActionTypes.RETRIEVE_COMPARISONS:
       return {
         ...state,
-        comparisons: payload
+        comparisons: payload.items
       };
 
     case ActionTypes.SET_COMPARISON_PRICE_FILTER:
@@ -47,7 +47,7 @@ const comparisonsReducer = (state = initialState, action) => {
     case ActionTypes.GET_BY_BUYERID:
       return {
         ...state,
-        comparisons: payload
+        comparisons: payload.items
       };
 
     // ComparisonItems

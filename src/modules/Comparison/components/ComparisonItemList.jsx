@@ -25,7 +25,7 @@ class ComparisonItemList extends Component {
           <thead>
             <tr>
               <td>ListingId</td>
-              <td>ComparisionId</td>
+              <td>ComparisonId</td>
               <td>Price</td>
               <td>Specifications</td>
               <td></td>
@@ -35,7 +35,7 @@ class ComparisonItemList extends Component {
             {comparisonItems && comparisonItems.map((item, index) => (
             <tr key={index}>
               <td>{item.listingId}</td>
-              <td>{item.comparisionId}</td>
+              <td>{item.comparisonId}</td>
               <td>{item.price}</td>
               <td>{item.specifications}</td>
               <td>

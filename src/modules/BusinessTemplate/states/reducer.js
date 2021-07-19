@@ -30,7 +30,7 @@ const businessTemplatesReducer = (state = initialState, action) => {
     case ActionTypes.RETRIEVE_BUSINESSTEMPLATES:
       return {
         ...state,
-        businessTemplates: payload
+        businessTemplates: payload.items
       };
 
     case ActionTypes.SET_BUSINESSTEMPLATE_PRICE_FILTER:
@@ -47,7 +47,7 @@ const businessTemplatesReducer = (state = initialState, action) => {
     case ActionTypes.GET_BY_DEPARTMENTID:
       return {
         ...state,
-        businessTemplates: payload
+        businessTemplates: payload.items
       };
 
 

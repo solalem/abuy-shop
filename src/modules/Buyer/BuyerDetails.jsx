@@ -2,6 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { updateBuyer, deleteBuyer } from "./states/actions";
 import BuyersService from "./services/api-service";
+import MamilaList from "./components/MamilaList";
+import EditMamila from "./components/EditMamila";
+import FavouriteItemList from "./components/FavouriteItemList";
+import EditFavouriteItem from "./components/EditFavouriteItem";
+import RecommendationList from "./components/RecommendationList";
+import EditRecommendation from "./components/EditRecommendation";
 import CartList from "../Cart/components/CartList";
 import ComparisonList from "../Comparison/components/ComparisonList";
 import ReviewList from "../Review/components/ReviewList";
@@ -272,42 +278,6 @@ class BuyerDetails extends Component {
                   />
                 </div>
               </div>
-              <div className="row mb-3">
-                <label className="col-sm-2 col-form-label" htmlFor="name">Mamilas</label>
-                <div className="col-sm-10">
-                  <input
-                    type="Mamila[]"
-                    className="form-control"
-                    id="mamilas"
-                    value={currentBuyer.mamilas}
-                    onChange={this.onChangeMamilas}
-                  />
-                </div>
-              </div>
-              <div className="row mb-3">
-                <label className="col-sm-2 col-form-label" htmlFor="name">Favourites</label>
-                <div className="col-sm-10">
-                  <input
-                    type="FavouriteItem[]"
-                    className="form-control"
-                    id="favourites"
-                    value={currentBuyer.favourites}
-                    onChange={this.onChangeFavourites}
-                  />
-                </div>
-              </div>
-              <div className="row mb-3">
-                <label className="col-sm-2 col-form-label" htmlFor="name">Recommendations</label>
-                <div className="col-sm-10">
-                  <input
-                    type="Recommendation[]"
-                    className="form-control"
-                    id="recommendations"
-                    value={currentBuyer.recommendations}
-                    onChange={this.onChangeRecommendations}
-                  />
-                </div>
-              </div>
               <div className="">
                 <button
                   type="submit"
@@ -332,12 +302,66 @@ class BuyerDetails extends Component {
 
           <Tabs>
             <TabList>
+              <Tab>Mamilas</Tab>
+              <Tab>FavouriteItems</Tab>
+              <Tab>Recommendations</Tab>
               <Tab>Carts</Tab>
               <Tab>Comparisons</Tab>
               <Tab>Reviews</Tab>
               <Tab>More</Tab>
             </TabList>
 
+            <TabPanel>
+              <Search searchClick={() => {}}>
+                <button 
+                onClick={() => this.openAddDialog("mamila")}
+                className="btn text-success">Add</button>
+              </Search>
+              
+              {this.state.openedModal === 'mamila' ? (
+              <Modal 
+                showModal={this.state.openedModal === 'mamila'} 
+                closeModalClick={this.closeDialog}>
+                <EditMamila />
+              </Modal>
+              ): null}
+
+              <MamilaList Buyer={currentBuyer} editMamilaClick={(i) => this.openEditDialog('mamila')} />
+            </TabPanel>
+            <TabPanel>
+              <Search searchClick={() => {}}>
+                <button 
+                onClick={() => this.openAddDialog("favouriteItem")}
+                className="btn text-success">Add</button>
+              </Search>
+              
+              {this.state.openedModal === 'favouriteItem' ? (
+              <Modal 
+                showModal={this.state.openedModal === 'favouriteItem'} 
+                closeModalClick={this.closeDialog}>
+                <EditFavouriteItem />
+              </Modal>
+              ): null}
+
+              <FavouriteItemList Buyer={currentBuyer} editFavouriteItemClick={(i) => this.openEditDialog('favouriteItem')} />
+            </TabPanel>
+            <TabPanel>
+              <Search searchClick={() => {}}>
+                <button 
+                onClick={() => this.openAddDialog("recommendation")}
+                className="btn text-success">Add</button>
+              </Search>
+              
+              {this.state.openedModal === 'recommendation' ? (
+              <Modal 
+                showModal={this.state.openedModal === 'recommendation'} 
+                closeModalClick={this.closeDialog}>
+                <EditRecommendation />
+              </Modal>
+              ): null}
+
+              <RecommendationList Buyer={currentBuyer} editRecommendationClick={(i) => this.openEditDialog('recommendation')} />
+            </TabPanel>
             <TabPanel>
               <Search />
               

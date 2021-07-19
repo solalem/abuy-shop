@@ -1,20 +1,21 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { updateComparison } from "./states/actions";
+import { createComparison } from "./states/actions";
 import ApiService from "./services/api-service";
 
 class CreateComparison extends Component {
   constructor(props) {
     super(props);
-    this.onChangeId = this.onChangeId.bind(this);
-    this.onChangeBuyerId = this.onChangeBuyerId.bind(this);
-    this.onChangeDate = this.onChangeDate.bind(this);
-    this.onChangeVisitInfo = this.onChangeVisitInfo.bind(this);
-    this.onChangeItems = this.onChangeItems.bind(this);
+
+    this.handleChange = this.handleChange.bind(this);
     this.createComparison = this.createComparison.bind(this);
 
     this.state = {
-      newComparison: {},
+      id: '',
+      buyerId: '',
+      date: '',
+      visitInfo: '',
+      items: '',
       message: "",
     };
   }
@@ -22,70 +23,19 @@ class CreateComparison extends Component {
   componentDidMount() {
   }
 
-  onChangeId(e) {
-    const id = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newComparison: {
-          ...prevState.newComparison,
-          id: id,
-        },
-      };
-    });
-  }
-  onChangeBuyerId(e) {
-    const buyerId = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newComparison: {
-          ...prevState.newComparison,
-          buyerId: buyerId,
-        },
-      };
-    });
-  }
-  onChangeDate(e) {
-    const date = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newComparison: {
-          ...prevState.newComparison,
-          date: date,
-        },
-      };
-    });
-  }
-  onChangeVisitInfo(e) {
-    const visitInfo = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newComparison: {
-          ...prevState.newComparison,
-          visitInfo: visitInfo,
-        },
-      };
-    });
-  }
-  onChangeItems(e) {
-    const items = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newComparison: {
-          ...prevState.newComparison,
-          items: items,
-        },
-      };
-    });
+  handleChange(changeObject) {
+    this.setState(changeObject)
   }
 
   createComparison() {
-    ApiService.createComparison(this.state.newComparison)
-      .then((reponse) => {
+    ApiService.createComparison(
+      {
+        id: this.state.id,
+        buyerId: this.state.buyerId,
+        date: this.state.date,
+        visitInfo: this.state.visitInfo,
+        items: this.state.items,
+      }).then((reponse) => {
         console.log(reponse);
         
         this.setState({ message: "The Comparison was created successfully!" });
@@ -96,11 +46,9 @@ class CreateComparison extends Component {
   }
 
   render() {
-    const { newComparison } = this.state;
 
     return (
         <div className="m-2">
-        {newComparison ? (
           <div className="edit-form">
             <h4>New Comparison</h4>
             <form>
@@ -111,8 +59,8 @@ class CreateComparison extends Component {
                     type="string"
                     className="form-control"
                     id="buyerId"
-                    value={newComparison.buyerId}
-                    onChange={this.onChangeBuyerId}
+                    value={this.state.buyerId}
+                    onChange={(e) => this.handleChange({ buyerId: e.target.value })}
                   />
                 </div>
               </div>
@@ -123,8 +71,8 @@ class CreateComparison extends Component {
                     type="date"
                     className="form-control"
                     id="date"
-                    value={newComparison.date}
-                    onChange={this.onChangeDate}
+                    value={this.state.date}
+                    onChange={(e) => this.handleChange({ date: e.target.value })}
                   />
                 </div>
               </div>
@@ -139,15 +87,9 @@ class CreateComparison extends Component {
 
             <p>{this.state.message}</p>
           </div>
-        ) : (
-          <div>
-            <br />
-            <p>Comparison not specified</p>
-          </div>
-        )}
       </div>
     );
   }
 }
 
-export default connect(null, { updateComparison })(CreateComparison);
+export default connect(null, { createComparison })(CreateComparison);

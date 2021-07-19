@@ -1,24 +1,25 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { updateCommodity } from "./states/actions";
+import { createCommodity } from "./states/actions";
 import ApiService from "./services/api-service";
 
 class CreateCommodity extends Component {
   constructor(props) {
     super(props);
-    this.onChangeId = this.onChangeId.bind(this);
-    this.onChangeCategoryId = this.onChangeCategoryId.bind(this);
-    this.onChangeTitle = this.onChangeTitle.bind(this);
-    this.onChangeDescription = this.onChangeDescription.bind(this);
-    this.onChangeCode = this.onChangeCode.bind(this);
-    this.onChangeIsActive = this.onChangeIsActive.bind(this);
-    this.onChangeModel = this.onChangeModel.bind(this);
-    this.onChangeTags = this.onChangeTags.bind(this);
-    this.onChangeAttributes = this.onChangeAttributes.bind(this);
+
+    this.handleChange = this.handleChange.bind(this);
     this.createCommodity = this.createCommodity.bind(this);
 
     this.state = {
-      newCommodity: {},
+      id: '',
+      categoryId: '',
+      title: '',
+      description: '',
+      code: '',
+      isActive: '',
+      model: '',
+      tags: '',
+      attributes: '',
       message: "",
     };
   }
@@ -26,118 +27,23 @@ class CreateCommodity extends Component {
   componentDidMount() {
   }
 
-  onChangeId(e) {
-    const id = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newCommodity: {
-          ...prevState.newCommodity,
-          id: id,
-        },
-      };
-    });
-  }
-  onChangeCategoryId(e) {
-    const categoryId = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newCommodity: {
-          ...prevState.newCommodity,
-          categoryId: categoryId,
-        },
-      };
-    });
-  }
-  onChangeTitle(e) {
-    const title = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newCommodity: {
-          ...prevState.newCommodity,
-          title: title,
-        },
-      };
-    });
-  }
-  onChangeDescription(e) {
-    const description = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newCommodity: {
-          ...prevState.newCommodity,
-          description: description,
-        },
-      };
-    });
-  }
-  onChangeCode(e) {
-    const code = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newCommodity: {
-          ...prevState.newCommodity,
-          code: code,
-        },
-      };
-    });
-  }
-  onChangeIsActive(e) {
-    const isActive = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newCommodity: {
-          ...prevState.newCommodity,
-          isActive: isActive,
-        },
-      };
-    });
-  }
-  onChangeModel(e) {
-    const model = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newCommodity: {
-          ...prevState.newCommodity,
-          model: model,
-        },
-      };
-    });
-  }
-  onChangeTags(e) {
-    const tags = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newCommodity: {
-          ...prevState.newCommodity,
-          tags: tags,
-        },
-      };
-    });
-  }
-  onChangeAttributes(e) {
-    const attributes = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newCommodity: {
-          ...prevState.newCommodity,
-          attributes: attributes,
-        },
-      };
-    });
+  handleChange(changeObject) {
+    this.setState(changeObject)
   }
 
   createCommodity() {
-    ApiService.createCommodity(this.state.newCommodity)
-      .then((reponse) => {
+    ApiService.createCommodity(
+      {
+        id: this.state.id,
+        categoryId: this.state.categoryId,
+        title: this.state.title,
+        description: this.state.description,
+        code: this.state.code,
+        isActive: this.state.isActive,
+        model: this.state.model,
+        tags: this.state.tags,
+        attributes: this.state.attributes,
+      }).then((reponse) => {
         console.log(reponse);
         
         this.setState({ message: "The Commodity was created successfully!" });
@@ -148,11 +54,9 @@ class CreateCommodity extends Component {
   }
 
   render() {
-    const { newCommodity } = this.state;
 
     return (
         <div className="m-2">
-        {newCommodity ? (
           <div className="edit-form">
             <h4>New Commodity</h4>
             <form>
@@ -163,8 +67,8 @@ class CreateCommodity extends Component {
                     type="string"
                     className="form-control"
                     id="categoryId"
-                    value={newCommodity.categoryId}
-                    onChange={this.onChangeCategoryId}
+                    value={this.state.categoryId}
+                    onChange={(e) => this.handleChange({ categoryId: e.target.value })}
                   />
                 </div>
               </div>
@@ -175,8 +79,8 @@ class CreateCommodity extends Component {
                     type="string"
                     className="form-control"
                     id="title"
-                    value={newCommodity.title}
-                    onChange={this.onChangeTitle}
+                    value={this.state.title}
+                    onChange={(e) => this.handleChange({ title: e.target.value })}
                   />
                 </div>
               </div>
@@ -187,8 +91,8 @@ class CreateCommodity extends Component {
                     type="string"
                     className="form-control"
                     id="description"
-                    value={newCommodity.description}
-                    onChange={this.onChangeDescription}
+                    value={this.state.description}
+                    onChange={(e) => this.handleChange({ description: e.target.value })}
                   />
                 </div>
               </div>
@@ -199,8 +103,8 @@ class CreateCommodity extends Component {
                     type="string"
                     className="form-control"
                     id="code"
-                    value={newCommodity.code}
-                    onChange={this.onChangeCode}
+                    value={this.state.code}
+                    onChange={(e) => this.handleChange({ code: e.target.value })}
                   />
                 </div>
               </div>
@@ -211,8 +115,8 @@ class CreateCommodity extends Component {
                     type="boolean"
                     className="form-control"
                     id="isActive"
-                    value={newCommodity.isActive}
-                    onChange={this.onChangeIsActive}
+                    value={this.state.isActive}
+                    onChange={(e) => this.handleChange({ isActive: e.target.value })}
                   />
                 </div>
               </div>
@@ -223,8 +127,8 @@ class CreateCommodity extends Component {
                     type="string"
                     className="form-control"
                     id="model"
-                    value={newCommodity.model}
-                    onChange={this.onChangeModel}
+                    value={this.state.model}
+                    onChange={(e) => this.handleChange({ model: e.target.value })}
                   />
                 </div>
               </div>
@@ -239,15 +143,9 @@ class CreateCommodity extends Component {
 
             <p>{this.state.message}</p>
           </div>
-        ) : (
-          <div>
-            <br />
-            <p>Commodity not specified</p>
-          </div>
-        )}
       </div>
     );
   }
 }
 
-export default connect(null, { updateCommodity })(CreateCommodity);
+export default connect(null, { createCommodity })(CreateCommodity);

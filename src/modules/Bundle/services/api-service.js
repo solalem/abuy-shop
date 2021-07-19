@@ -2,28 +2,28 @@ import http from "../../../Utility/http";
 
 class ApiService {
   getAll() {
-    return http.get("/bundles");
+    return http.get("/bundles/get-bundles");
   }
 
   get(id) {
-    return http.get(`/bundles/${id}`);
+    return http.get(`/bundles/get-bundle/${id}`);
   }
 
   create(data) {
-    return http.post("/bundles", data);
+    return http.post("/bundles/create-bundle", data);
   }
 
   update(id, data) {
-    return http.post(`/bundles/${id}`, data);
+    return http.post(`/bundles/update-bundle/${id}`, data);
   }
 
   delete(id) {
-    return http.delete(`/bundles/${id}`);
+    return http.delete(`/bundles/archive-bundle/${id}`);
   }
 
 
   getBySellerId(id) {
-    return http.get(`/get-bundles-by-seller-id?id=${id}`);
+    return http.get(`/bundles/get-bundles-by-seller-id?id=${id}`);
   }
 
   addBundleItem(data) {

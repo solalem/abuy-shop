@@ -2,23 +2,23 @@ import http from "../../../Utility/http";
 
 class ApiService {
   getAll() {
-    return http.get("/stores");
+    return http.get("/stores/get-stores");
   }
 
   get(id) {
-    return http.get(`/stores/${id}`);
+    return http.get(`/stores/get-store/${id}`);
   }
 
   create(data) {
-    return http.post("/stores", data);
+    return http.post("/stores/create-store", data);
   }
 
   update(id, data) {
-    return http.post(`/stores/${id}`, data);
+    return http.post(`/stores/update-store/${id}`, data);
   }
 
   delete(id) {
-    return http.delete(`/stores/${id}`);
+    return http.delete(`/stores/archive-store/${id}`);
   }
 
 

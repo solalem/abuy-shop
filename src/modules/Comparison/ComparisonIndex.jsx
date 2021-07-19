@@ -105,7 +105,7 @@ class ComparisonIndex extends Component {
           </div>
         ) : (
           <div>
-            <ComparisonList comparisons={this.comparisons} removeComparisonClick={() => {}} editComparisonClick={(i) => {}} />
+            <ComparisonList comparisons={this.props.comparisons} removeComparisonClick={() => {}} editComparisonClick={(i) => {}} />
 
           </div>
         )}

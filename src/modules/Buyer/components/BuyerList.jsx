@@ -28,9 +28,6 @@ class BuyerList extends Component {
               <td>BirthDate</td>
               <td>AccountId</td>
               <td>DefaultShippingAddress</td>
-              <td>Mamilas</td>
-              <td>Favourites</td>
-              <td>Recommendations</td>
               <td></td>
             </tr>
           </thead>
@@ -41,9 +38,6 @@ class BuyerList extends Component {
               <td>{item.birthDate}</td>
               <td>{item.accountId}</td>
               <td>{item.defaultShippingAddress}</td>
-              <td>{item.mamilas}</td>
-              <td>{item.favourites}</td>
-              <td>{item.recommendations}</td>
               <td>
                 <button
                   className="btn btn-sm text-primary"

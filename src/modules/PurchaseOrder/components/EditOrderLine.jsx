@@ -9,7 +9,7 @@ class EditOrderLine extends Component {
     this.onChangeId = this.onChangeId.bind(this);
     this.onChangeItemName = this.onChangeItemName.bind(this);
     this.onChangeItemCode = this.onChangeItemCode.bind(this);
-    this.onChangeOrderId = this.onChangeOrderId.bind(this);
+    this.onChangePurchaseOrderId = this.onChangePurchaseOrderId.bind(this);
     this.onChangeQuantity = this.onChangeQuantity.bind(this);
     this.onChangeUnitPrice = this.onChangeUnitPrice.bind(this);
     this.onChangeTotalPrice = this.onChangeTotalPrice.bind(this);
@@ -61,14 +61,14 @@ class EditOrderLine extends Component {
       };
     });
   }
-  onChangeOrderId(e) {
-    const orderId = e.target.value;
+  onChangePurchaseOrderId(e) {
+    const purchaseOrderId = e.target.value;
 
     this.setState(function (prevState) {
       return {
         currentOrderLine: {
           ...prevState.currentOrderLine,
-          orderId: orderId,
+          purchaseOrderId: purchaseOrderId,
         },
       };
     });
@@ -144,14 +144,14 @@ class EditOrderLine extends Component {
                 </div>
               </div>
               <div className="row mb-3">
-                <label className="col-sm-2 col-form-label" htmlFor="name">OrderId</label>
+                <label className="col-sm-2 col-form-label" htmlFor="name">PurchaseOrderId</label>
                 <div className="col-sm-10">
                   <input
                     type="string"
                     className="form-control"
-                    id="orderId"
-                    value={currentOrderLine.orderId}
-                    onChange={this.onChangeOrderId}
+                    id="purchaseOrderId"
+                    value={currentOrderLine.purchaseOrderId}
+                    onChange={this.onChangePurchaseOrderId}
                   />
                 </div>
               </div>

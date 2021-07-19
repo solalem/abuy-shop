@@ -105,7 +105,7 @@ class StoreIndex extends Component {
           </div>
         ) : (
           <div>
-            <StoreList stores={this.stores} removeStoreClick={() => {}} editStoreClick={(i) => {}} />
+            <StoreList stores={this.props.stores} removeStoreClick={() => {}} editStoreClick={(i) => {}} />
 
           </div>
         )}

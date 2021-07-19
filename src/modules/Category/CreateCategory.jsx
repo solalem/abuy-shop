@@ -1,21 +1,22 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { updateCategory } from "./states/actions";
+import { createCategory } from "./states/actions";
 import ApiService from "./services/api-service";
 
 class CreateCategory extends Component {
   constructor(props) {
     super(props);
-    this.onChangeId = this.onChangeId.bind(this);
-    this.onChangeName = this.onChangeName.bind(this);
-    this.onChangeDescription = this.onChangeDescription.bind(this);
-    this.onChangeIsOpen = this.onChangeIsOpen.bind(this);
-    this.onChangeDepartmentId = this.onChangeDepartmentId.bind(this);
-    this.onChangeParentId = this.onChangeParentId.bind(this);
+
+    this.handleChange = this.handleChange.bind(this);
     this.createCategory = this.createCategory.bind(this);
 
     this.state = {
-      newCategory: {},
+      id: '',
+      name: '',
+      description: '',
+      isOpen: '',
+      departmentId: '',
+      parentId: '',
       message: "",
     };
   }
@@ -23,82 +24,20 @@ class CreateCategory extends Component {
   componentDidMount() {
   }
 
-  onChangeId(e) {
-    const id = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newCategory: {
-          ...prevState.newCategory,
-          id: id,
-        },
-      };
-    });
-  }
-  onChangeName(e) {
-    const name = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newCategory: {
-          ...prevState.newCategory,
-          name: name,
-        },
-      };
-    });
-  }
-  onChangeDescription(e) {
-    const description = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newCategory: {
-          ...prevState.newCategory,
-          description: description,
-        },
-      };
-    });
-  }
-  onChangeIsOpen(e) {
-    const isOpen = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newCategory: {
-          ...prevState.newCategory,
-          isOpen: isOpen,
-        },
-      };
-    });
-  }
-  onChangeDepartmentId(e) {
-    const departmentId = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newCategory: {
-          ...prevState.newCategory,
-          departmentId: departmentId,
-        },
-      };
-    });
-  }
-  onChangeParentId(e) {
-    const parentId = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newCategory: {
-          ...prevState.newCategory,
-          parentId: parentId,
-        },
-      };
-    });
+  handleChange(changeObject) {
+    this.setState(changeObject)
   }
 
   createCategory() {
-    ApiService.createCategory(this.state.newCategory)
-      .then((reponse) => {
+    ApiService.createCategory(
+      {
+        id: this.state.id,
+        name: this.state.name,
+        description: this.state.description,
+        isOpen: this.state.isOpen,
+        departmentId: this.state.departmentId,
+        parentId: this.state.parentId,
+      }).then((reponse) => {
         console.log(reponse);
         
         this.setState({ message: "The Category was created successfully!" });
@@ -109,11 +48,9 @@ class CreateCategory extends Component {
   }
 
   render() {
-    const { newCategory } = this.state;
 
     return (
         <div className="m-2">
-        {newCategory ? (
           <div className="edit-form">
             <h4>New Category</h4>
             <form>
@@ -124,8 +61,8 @@ class CreateCategory extends Component {
                     type="string"
                     className="form-control"
                     id="name"
-                    value={newCategory.name}
-                    onChange={this.onChangeName}
+                    value={this.state.name}
+                    onChange={(e) => this.handleChange({ name: e.target.value })}
                   />
                 </div>
               </div>
@@ -136,8 +73,8 @@ class CreateCategory extends Component {
                     type="string"
                     className="form-control"
                     id="description"
-                    value={newCategory.description}
-                    onChange={this.onChangeDescription}
+                    value={this.state.description}
+                    onChange={(e) => this.handleChange({ description: e.target.value })}
                   />
                 </div>
               </div>
@@ -148,8 +85,8 @@ class CreateCategory extends Component {
                     type="boolean"
                     className="form-control"
                     id="isOpen"
-                    value={newCategory.isOpen}
-                    onChange={this.onChangeIsOpen}
+                    value={this.state.isOpen}
+                    onChange={(e) => this.handleChange({ isOpen: e.target.value })}
                   />
                 </div>
               </div>
@@ -160,8 +97,8 @@ class CreateCategory extends Component {
                     type="string"
                     className="form-control"
                     id="departmentId"
-                    value={newCategory.departmentId}
-                    onChange={this.onChangeDepartmentId}
+                    value={this.state.departmentId}
+                    onChange={(e) => this.handleChange({ departmentId: e.target.value })}
                   />
                 </div>
               </div>
@@ -172,8 +109,8 @@ class CreateCategory extends Component {
                     type="string"
                     className="form-control"
                     id="parentId"
-                    value={newCategory.parentId}
-                    onChange={this.onChangeParentId}
+                    value={this.state.parentId}
+                    onChange={(e) => this.handleChange({ parentId: e.target.value })}
                   />
                 </div>
               </div>
@@ -188,15 +125,9 @@ class CreateCategory extends Component {
 
             <p>{this.state.message}</p>
           </div>
-        ) : (
-          <div>
-            <br />
-            <p>Category not specified</p>
-          </div>
-        )}
       </div>
     );
   }
 }
 
-export default connect(null, { updateCategory })(CreateCategory);
+export default connect(null, { createCategory })(CreateCategory);

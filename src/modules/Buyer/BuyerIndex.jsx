@@ -105,7 +105,7 @@ class BuyerIndex extends Component {
           </div>
         ) : (
           <div>
-            <BuyerList buyers={this.buyers} removeBuyerClick={() => {}} editBuyerClick={(i) => {}} />
+            <BuyerList buyers={this.props.buyers} removeBuyerClick={() => {}} editBuyerClick={(i) => {}} />
 
           </div>
         )}

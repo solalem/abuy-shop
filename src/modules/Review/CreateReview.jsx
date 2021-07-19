@@ -1,24 +1,25 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { updateReview } from "./states/actions";
+import { createReview } from "./states/actions";
 import ApiService from "./services/api-service";
 
 class CreateReview extends Component {
   constructor(props) {
     super(props);
-    this.onChangeId = this.onChangeId.bind(this);
-    this.onChangeTitle = this.onChangeTitle.bind(this);
-    this.onChangeBody = this.onChangeBody.bind(this);
-    this.onChangeRating = this.onChangeRating.bind(this);
-    this.onChangeIsApproved = this.onChangeIsApproved.bind(this);
-    this.onChangeItemId = this.onChangeItemId.bind(this);
-    this.onChangeItemCode = this.onChangeItemCode.bind(this);
-    this.onChangeReviewerId = this.onChangeReviewerId.bind(this);
-    this.onChangeComments = this.onChangeComments.bind(this);
+
+    this.handleChange = this.handleChange.bind(this);
     this.createReview = this.createReview.bind(this);
 
     this.state = {
-      newReview: {},
+      id: '',
+      title: '',
+      body: '',
+      rating: '',
+      isApproved: '',
+      itemId: '',
+      itemCode: '',
+      reviewerId: '',
+      comments: '',
       message: "",
     };
   }
@@ -26,118 +27,23 @@ class CreateReview extends Component {
   componentDidMount() {
   }
 
-  onChangeId(e) {
-    const id = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newReview: {
-          ...prevState.newReview,
-          id: id,
-        },
-      };
-    });
-  }
-  onChangeTitle(e) {
-    const title = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newReview: {
-          ...prevState.newReview,
-          title: title,
-        },
-      };
-    });
-  }
-  onChangeBody(e) {
-    const body = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newReview: {
-          ...prevState.newReview,
-          body: body,
-        },
-      };
-    });
-  }
-  onChangeRating(e) {
-    const rating = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newReview: {
-          ...prevState.newReview,
-          rating: rating,
-        },
-      };
-    });
-  }
-  onChangeIsApproved(e) {
-    const isApproved = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newReview: {
-          ...prevState.newReview,
-          isApproved: isApproved,
-        },
-      };
-    });
-  }
-  onChangeItemId(e) {
-    const itemId = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newReview: {
-          ...prevState.newReview,
-          itemId: itemId,
-        },
-      };
-    });
-  }
-  onChangeItemCode(e) {
-    const itemCode = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newReview: {
-          ...prevState.newReview,
-          itemCode: itemCode,
-        },
-      };
-    });
-  }
-  onChangeReviewerId(e) {
-    const reviewerId = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newReview: {
-          ...prevState.newReview,
-          reviewerId: reviewerId,
-        },
-      };
-    });
-  }
-  onChangeComments(e) {
-    const comments = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newReview: {
-          ...prevState.newReview,
-          comments: comments,
-        },
-      };
-    });
+  handleChange(changeObject) {
+    this.setState(changeObject)
   }
 
   createReview() {
-    ApiService.createReview(this.state.newReview)
-      .then((reponse) => {
+    ApiService.createReview(
+      {
+        id: this.state.id,
+        title: this.state.title,
+        body: this.state.body,
+        rating: this.state.rating,
+        isApproved: this.state.isApproved,
+        itemId: this.state.itemId,
+        itemCode: this.state.itemCode,
+        reviewerId: this.state.reviewerId,
+        comments: this.state.comments,
+      }).then((reponse) => {
         console.log(reponse);
         
         this.setState({ message: "The Review was created successfully!" });
@@ -148,11 +54,9 @@ class CreateReview extends Component {
   }
 
   render() {
-    const { newReview } = this.state;
 
     return (
         <div className="m-2">
-        {newReview ? (
           <div className="edit-form">
             <h4>New Review</h4>
             <form>
@@ -163,8 +67,8 @@ class CreateReview extends Component {
                     type="string"
                     className="form-control"
                     id="title"
-                    value={newReview.title}
-                    onChange={this.onChangeTitle}
+                    value={this.state.title}
+                    onChange={(e) => this.handleChange({ title: e.target.value })}
                   />
                 </div>
               </div>
@@ -175,8 +79,8 @@ class CreateReview extends Component {
                     type="string"
                     className="form-control"
                     id="body"
-                    value={newReview.body}
-                    onChange={this.onChangeBody}
+                    value={this.state.body}
+                    onChange={(e) => this.handleChange({ body: e.target.value })}
                   />
                 </div>
               </div>
@@ -187,8 +91,8 @@ class CreateReview extends Component {
                     type="number"
                     className="form-control"
                     id="rating"
-                    value={newReview.rating}
-                    onChange={this.onChangeRating}
+                    value={this.state.rating}
+                    onChange={(e) => this.handleChange({ rating: e.target.value })}
                   />
                 </div>
               </div>
@@ -199,8 +103,8 @@ class CreateReview extends Component {
                     type="boolean"
                     className="form-control"
                     id="isApproved"
-                    value={newReview.isApproved}
-                    onChange={this.onChangeIsApproved}
+                    value={this.state.isApproved}
+                    onChange={(e) => this.handleChange({ isApproved: e.target.value })}
                   />
                 </div>
               </div>
@@ -211,8 +115,8 @@ class CreateReview extends Component {
                     type="string"
                     className="form-control"
                     id="itemId"
-                    value={newReview.itemId}
-                    onChange={this.onChangeItemId}
+                    value={this.state.itemId}
+                    onChange={(e) => this.handleChange({ itemId: e.target.value })}
                   />
                 </div>
               </div>
@@ -223,8 +127,8 @@ class CreateReview extends Component {
                     type="string"
                     className="form-control"
                     id="itemCode"
-                    value={newReview.itemCode}
-                    onChange={this.onChangeItemCode}
+                    value={this.state.itemCode}
+                    onChange={(e) => this.handleChange({ itemCode: e.target.value })}
                   />
                 </div>
               </div>
@@ -235,8 +139,8 @@ class CreateReview extends Component {
                     type="string"
                     className="form-control"
                     id="reviewerId"
-                    value={newReview.reviewerId}
-                    onChange={this.onChangeReviewerId}
+                    value={this.state.reviewerId}
+                    onChange={(e) => this.handleChange({ reviewerId: e.target.value })}
                   />
                 </div>
               </div>
@@ -251,15 +155,9 @@ class CreateReview extends Component {
 
             <p>{this.state.message}</p>
           </div>
-        ) : (
-          <div>
-            <br />
-            <p>Review not specified</p>
-          </div>
-        )}
       </div>
     );
   }
 }
 
-export default connect(null, { updateReview })(CreateReview);
+export default connect(null, { createReview })(CreateReview);

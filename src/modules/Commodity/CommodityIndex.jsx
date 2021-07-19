@@ -89,7 +89,7 @@ class CommodityIndex extends Component {
                   onClick={() => this.setActiveCommodity(item, index)}
                   key={index}
                 >
-                  <h6>{item.name}</h6>
+                  <h6>{item.title}</h6>
                   <span>More Description Here</span>
                 </li>
               ))}
@@ -105,7 +105,7 @@ class CommodityIndex extends Component {
           </div>
         ) : (
           <div>
-            <CommodityList commodities={this.commodities} removeCommodityClick={() => {}} editCommodityClick={(i) => {}} />
+            <CommodityList commodities={this.props.commodities} removeCommodityClick={() => {}} editCommodityClick={(i) => {}} />
 
           </div>
         )}

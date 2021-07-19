@@ -2,28 +2,28 @@ import http from "../../../Utility/http";
 
 class ApiService {
   getAll() {
-    return http.get("/carts");
+    return http.get("/carts/get-carts");
   }
 
   get(id) {
-    return http.get(`/carts/${id}`);
+    return http.get(`/carts/get-cart/${id}`);
   }
 
   create(data) {
-    return http.post("/carts", data);
+    return http.post("/carts/create-cart", data);
   }
 
   update(id, data) {
-    return http.post(`/carts/${id}`, data);
+    return http.post(`/carts/update-cart/${id}`, data);
   }
 
   delete(id) {
-    return http.delete(`/carts/${id}`);
+    return http.delete(`/carts/archive-cart/${id}`);
   }
 
 
   getByBuyerId(id) {
-    return http.get(`/get-carts-by-buyer-id?id=${id}`);
+    return http.get(`/carts/get-carts-by-buyer-id?id=${id}`);
   }
 
   addCartLine(data) {

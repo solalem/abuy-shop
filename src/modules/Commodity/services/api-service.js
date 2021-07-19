@@ -2,28 +2,28 @@ import http from "../../../Utility/http";
 
 class ApiService {
   getAll() {
-    return http.get("/commodities");
+    return http.get("/commodities/get-commodities");
   }
 
   get(id) {
-    return http.get(`/commodities/${id}`);
+    return http.get(`/commodities/get-commodity/${id}`);
   }
 
   create(data) {
-    return http.post("/commodities", data);
+    return http.post("/commodities/create-commodity", data);
   }
 
   update(id, data) {
-    return http.post(`/commodities/${id}`, data);
+    return http.post(`/commodities/update-commodity/${id}`, data);
   }
 
   delete(id) {
-    return http.delete(`/commodities/${id}`);
+    return http.delete(`/commodities/archive-commodity/${id}`);
   }
 
 
   getByCategoryId(id) {
-    return http.get(`/get-commodities-by-category-id?id=${id}`);
+    return http.get(`/commodities/get-commodities-by-category-id?id=${id}`);
   }
 
   addTag(data) {

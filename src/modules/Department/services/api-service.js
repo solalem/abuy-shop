@@ -6,7 +6,7 @@ class ApiService {
   }
 
   get(id) {
-    return http.get(`/departments/${id}`);
+    return http.get(`/departments/get-department/${id}`);
   }
 
   create(data) {
@@ -18,7 +18,7 @@ class ApiService {
   }
 
   delete(id) {
-    return http.delete(`/departments/${id}`);
+    return http.delete(`/departments/archive-department/${id}`);
   }
 
 

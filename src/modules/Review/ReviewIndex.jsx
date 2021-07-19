@@ -105,7 +105,7 @@ class ReviewIndex extends Component {
           </div>
         ) : (
           <div>
-            <ReviewList reviews={this.reviews} removeReviewClick={() => {}} editReviewClick={(i) => {}} />
+            <ReviewList reviews={this.props.reviews} removeReviewClick={() => {}} editReviewClick={(i) => {}} />
 
           </div>
         )}

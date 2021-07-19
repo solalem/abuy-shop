@@ -30,7 +30,7 @@ const categoriesReducer = (state = initialState, action) => {
     case ActionTypes.RETRIEVE_CATEGORIES:
       return {
         ...state,
-        categories: payload
+        categories: payload.items
       };
 
     case ActionTypes.SET_CATEGORY_PRICE_FILTER:
@@ -47,12 +47,12 @@ const categoriesReducer = (state = initialState, action) => {
     case ActionTypes.GET_BY_DEPARTMENTID:
       return {
         ...state,
-        categories: payload
+        categories: payload.items
       };
     case ActionTypes.GET_BY_PARENTID:
       return {
         ...state,
-        categories: payload
+        categories: payload.items
       };
 
 

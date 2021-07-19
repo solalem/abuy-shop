@@ -2,28 +2,28 @@ import http from "../../../Utility/http";
 
 class ApiService {
   getAll() {
-    return http.get("/items");
+    return http.get("/items/get-items");
   }
 
   get(id) {
-    return http.get(`/items/${id}`);
+    return http.get(`/items/get-item/${id}`);
   }
 
   create(data) {
-    return http.post("/items", data);
+    return http.post("/items/create-item", data);
   }
 
   update(id, data) {
-    return http.post(`/items/${id}`, data);
+    return http.post(`/items/update-item/${id}`, data);
   }
 
   delete(id) {
-    return http.delete(`/items/${id}`);
+    return http.delete(`/items/archive-item/${id}`);
   }
 
 
   getBySellerId(id) {
-    return http.get(`/get-items-by-seller-id?id=${id}`);
+    return http.get(`/items/get-items-by-seller-id?id=${id}`);
   }
 
   addItemProperty(data) {

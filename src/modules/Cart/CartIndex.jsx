@@ -105,7 +105,7 @@ class CartIndex extends Component {
           </div>
         ) : (
           <div>
-            <CartList carts={this.carts} removeCartClick={() => {}} editCartClick={(i) => {}} />
+            <CartList carts={this.props.carts} removeCartClick={() => {}} editCartClick={(i) => {}} />
 
           </div>
         )}

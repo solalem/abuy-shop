@@ -105,7 +105,7 @@ class BundleIndex extends Component {
           </div>
         ) : (
           <div>
-            <BundleList bundles={this.bundles} removeBundleClick={() => {}} editBundleClick={(i) => {}} />
+            <BundleList bundles={this.props.bundles} removeBundleClick={() => {}} editBundleClick={(i) => {}} />
 
           </div>
         )}

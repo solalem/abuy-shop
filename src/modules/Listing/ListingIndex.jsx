@@ -105,7 +105,7 @@ class ListingIndex extends Component {
           </div>
         ) : (
           <div>
-            <ListingList listings={this.listings} removeListingClick={() => {}} editListingClick={(i) => {}} />
+            <ListingList listings={this.props.listings} removeListingClick={() => {}} editListingClick={(i) => {}} />
 
           </div>
         )}

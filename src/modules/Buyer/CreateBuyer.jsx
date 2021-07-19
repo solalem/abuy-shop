@@ -1,25 +1,26 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { updateBuyer } from "./states/actions";
+import { createBuyer } from "./states/actions";
 import ApiService from "./services/api-service";
 
 class CreateBuyer extends Component {
   constructor(props) {
     super(props);
-    this.onChangeId = this.onChangeId.bind(this);
-    this.onChangeFullName = this.onChangeFullName.bind(this);
-    this.onChangeBirthDate = this.onChangeBirthDate.bind(this);
-    this.onChangeAccountId = this.onChangeAccountId.bind(this);
-    this.onChangeDefaultShippingAddress = this.onChangeDefaultShippingAddress.bind(this);
-    this.onChangeStatus = this.onChangeStatus.bind(this);
-    this.onChangeDefaultBillingInfo = this.onChangeDefaultBillingInfo.bind(this);
-    this.onChangeMamilas = this.onChangeMamilas.bind(this);
-    this.onChangeFavourites = this.onChangeFavourites.bind(this);
-    this.onChangeRecommendations = this.onChangeRecommendations.bind(this);
+
+    this.handleChange = this.handleChange.bind(this);
     this.createBuyer = this.createBuyer.bind(this);
 
     this.state = {
-      newBuyer: {},
+      id: '',
+      fullName: '',
+      birthDate: '',
+      accountId: '',
+      defaultShippingAddress: '',
+      status: '',
+      defaultBillingInfo: '',
+      mamilas: '',
+      favourites: '',
+      recommendations: '',
       message: "",
     };
   }
@@ -27,130 +28,24 @@ class CreateBuyer extends Component {
   componentDidMount() {
   }
 
-  onChangeId(e) {
-    const id = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newBuyer: {
-          ...prevState.newBuyer,
-          id: id,
-        },
-      };
-    });
-  }
-  onChangeFullName(e) {
-    const fullName = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newBuyer: {
-          ...prevState.newBuyer,
-          fullName: fullName,
-        },
-      };
-    });
-  }
-  onChangeBirthDate(e) {
-    const birthDate = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newBuyer: {
-          ...prevState.newBuyer,
-          birthDate: birthDate,
-        },
-      };
-    });
-  }
-  onChangeAccountId(e) {
-    const accountId = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newBuyer: {
-          ...prevState.newBuyer,
-          accountId: accountId,
-        },
-      };
-    });
-  }
-  onChangeDefaultShippingAddress(e) {
-    const defaultShippingAddress = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newBuyer: {
-          ...prevState.newBuyer,
-          defaultShippingAddress: defaultShippingAddress,
-        },
-      };
-    });
-  }
-  onChangeStatus(e) {
-    const status = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newBuyer: {
-          ...prevState.newBuyer,
-          status: status,
-        },
-      };
-    });
-  }
-  onChangeDefaultBillingInfo(e) {
-    const defaultBillingInfo = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newBuyer: {
-          ...prevState.newBuyer,
-          defaultBillingInfo: defaultBillingInfo,
-        },
-      };
-    });
-  }
-  onChangeMamilas(e) {
-    const mamilas = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newBuyer: {
-          ...prevState.newBuyer,
-          mamilas: mamilas,
-        },
-      };
-    });
-  }
-  onChangeFavourites(e) {
-    const favourites = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newBuyer: {
-          ...prevState.newBuyer,
-          favourites: favourites,
-        },
-      };
-    });
-  }
-  onChangeRecommendations(e) {
-    const recommendations = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newBuyer: {
-          ...prevState.newBuyer,
-          recommendations: recommendations,
-        },
-      };
-    });
+  handleChange(changeObject) {
+    this.setState(changeObject)
   }
 
   createBuyer() {
-    ApiService.createBuyer(this.state.newBuyer)
-      .then((reponse) => {
+    ApiService.createBuyer(
+      {
+        id: this.state.id,
+        fullName: this.state.fullName,
+        birthDate: this.state.birthDate,
+        accountId: this.state.accountId,
+        defaultShippingAddress: this.state.defaultShippingAddress,
+        status: this.state.status,
+        defaultBillingInfo: this.state.defaultBillingInfo,
+        mamilas: this.state.mamilas,
+        favourites: this.state.favourites,
+        recommendations: this.state.recommendations,
+      }).then((reponse) => {
         console.log(reponse);
         
         this.setState({ message: "The Buyer was created successfully!" });
@@ -161,11 +56,9 @@ class CreateBuyer extends Component {
   }
 
   render() {
-    const { newBuyer } = this.state;
 
     return (
         <div className="m-2">
-        {newBuyer ? (
           <div className="edit-form">
             <h4>New Buyer</h4>
             <form>
@@ -176,8 +69,8 @@ class CreateBuyer extends Component {
                     type="string"
                     className="form-control"
                     id="fullName"
-                    value={newBuyer.fullName}
-                    onChange={this.onChangeFullName}
+                    value={this.state.fullName}
+                    onChange={(e) => this.handleChange({ fullName: e.target.value })}
                   />
                 </div>
               </div>
@@ -188,8 +81,8 @@ class CreateBuyer extends Component {
                     type="date"
                     className="form-control"
                     id="birthDate"
-                    value={newBuyer.birthDate}
-                    onChange={this.onChangeBirthDate}
+                    value={this.state.birthDate}
+                    onChange={(e) => this.handleChange({ birthDate: e.target.value })}
                   />
                 </div>
               </div>
@@ -200,8 +93,8 @@ class CreateBuyer extends Component {
                     type="string"
                     className="form-control"
                     id="accountId"
-                    value={newBuyer.accountId}
-                    onChange={this.onChangeAccountId}
+                    value={this.state.accountId}
+                    onChange={(e) => this.handleChange({ accountId: e.target.value })}
                   />
                 </div>
               </div>
@@ -212,44 +105,8 @@ class CreateBuyer extends Component {
                     type="string"
                     className="form-control"
                     id="defaultShippingAddress"
-                    value={newBuyer.defaultShippingAddress}
-                    onChange={this.onChangeDefaultShippingAddress}
-                  />
-                </div>
-              </div>
-              <div className="row mb-3">
-                <label className="col-sm-2 col-form-label" htmlFor="name">Mamilas</label>
-                <div className="col-sm-10">
-                  <input
-                    type="Mamila[]"
-                    className="form-control"
-                    id="mamilas"
-                    value={newBuyer.mamilas}
-                    onChange={this.onChangeMamilas}
-                  />
-                </div>
-              </div>
-              <div className="row mb-3">
-                <label className="col-sm-2 col-form-label" htmlFor="name">Favourites</label>
-                <div className="col-sm-10">
-                  <input
-                    type="FavouriteItem[]"
-                    className="form-control"
-                    id="favourites"
-                    value={newBuyer.favourites}
-                    onChange={this.onChangeFavourites}
-                  />
-                </div>
-              </div>
-              <div className="row mb-3">
-                <label className="col-sm-2 col-form-label" htmlFor="name">Recommendations</label>
-                <div className="col-sm-10">
-                  <input
-                    type="Recommendation[]"
-                    className="form-control"
-                    id="recommendations"
-                    value={newBuyer.recommendations}
-                    onChange={this.onChangeRecommendations}
+                    value={this.state.defaultShippingAddress}
+                    onChange={(e) => this.handleChange({ defaultShippingAddress: e.target.value })}
                   />
                 </div>
               </div>
@@ -264,15 +121,9 @@ class CreateBuyer extends Component {
 
             <p>{this.state.message}</p>
           </div>
-        ) : (
-          <div>
-            <br />
-            <p>Buyer not specified</p>
-          </div>
-        )}
       </div>
     );
   }
 }
 
-export default connect(null, { updateBuyer })(CreateBuyer);
+export default connect(null, { createBuyer })(CreateBuyer);

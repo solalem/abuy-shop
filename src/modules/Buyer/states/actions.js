@@ -1,9 +1,9 @@
 import * as ActionTypes from "./actionTypes";
 import ApiService from "../services/api-service";
 
-export const createBuyer = (title, description) => async (dispatch) => {
+export const createBuyer = (data) => async (dispatch) => {
   try {
-    const res = await ApiService.create({ title, description });
+    const res = await ApiService.create(data);
 
     dispatch({
       type: ActionTypes.CREATE_BUYER,
@@ -72,4 +72,123 @@ export const findBuyersByTitle = (title) => async (dispatch) => {
 
 export const setBuyerPriceFilter = (price) => {
   return { type: ActionTypes.SET_BUYER_PRICE_FILTER, price: price };
+};
+
+
+// Mamilas
+export const addMamila = (id, data) => async (dispatch) => {
+  try {
+    const res = await ApiService.addMamila(id, data);
+    dispatch({
+      type: ActionTypes.ADD_MAMILA,
+      payload: data,
+    });
+    return Promise.resolve(res.data);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
+
+export const updateMamila = (id, data) => async (dispatch) => {
+  try {
+    const res = await ApiService.updateMamila(id, data);
+    dispatch({
+      type: ActionTypes.UPDATE_MAMILA,
+      payload: data,
+    });
+    return Promise.resolve(res.data);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
+
+export const removeMamila = (id, data) => async (dispatch) => {
+  try {
+    const res = await ApiService.removeMamila(id, data);
+    dispatch({
+      type: ActionTypes.REMOVE_MAMILA,
+      payload: data,
+    });
+    return Promise.resolve(res.data);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
+// FavouriteItems
+export const addFavouriteItem = (id, data) => async (dispatch) => {
+  try {
+    const res = await ApiService.addFavouriteItem(id, data);
+    dispatch({
+      type: ActionTypes.ADD_FAVOURITEITEM,
+      payload: data,
+    });
+    return Promise.resolve(res.data);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
+
+export const updateFavouriteItem = (id, data) => async (dispatch) => {
+  try {
+    const res = await ApiService.updateFavouriteItem(id, data);
+    dispatch({
+      type: ActionTypes.UPDATE_FAVOURITEITEM,
+      payload: data,
+    });
+    return Promise.resolve(res.data);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
+
+export const removeFavouriteItem = (id, data) => async (dispatch) => {
+  try {
+    const res = await ApiService.removeFavouriteItem(id, data);
+    dispatch({
+      type: ActionTypes.REMOVE_FAVOURITEITEM,
+      payload: data,
+    });
+    return Promise.resolve(res.data);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
+// Recommendations
+export const addRecommendation = (id, data) => async (dispatch) => {
+  try {
+    const res = await ApiService.addRecommendation(id, data);
+    dispatch({
+      type: ActionTypes.ADD_RECOMMENDATION,
+      payload: data,
+    });
+    return Promise.resolve(res.data);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
+
+export const updateRecommendation = (id, data) => async (dispatch) => {
+  try {
+    const res = await ApiService.updateRecommendation(id, data);
+    dispatch({
+      type: ActionTypes.UPDATE_RECOMMENDATION,
+      payload: data,
+    });
+    return Promise.resolve(res.data);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
+
+export const removeRecommendation = (id, data) => async (dispatch) => {
+  try {
+    const res = await ApiService.removeRecommendation(id, data);
+    dispatch({
+      type: ActionTypes.REMOVE_RECOMMENDATION,
+      payload: data,
+    });
+    return Promise.resolve(res.data);
+  } catch (err) {
+    return Promise.reject(err);
+  }
 };

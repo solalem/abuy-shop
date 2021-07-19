@@ -30,7 +30,7 @@ const commoditiesReducer = (state = initialState, action) => {
     case ActionTypes.RETRIEVE_COMMODITIES:
       return {
         ...state,
-        commodities: payload
+        commodities: payload.items
       };
 
     case ActionTypes.SET_COMMODITY_PRICE_FILTER:
@@ -47,7 +47,7 @@ const commoditiesReducer = (state = initialState, action) => {
     case ActionTypes.GET_BY_CATEGORYID:
       return {
         ...state,
-        commodities: payload
+        commodities: payload.items
       };
 
     // Tags

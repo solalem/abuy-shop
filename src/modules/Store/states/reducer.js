@@ -30,7 +30,7 @@ const storesReducer = (state = initialState, action) => {
     case ActionTypes.RETRIEVE_STORES:
       return {
         ...state,
-        stores: payload
+        stores: payload.items
       };
 
     case ActionTypes.SET_STORE_PRICE_FILTER:

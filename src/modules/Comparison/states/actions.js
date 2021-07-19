@@ -1,9 +1,9 @@
 import * as ActionTypes from "./actionTypes";
 import ApiService from "../services/api-service";
 
-export const createComparison = (title, description) => async (dispatch) => {
+export const createComparison = (data) => async (dispatch) => {
   try {
-    const res = await ApiService.create({ title, description });
+    const res = await ApiService.create(data);
 
     dispatch({
       type: ActionTypes.CREATE_COMPARISON,

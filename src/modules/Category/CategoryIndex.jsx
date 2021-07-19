@@ -105,7 +105,7 @@ class CategoryIndex extends Component {
           </div>
         ) : (
           <div>
-            <CategoryList categories={this.categories} removeCategoryClick={() => {}} editCategoryClick={(i) => {}} />
+            <CategoryList categories={this.props.categories} removeCategoryClick={() => {}} editCategoryClick={(i) => {}} />
 
           </div>
         )}

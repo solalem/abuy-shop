@@ -105,7 +105,7 @@ class BusinessTemplateIndex extends Component {
           </div>
         ) : (
           <div>
-            <BusinessTemplateList businessTemplates={this.businessTemplates} removeBusinessTemplateClick={() => {}} editBusinessTemplateClick={(i) => {}} />
+            <BusinessTemplateList businessTemplates={this.props.businessTemplates} removeBusinessTemplateClick={() => {}} editBusinessTemplateClick={(i) => {}} />
 
           </div>
         )}

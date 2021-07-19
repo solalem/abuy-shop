@@ -30,7 +30,7 @@ const listingsReducer = (state = initialState, action) => {
     case ActionTypes.RETRIEVE_LISTINGS:
       return {
         ...state,
-        listings: payload
+        listings: payload.items
       };
 
     case ActionTypes.SET_LISTING_PRICE_FILTER:

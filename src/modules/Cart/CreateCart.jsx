@@ -1,21 +1,22 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { updateCart } from "./states/actions";
+import { createCart } from "./states/actions";
 import ApiService from "./services/api-service";
 
 class CreateCart extends Component {
   constructor(props) {
     super(props);
-    this.onChangeId = this.onChangeId.bind(this);
-    this.onChangeBuyerId = this.onChangeBuyerId.bind(this);
-    this.onChangeCreatedOn = this.onChangeCreatedOn.bind(this);
-    this.onChangeIsSaved = this.onChangeIsSaved.bind(this);
-    this.onChangeLineItems = this.onChangeLineItems.bind(this);
-    this.onChangeVisitInfo = this.onChangeVisitInfo.bind(this);
+
+    this.handleChange = this.handleChange.bind(this);
     this.createCart = this.createCart.bind(this);
 
     this.state = {
-      newCart: {},
+      id: '',
+      buyerId: '',
+      createdOn: '',
+      isSaved: '',
+      lineItems: '',
+      visitInfo: '',
       message: "",
     };
   }
@@ -23,82 +24,20 @@ class CreateCart extends Component {
   componentDidMount() {
   }
 
-  onChangeId(e) {
-    const id = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newCart: {
-          ...prevState.newCart,
-          id: id,
-        },
-      };
-    });
-  }
-  onChangeBuyerId(e) {
-    const buyerId = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newCart: {
-          ...prevState.newCart,
-          buyerId: buyerId,
-        },
-      };
-    });
-  }
-  onChangeCreatedOn(e) {
-    const createdOn = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newCart: {
-          ...prevState.newCart,
-          createdOn: createdOn,
-        },
-      };
-    });
-  }
-  onChangeIsSaved(e) {
-    const isSaved = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newCart: {
-          ...prevState.newCart,
-          isSaved: isSaved,
-        },
-      };
-    });
-  }
-  onChangeLineItems(e) {
-    const lineItems = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newCart: {
-          ...prevState.newCart,
-          lineItems: lineItems,
-        },
-      };
-    });
-  }
-  onChangeVisitInfo(e) {
-    const visitInfo = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newCart: {
-          ...prevState.newCart,
-          visitInfo: visitInfo,
-        },
-      };
-    });
+  handleChange(changeObject) {
+    this.setState(changeObject)
   }
 
   createCart() {
-    ApiService.createCart(this.state.newCart)
-      .then((reponse) => {
+    ApiService.createCart(
+      {
+        id: this.state.id,
+        buyerId: this.state.buyerId,
+        createdOn: this.state.createdOn,
+        isSaved: this.state.isSaved,
+        lineItems: this.state.lineItems,
+        visitInfo: this.state.visitInfo,
+      }).then((reponse) => {
         console.log(reponse);
         
         this.setState({ message: "The Cart was created successfully!" });
@@ -109,11 +48,9 @@ class CreateCart extends Component {
   }
 
   render() {
-    const { newCart } = this.state;
 
     return (
         <div className="m-2">
-        {newCart ? (
           <div className="edit-form">
             <h4>New Cart</h4>
             <form>
@@ -124,8 +61,8 @@ class CreateCart extends Component {
                     type="string"
                     className="form-control"
                     id="buyerId"
-                    value={newCart.buyerId}
-                    onChange={this.onChangeBuyerId}
+                    value={this.state.buyerId}
+                    onChange={(e) => this.handleChange({ buyerId: e.target.value })}
                   />
                 </div>
               </div>
@@ -136,8 +73,8 @@ class CreateCart extends Component {
                     type="date"
                     className="form-control"
                     id="createdOn"
-                    value={newCart.createdOn}
-                    onChange={this.onChangeCreatedOn}
+                    value={this.state.createdOn}
+                    onChange={(e) => this.handleChange({ createdOn: e.target.value })}
                   />
                 </div>
               </div>
@@ -148,8 +85,8 @@ class CreateCart extends Component {
                     type="boolean"
                     className="form-control"
                     id="isSaved"
-                    value={newCart.isSaved}
-                    onChange={this.onChangeIsSaved}
+                    value={this.state.isSaved}
+                    onChange={(e) => this.handleChange({ isSaved: e.target.value })}
                   />
                 </div>
               </div>
@@ -164,15 +101,9 @@ class CreateCart extends Component {
 
             <p>{this.state.message}</p>
           </div>
-        ) : (
-          <div>
-            <br />
-            <p>Cart not specified</p>
-          </div>
-        )}
       </div>
     );
   }
 }
 
-export default connect(null, { updateCart })(CreateCart);
+export default connect(null, { createCart })(CreateCart);

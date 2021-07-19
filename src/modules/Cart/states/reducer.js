@@ -30,7 +30,7 @@ const cartsReducer = (state = initialState, action) => {
     case ActionTypes.RETRIEVE_CARTS:
       return {
         ...state,
-        carts: payload
+        carts: payload.items
       };
 
     case ActionTypes.SET_CART_PRICE_FILTER:
@@ -47,7 +47,7 @@ const cartsReducer = (state = initialState, action) => {
     case ActionTypes.GET_BY_BUYERID:
       return {
         ...state,
-        carts: payload
+        carts: payload.items
       };
 
     // CartLines

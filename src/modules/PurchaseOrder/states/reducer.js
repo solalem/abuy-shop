@@ -30,7 +30,7 @@ const purchaseOrdersReducer = (state = initialState, action) => {
     case ActionTypes.RETRIEVE_PURCHASEORDERS:
       return {
         ...state,
-        purchaseOrders: payload
+        purchaseOrders: payload.items
       };
 
     case ActionTypes.SET_PURCHASEORDER_PRICE_FILTER:

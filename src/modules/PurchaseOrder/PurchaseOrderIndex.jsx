@@ -105,7 +105,7 @@ class PurchaseOrderIndex extends Component {
           </div>
         ) : (
           <div>
-            <PurchaseOrderList purchaseOrders={this.purchaseOrders} removePurchaseOrderClick={() => {}} editPurchaseOrderClick={(i) => {}} />
+            <PurchaseOrderList purchaseOrders={this.props.purchaseOrders} removePurchaseOrderClick={() => {}} editPurchaseOrderClick={(i) => {}} />
 
           </div>
         )}

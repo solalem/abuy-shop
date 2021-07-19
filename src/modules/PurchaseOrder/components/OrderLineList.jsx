@@ -26,7 +26,7 @@ class OrderLineList extends Component {
             <tr>
               <td>ItemName</td>
               <td>ItemCode</td>
-              <td>OrderId</td>
+              <td>PurchaseOrderId</td>
               <td>Quantity</td>
               <td>UnitPrice</td>
               <td>TotalPrice</td>
@@ -38,7 +38,7 @@ class OrderLineList extends Component {
             <tr key={index}>
               <td>{item.itemName}</td>
               <td>{item.itemCode}</td>
-              <td>{item.orderId}</td>
+              <td>{item.purchaseOrderId}</td>
               <td>{item.quantity}</td>
               <td>{item.unitPrice}</td>
               <td>{item.totalPrice}</td>

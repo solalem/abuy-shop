@@ -6,86 +6,34 @@ import ApiService from "./services/api-service";
 class CreateDepartment extends Component {
   constructor(props) {
     super(props);
-    //this.onChangeId = this.onChangeId.bind(this);
+
     this.handleChange = this.handleChange.bind(this);
-    // this.onChangeStatus = this.onChangeStatus.bind(this);
-    // this.onChangeName = this.onChangeName.bind(this);
-    // this.onChangeDescription = this.onChangeDescription.bind(this);
     this.createDepartment = this.createDepartment.bind(this);
 
     this.state = {
+      id: '',
       status: '',
       name: '',
       description: '',
-      message: '',
+      message: "",
     };
   }
 
-  // componentDidMount() {
-  // }
+  componentDidMount() {
+  }
 
-  // onChangeId(e) {
-  //   const id = e.target.value;
-
-  //   this.setState(function (prevState) {
-  //     return {
-  //       newDepartment: {
-  //         ...prevState.newDepartment,
-  //         id: id,
-  //       },
-  //     };
-  //   });
-  // }
-  
   handleChange(changeObject) {
     this.setState(changeObject)
   }
 
-  // onChangeStatus(e) {
-  //   const status = e.target.value;
-
-  //   this.setState(function (prevState) {
-  //     return {
-  //       newDepartment: {
-  //         ...prevState.newDepartment,
-  //         status: status,
-  //       },
-  //     };
-  //   });
-  // }
-  // onChangeName(e) {
-  //   const name = e.target.value;
-
-  //   this.setState(function (prevState) {
-  //     return {
-  //       newDepartment: {
-  //         ...prevState.newDepartment,
-  //         name: name,
-  //       },
-  //     };
-  //   });
-  // }
-  // onChangeDescription(e) {
-  //   const description = e.target.value;
-
-  //   this.setState(function (prevState) {
-  //     return {
-  //       newDepartment: {
-  //         ...prevState.newDepartment,
-  //         description: description,
-  //       },
-  //     };
-  //   });
-  // }
-
   createDepartment() {
-    this.props.createDepartment(
+    ApiService.createDepartment(
       {
+        id: this.state.id,
+        status: this.state.status,
         name: this.state.name,
         description: this.state.description,
-        status: this.state.status,
-      })
-      .then((reponse) => {
+      }).then((reponse) => {
         console.log(reponse);
         
         this.setState({ message: "The Department was created successfully!" });
@@ -96,12 +44,10 @@ class CreateDepartment extends Component {
   }
 
   render() {
-    const { newDepartment } = this.state;
 
     return (
-      <div className="m-2">
-        
-        <div className="edit-form">
+        <div className="m-2">
+          <div className="edit-form">
             <h4>New Department</h4>
             <form>
               <div className="row mb-3">

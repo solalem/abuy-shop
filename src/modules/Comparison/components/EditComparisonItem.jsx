@@ -8,7 +8,7 @@ class EditComparisonItem extends Component {
 
     this.onChangeId = this.onChangeId.bind(this);
     this.onChangeListingId = this.onChangeListingId.bind(this);
-    this.onChangeComparisionId = this.onChangeComparisionId.bind(this);
+    this.onChangeComparisonId = this.onChangeComparisonId.bind(this);
     this.onChangePrice = this.onChangePrice.bind(this);
     this.onChangeSpecifications = this.onChangeSpecifications.bind(this);
 
@@ -47,14 +47,14 @@ class EditComparisonItem extends Component {
       };
     });
   }
-  onChangeComparisionId(e) {
-    const comparisionId = e.target.value;
+  onChangeComparisonId(e) {
+    const comparisonId = e.target.value;
 
     this.setState(function (prevState) {
       return {
         currentComparisonItem: {
           ...prevState.currentComparisonItem,
-          comparisionId: comparisionId,
+          comparisonId: comparisonId,
         },
       };
     });
@@ -106,14 +106,14 @@ class EditComparisonItem extends Component {
                 </div>
               </div>
               <div className="row mb-3">
-                <label className="col-sm-2 col-form-label" htmlFor="name">ComparisionId</label>
+                <label className="col-sm-2 col-form-label" htmlFor="name">ComparisonId</label>
                 <div className="col-sm-10">
                   <input
                     type="string"
                     className="form-control"
-                    id="comparisionId"
-                    value={currentComparisonItem.comparisionId}
-                    onChange={this.onChangeComparisionId}
+                    id="comparisonId"
+                    value={currentComparisonItem.comparisonId}
+                    onChange={this.onChangeComparisonId}
                   />
                 </div>
               </div>
