@@ -1,77 +1,90 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { updateDepartment } from "./states/actions";
+import { createDepartment } from "./states/actions";
 import ApiService from "./services/api-service";
 
 class CreateDepartment extends Component {
   constructor(props) {
     super(props);
-    this.onChangeId = this.onChangeId.bind(this);
-    this.onChangeStatus = this.onChangeStatus.bind(this);
-    this.onChangeName = this.onChangeName.bind(this);
-    this.onChangeDescription = this.onChangeDescription.bind(this);
+    //this.onChangeId = this.onChangeId.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    // this.onChangeStatus = this.onChangeStatus.bind(this);
+    // this.onChangeName = this.onChangeName.bind(this);
+    // this.onChangeDescription = this.onChangeDescription.bind(this);
     this.createDepartment = this.createDepartment.bind(this);
 
     this.state = {
-      newDepartment: {},
-      message: "",
+      status: '',
+      name: '',
+      description: '',
+      message: '',
     };
   }
 
-  componentDidMount() {
+  // componentDidMount() {
+  // }
+
+  // onChangeId(e) {
+  //   const id = e.target.value;
+
+  //   this.setState(function (prevState) {
+  //     return {
+  //       newDepartment: {
+  //         ...prevState.newDepartment,
+  //         id: id,
+  //       },
+  //     };
+  //   });
+  // }
+  
+  handleChange(changeObject) {
+    this.setState(changeObject)
   }
 
-  onChangeId(e) {
-    const id = e.target.value;
+  // onChangeStatus(e) {
+  //   const status = e.target.value;
 
-    this.setState(function (prevState) {
-      return {
-        newDepartment: {
-          ...prevState.newDepartment,
-          id: id,
-        },
-      };
-    });
-  }
-  onChangeStatus(e) {
-    const status = e.target.value;
+  //   this.setState(function (prevState) {
+  //     return {
+  //       newDepartment: {
+  //         ...prevState.newDepartment,
+  //         status: status,
+  //       },
+  //     };
+  //   });
+  // }
+  // onChangeName(e) {
+  //   const name = e.target.value;
 
-    this.setState(function (prevState) {
-      return {
-        newDepartment: {
-          ...prevState.newDepartment,
-          status: status,
-        },
-      };
-    });
-  }
-  onChangeName(e) {
-    const name = e.target.value;
+  //   this.setState(function (prevState) {
+  //     return {
+  //       newDepartment: {
+  //         ...prevState.newDepartment,
+  //         name: name,
+  //       },
+  //     };
+  //   });
+  // }
+  // onChangeDescription(e) {
+  //   const description = e.target.value;
 
-    this.setState(function (prevState) {
-      return {
-        newDepartment: {
-          ...prevState.newDepartment,
-          name: name,
-        },
-      };
-    });
-  }
-  onChangeDescription(e) {
-    const description = e.target.value;
-
-    this.setState(function (prevState) {
-      return {
-        newDepartment: {
-          ...prevState.newDepartment,
-          description: description,
-        },
-      };
-    });
-  }
+  //   this.setState(function (prevState) {
+  //     return {
+  //       newDepartment: {
+  //         ...prevState.newDepartment,
+  //         description: description,
+  //       },
+  //     };
+  //   });
+  // }
 
   createDepartment() {
-    ApiService.createDepartment(this.state.newDepartment)
+    this.props.createDepartment(
+      {
+        name: this.state.name,
+        description: this.state.description,
+        status: this.state.status,
+      })
       .then((reponse) => {
         console.log(reponse);
         
@@ -86,9 +99,9 @@ class CreateDepartment extends Component {
     const { newDepartment } = this.state;
 
     return (
-        <div className="m-2">
-        {newDepartment ? (
-          <div className="edit-form">
+      <div className="m-2">
+        
+        <div className="edit-form">
             <h4>New Department</h4>
             <form>
               <div className="row mb-3">
@@ -98,8 +111,8 @@ class CreateDepartment extends Component {
                     type="string"
                     className="form-control"
                     id="status"
-                    value={newDepartment.status}
-                    onChange={this.onChangeStatus}
+                    value={this.state.status}
+                    onChange={(e) => this.handleChange({ status: e.target.value })}
                   />
                 </div>
               </div>
@@ -110,8 +123,8 @@ class CreateDepartment extends Component {
                     type="string"
                     className="form-control"
                     id="name"
-                    value={newDepartment.name}
-                    onChange={this.onChangeName}
+                    value={this.state.name}
+                    onChange={(e) => this.handleChange({ name: e.target.value })}
                   />
                 </div>
               </div>
@@ -122,8 +135,8 @@ class CreateDepartment extends Component {
                     type="string"
                     className="form-control"
                     id="description"
-                    value={newDepartment.description}
-                    onChange={this.onChangeDescription}
+                    value={this.state.description}
+                    onChange={(e) => this.handleChange({ description: e.target.value })}
                   />
                 </div>
               </div>
@@ -138,15 +151,9 @@ class CreateDepartment extends Component {
 
             <p>{this.state.message}</p>
           </div>
-        ) : (
-          <div>
-            <br />
-            <p>Department not specified</p>
-          </div>
-        )}
       </div>
     );
   }
 }
 
-export default connect(null, { updateDepartment })(CreateDepartment);
+export default connect(null, { createDepartment })(CreateDepartment);

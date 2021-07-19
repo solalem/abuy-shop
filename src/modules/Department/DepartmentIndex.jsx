@@ -105,7 +105,7 @@ class DepartmentIndex extends Component {
           </div>
         ) : (
           <div>
-            <DepartmentList departments={this.departments} removeDepartmentClick={() => {}} editDepartmentClick={(i) => {}} />
+            <DepartmentList departments={this.props.departments} removeDepartmentClick={() => {}} editDepartmentClick={(i) => {}} />
 
           </div>
         )}

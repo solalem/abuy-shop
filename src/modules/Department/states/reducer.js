@@ -30,7 +30,7 @@ const departmentsReducer = (state = initialState, action) => {
     case ActionTypes.RETRIEVE_DEPARTMENTS:
       return {
         ...state,
-        departments: payload
+        departments: payload.items
       };
 
     case ActionTypes.SET_DEPARTMENT_PRICE_FILTER:

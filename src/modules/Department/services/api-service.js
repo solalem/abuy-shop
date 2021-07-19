@@ -2,7 +2,7 @@ import http from "../../../Utility/http";
 
 class ApiService {
   getAll() {
-    return http.get("/departments");
+    return http.get("/departments/get-departments");
   }
 
   get(id) {
@@ -10,11 +10,11 @@ class ApiService {
   }
 
   create(data) {
-    return http.post("/departments", data);
+    return http.post("/departments/create-department", data);
   }
 
   update(id, data) {
-    return http.post(`/departments/${id}`, data);
+    return http.post(`/departments/update-department/${id}`, data);
   }
 
   delete(id) {
