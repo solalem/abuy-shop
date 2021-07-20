@@ -99,13 +99,13 @@ class CommodityIndex extends Component {
               </ul>
             </div>
             <div className="col-md-9 p-2">
-              <CommodityDetails current={current} 
+              <CommodityDetails currentCommodity={current} 
               key={current.id}/>
             </div>
           </div>
         ) : (
           <div>
-            <CommodityList commodities={this.props.commodities} removeCommodityClick={() => {}} editCommodityClick={(i) => {}} />
+            <CommodityList commodities={this.props.commodities} removeCommodityClick={() => {}} editCommodityClick={(item, index) => this.setActiveCommodity(item, index)} />
 
           </div>
         )}

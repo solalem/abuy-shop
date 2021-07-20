@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import NoData from "../../../shared/NoData";
 import Modal from "../../../shared/Modal";
 import PropTypes from "prop-types";
-import { FaEdit } from "react-icons/fa";
+import { FaEdit, FaTrash } from "react-icons/fa";
 
 class ComparisonList extends Component {
   constructor(props) {
@@ -31,22 +31,18 @@ class ComparisonList extends Component {
           </thead>
           <tbody>
             {comparisons && comparisons.map((item, index) => (
-            <tr key={index}>
+            <tr 
+              key={index}
+              onClick={() => this.props.editComparisonClick(item)}
+              >
               <td>{item.buyerId}</td>
               <td>{item.date}</td>
               <td>
                 <button
-                  className="btn btn-sm text-primary"
-                  onClick={() => this.props.editComparisonClick(item)}
-                >
-                  <FaEdit />
-                </button>
-                <button
                   className="btn btn-sm btn-danger"
                   onClick={() => this.props.removeComparisonClick(item)}
                 >
-                  <i className="fa fa-trash" />
-                  ?
+                  <FaTrash />
                 </button>
               </td>
             </tr>

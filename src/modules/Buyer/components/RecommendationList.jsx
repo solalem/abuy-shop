@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import NoData from "../../../shared/NoData";
 import Modal from "../../../shared/Modal";
 import PropTypes from "prop-types";
-import { FaEdit } from "react-icons/fa";
+import { FaEdit, FaTrash } from "react-icons/fa";
 
 class RecommendationList extends Component {
   constructor(props) {
@@ -32,23 +32,19 @@ class RecommendationList extends Component {
           </thead>
           <tbody>
             {recommendations && recommendations.map((item, index) => (
-            <tr key={index}>
+            <tr 
+              key={index}
+              onClick={() => this.props.editRecommendationClick(item)}
+              >
               <td>{item.score}</td>
               <td>{item.listingId}</td>
               <td>{item.buyerId}</td>
               <td>
                 <button
-                  className="btn btn-sm text-primary"
-                  onClick={() => this.props.editRecommendationClick(item)}
-                >
-                  <FaEdit />
-                </button>
-                <button
                   className="btn btn-sm btn-danger"
                   onClick={() => this.props.removeRecommendationClick(item)}
                 >
-                  <i className="fa fa-trash" />
-                  ?
+                  <FaTrash />
                 </button>
               </td>
             </tr>

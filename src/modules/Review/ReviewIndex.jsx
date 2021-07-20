@@ -99,13 +99,13 @@ class ReviewIndex extends Component {
               </ul>
             </div>
             <div className="col-md-9 p-2">
-              <ReviewDetails current={current} 
+              <ReviewDetails currentReview={current} 
               key={current.id}/>
             </div>
           </div>
         ) : (
           <div>
-            <ReviewList reviews={this.props.reviews} removeReviewClick={() => {}} editReviewClick={(i) => {}} />
+            <ReviewList reviews={this.props.reviews} removeReviewClick={() => {}} editReviewClick={(item, index) => this.setActiveReview(item, index)} />
 
           </div>
         )}

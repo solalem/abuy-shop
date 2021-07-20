@@ -14,7 +14,7 @@ class ApiService {
   }
 
   update(id, data) {
-    return http.post(`/buyers/update-buyer/${id}`, data);
+    return http.post(`/buyers/update-buyer`, data);
   }
 
   delete(id) {

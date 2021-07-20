@@ -99,13 +99,13 @@ class ComparisonIndex extends Component {
               </ul>
             </div>
             <div className="col-md-9 p-2">
-              <ComparisonDetails current={current} 
+              <ComparisonDetails currentComparison={current} 
               key={current.id}/>
             </div>
           </div>
         ) : (
           <div>
-            <ComparisonList comparisons={this.props.comparisons} removeComparisonClick={() => {}} editComparisonClick={(i) => {}} />
+            <ComparisonList comparisons={this.props.comparisons} removeComparisonClick={() => {}} editComparisonClick={(item, index) => this.setActiveComparison(item, index)} />
 
           </div>
         )}

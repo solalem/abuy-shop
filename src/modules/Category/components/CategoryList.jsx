@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import NoData from "../../../shared/NoData";
 import Modal from "../../../shared/Modal";
 import PropTypes from "prop-types";
-import { FaEdit } from "react-icons/fa";
+import { FaEdit, FaTrash } from "react-icons/fa";
 
 class CategoryList extends Component {
   constructor(props) {
@@ -34,7 +34,10 @@ class CategoryList extends Component {
           </thead>
           <tbody>
             {categories && categories.map((item, index) => (
-            <tr key={index}>
+            <tr 
+              key={index}
+              onClick={() => this.props.editCategoryClick(item)}
+              >
               <td>{item.name}</td>
               <td>{item.description}</td>
               <td>{item.isOpen}</td>
@@ -42,17 +45,10 @@ class CategoryList extends Component {
               <td>{item.parentId}</td>
               <td>
                 <button
-                  className="btn btn-sm text-primary"
-                  onClick={() => this.props.editCategoryClick(item)}
-                >
-                  <FaEdit />
-                </button>
-                <button
                   className="btn btn-sm btn-danger"
                   onClick={() => this.props.removeCategoryClick(item)}
                 >
-                  <i className="fa fa-trash" />
-                  ?
+                  <FaTrash />
                 </button>
               </td>
             </tr>

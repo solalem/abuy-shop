@@ -99,13 +99,13 @@ class SellerIndex extends Component {
               </ul>
             </div>
             <div className="col-md-9 p-2">
-              <SellerDetails current={current} 
+              <SellerDetails currentSeller={current} 
               key={current.id}/>
             </div>
           </div>
         ) : (
           <div>
-            <SellerList sellers={this.props.sellers} removeSellerClick={() => {}} editSellerClick={(i) => {}} />
+            <SellerList sellers={this.props.sellers} removeSellerClick={() => {}} editSellerClick={(item, index) => this.setActiveSeller(item, index)} />
 
           </div>
         )}

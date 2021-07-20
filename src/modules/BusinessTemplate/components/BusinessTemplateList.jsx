@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import NoData from "../../../shared/NoData";
 import Modal from "../../../shared/Modal";
 import PropTypes from "prop-types";
-import { FaEdit } from "react-icons/fa";
+import { FaEdit, FaTrash } from "react-icons/fa";
 
 class BusinessTemplateList extends Component {
   constructor(props) {
@@ -32,23 +32,19 @@ class BusinessTemplateList extends Component {
           </thead>
           <tbody>
             {businessTemplates && businessTemplates.map((item, index) => (
-            <tr key={index}>
+            <tr 
+              key={index}
+              onClick={() => this.props.editBusinessTemplateClick(item)}
+              >
               <td>{item.name}</td>
               <td>{item.departmentId}</td>
               <td>{item.commodyIds}</td>
               <td>
                 <button
-                  className="btn btn-sm text-primary"
-                  onClick={() => this.props.editBusinessTemplateClick(item)}
-                >
-                  <FaEdit />
-                </button>
-                <button
                   className="btn btn-sm btn-danger"
                   onClick={() => this.props.removeBusinessTemplateClick(item)}
                 >
-                  <i className="fa fa-trash" />
-                  ?
+                  <FaTrash />
                 </button>
               </td>
             </tr>

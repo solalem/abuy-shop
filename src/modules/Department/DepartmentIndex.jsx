@@ -99,13 +99,13 @@ class DepartmentIndex extends Component {
               </ul>
             </div>
             <div className="col-md-9 p-2">
-              <DepartmentDetails current={current} 
+              <DepartmentDetails currentDepartment={current} 
               key={current.id}/>
             </div>
           </div>
         ) : (
           <div>
-            <DepartmentList departments={this.props.departments} removeDepartmentClick={() => {}} editDepartmentClick={(i) => {}} />
+            <DepartmentList departments={this.props.departments} removeDepartmentClick={() => {}} editDepartmentClick={(item, index) => this.setActiveDepartment(item, index)} />
 
           </div>
         )}

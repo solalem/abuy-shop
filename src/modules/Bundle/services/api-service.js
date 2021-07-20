@@ -14,7 +14,7 @@ class ApiService {
   }
 
   update(id, data) {
-    return http.post(`/bundles/update-bundle/${id}`, data);
+    return http.post(`/bundles/update-bundle`, data);
   }
 
   delete(id) {

@@ -14,7 +14,7 @@ class ApiService {
   }
 
   update(id, data) {
-    return http.post(`/business-templates/update-business-template/${id}`, data);
+    return http.post(`/business-templates/update-business-template`, data);
   }
 
   delete(id) {

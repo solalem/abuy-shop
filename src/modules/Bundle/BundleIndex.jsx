@@ -99,13 +99,13 @@ class BundleIndex extends Component {
               </ul>
             </div>
             <div className="col-md-9 p-2">
-              <BundleDetails current={current} 
+              <BundleDetails currentBundle={current} 
               key={current.id}/>
             </div>
           </div>
         ) : (
           <div>
-            <BundleList bundles={this.props.bundles} removeBundleClick={() => {}} editBundleClick={(i) => {}} />
+            <BundleList bundles={this.props.bundles} removeBundleClick={() => {}} editBundleClick={(item, index) => this.setActiveBundle(item, index)} />
 
           </div>
         )}

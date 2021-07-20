@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import NoData from "../../../shared/NoData";
 import Modal from "../../../shared/Modal";
 import PropTypes from "prop-types";
-import { FaEdit } from "react-icons/fa";
+import { FaEdit, FaTrash } from "react-icons/fa";
 
 class ItemList extends Component {
   constructor(props) {
@@ -40,7 +40,10 @@ class ItemList extends Component {
           </thead>
           <tbody>
             {items && items.map((item, index) => (
-            <tr key={index}>
+            <tr 
+              key={index}
+              onClick={() => this.props.editItemClick(item)}
+              >
               <td>{item.name}</td>
               <td>{item.brand}</td>
               <td>{item.commodityId}</td>
@@ -54,17 +57,10 @@ class ItemList extends Component {
               <td>{item.sellerId}</td>
               <td>
                 <button
-                  className="btn btn-sm text-primary"
-                  onClick={() => this.props.editItemClick(item)}
-                >
-                  <FaEdit />
-                </button>
-                <button
                   className="btn btn-sm btn-danger"
                   onClick={() => this.props.removeItemClick(item)}
                 >
-                  <i className="fa fa-trash" />
-                  ?
+                  <FaTrash />
                 </button>
               </td>
             </tr>

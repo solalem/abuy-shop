@@ -99,13 +99,13 @@ class BuyerIndex extends Component {
               </ul>
             </div>
             <div className="col-md-9 p-2">
-              <BuyerDetails current={current} 
+              <BuyerDetails currentBuyer={current} 
               key={current.id}/>
             </div>
           </div>
         ) : (
           <div>
-            <BuyerList buyers={this.props.buyers} removeBuyerClick={() => {}} editBuyerClick={(i) => {}} />
+            <BuyerList buyers={this.props.buyers} removeBuyerClick={() => {}} editBuyerClick={(item, index) => this.setActiveBuyer(item, index)} />
 
           </div>
         )}

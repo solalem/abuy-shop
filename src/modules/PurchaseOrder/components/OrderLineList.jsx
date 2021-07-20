@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import NoData from "../../../shared/NoData";
 import Modal from "../../../shared/Modal";
 import PropTypes from "prop-types";
-import { FaEdit } from "react-icons/fa";
+import { FaEdit, FaTrash } from "react-icons/fa";
 
 class OrderLineList extends Component {
   constructor(props) {
@@ -35,7 +35,10 @@ class OrderLineList extends Component {
           </thead>
           <tbody>
             {orderLines && orderLines.map((item, index) => (
-            <tr key={index}>
+            <tr 
+              key={index}
+              onClick={() => this.props.editOrderLineClick(item)}
+              >
               <td>{item.itemName}</td>
               <td>{item.itemCode}</td>
               <td>{item.purchaseOrderId}</td>
@@ -44,17 +47,10 @@ class OrderLineList extends Component {
               <td>{item.totalPrice}</td>
               <td>
                 <button
-                  className="btn btn-sm text-primary"
-                  onClick={() => this.props.editOrderLineClick(item)}
-                >
-                  <FaEdit />
-                </button>
-                <button
                   className="btn btn-sm btn-danger"
                   onClick={() => this.props.removeOrderLineClick(item)}
                 >
-                  <i className="fa fa-trash" />
-                  ?
+                  <FaTrash />
                 </button>
               </td>
             </tr>

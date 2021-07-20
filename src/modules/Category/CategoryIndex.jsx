@@ -99,13 +99,13 @@ class CategoryIndex extends Component {
               </ul>
             </div>
             <div className="col-md-9 p-2">
-              <CategoryDetails current={current} 
+              <CategoryDetails currentCategory={current} 
               key={current.id}/>
             </div>
           </div>
         ) : (
           <div>
-            <CategoryList categories={this.props.categories} removeCategoryClick={() => {}} editCategoryClick={(i) => {}} />
+            <CategoryList categories={this.props.categories} removeCategoryClick={() => {}} editCategoryClick={(item, index) => this.setActiveCategory(item, index)} />
 
           </div>
         )}

@@ -99,13 +99,13 @@ class CartIndex extends Component {
               </ul>
             </div>
             <div className="col-md-9 p-2">
-              <CartDetails current={current} 
+              <CartDetails currentCart={current} 
               key={current.id}/>
             </div>
           </div>
         ) : (
           <div>
-            <CartList carts={this.props.carts} removeCartClick={() => {}} editCartClick={(i) => {}} />
+            <CartList carts={this.props.carts} removeCartClick={() => {}} editCartClick={(item, index) => this.setActiveCart(item, index)} />
 
           </div>
         )}

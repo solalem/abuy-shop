@@ -99,13 +99,13 @@ class ItemIndex extends Component {
               </ul>
             </div>
             <div className="col-md-9 p-2">
-              <ItemDetails current={current} 
+              <ItemDetails currentItem={current} 
               key={current.id}/>
             </div>
           </div>
         ) : (
           <div>
-            <ItemList items={this.props.items} removeItemClick={() => {}} editItemClick={(i) => {}} />
+            <ItemList items={this.props.items} removeItemClick={() => {}} editItemClick={(item, index) => this.setActiveItem(item, index)} />
 
           </div>
         )}

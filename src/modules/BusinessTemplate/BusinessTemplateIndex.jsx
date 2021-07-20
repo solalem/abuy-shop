@@ -99,13 +99,13 @@ class BusinessTemplateIndex extends Component {
               </ul>
             </div>
             <div className="col-md-9 p-2">
-              <BusinessTemplateDetails current={current} 
+              <BusinessTemplateDetails currentBusinessTemplate={current} 
               key={current.id}/>
             </div>
           </div>
         ) : (
           <div>
-            <BusinessTemplateList businessTemplates={this.props.businessTemplates} removeBusinessTemplateClick={() => {}} editBusinessTemplateClick={(i) => {}} />
+            <BusinessTemplateList businessTemplates={this.props.businessTemplates} removeBusinessTemplateClick={() => {}} editBusinessTemplateClick={(item, index) => this.setActiveBusinessTemplate(item, index)} />
 
           </div>
         )}

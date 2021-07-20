@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import NoData from "../../../shared/NoData";
 import Modal from "../../../shared/Modal";
 import PropTypes from "prop-types";
-import { FaEdit } from "react-icons/fa";
+import { FaEdit, FaTrash } from "react-icons/fa";
 
 class DiscountList extends Component {
   constructor(props) {
@@ -35,7 +35,10 @@ class DiscountList extends Component {
           </thead>
           <tbody>
             {discounts && discounts.map((item, index) => (
-            <tr key={index}>
+            <tr 
+              key={index}
+              onClick={() => this.props.editDiscountClick(item)}
+              >
               <td>{item.name}</td>
               <td>{item.startDate}</td>
               <td>{item.endDate}</td>
@@ -44,17 +47,10 @@ class DiscountList extends Component {
               <td>{item.listingId}</td>
               <td>
                 <button
-                  className="btn btn-sm text-primary"
-                  onClick={() => this.props.editDiscountClick(item)}
-                >
-                  <FaEdit />
-                </button>
-                <button
                   className="btn btn-sm btn-danger"
                   onClick={() => this.props.removeDiscountClick(item)}
                 >
-                  <i className="fa fa-trash" />
-                  ?
+                  <FaTrash />
                 </button>
               </td>
             </tr>

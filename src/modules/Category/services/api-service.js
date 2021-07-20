@@ -14,7 +14,7 @@ class ApiService {
   }
 
   update(id, data) {
-    return http.post(`/categories/update-category/${id}`, data);
+    return http.post(`/categories/update-category`, data);
   }
 
   delete(id) {

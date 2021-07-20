@@ -99,13 +99,13 @@ class ListingIndex extends Component {
               </ul>
             </div>
             <div className="col-md-9 p-2">
-              <ListingDetails current={current} 
+              <ListingDetails currentListing={current} 
               key={current.id}/>
             </div>
           </div>
         ) : (
           <div>
-            <ListingList listings={this.props.listings} removeListingClick={() => {}} editListingClick={(i) => {}} />
+            <ListingList listings={this.props.listings} removeListingClick={() => {}} editListingClick={(item, index) => this.setActiveListing(item, index)} />
 
           </div>
         )}

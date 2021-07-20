@@ -99,13 +99,13 @@ class StoreIndex extends Component {
               </ul>
             </div>
             <div className="col-md-9 p-2">
-              <StoreDetails current={current} 
+              <StoreDetails currentStore={current} 
               key={current.id}/>
             </div>
           </div>
         ) : (
           <div>
-            <StoreList stores={this.props.stores} removeStoreClick={() => {}} editStoreClick={(i) => {}} />
+            <StoreList stores={this.props.stores} removeStoreClick={() => {}} editStoreClick={(item, index) => this.setActiveStore(item, index)} />
 
           </div>
         )}

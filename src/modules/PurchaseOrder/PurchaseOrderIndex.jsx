@@ -99,13 +99,13 @@ class PurchaseOrderIndex extends Component {
               </ul>
             </div>
             <div className="col-md-9 p-2">
-              <PurchaseOrderDetails current={current} 
+              <PurchaseOrderDetails currentPurchaseOrder={current} 
               key={current.id}/>
             </div>
           </div>
         ) : (
           <div>
-            <PurchaseOrderList purchaseOrders={this.props.purchaseOrders} removePurchaseOrderClick={() => {}} editPurchaseOrderClick={(i) => {}} />
+            <PurchaseOrderList purchaseOrders={this.props.purchaseOrders} removePurchaseOrderClick={() => {}} editPurchaseOrderClick={(item, index) => this.setActivePurchaseOrder(item, index)} />
 
           </div>
         )}

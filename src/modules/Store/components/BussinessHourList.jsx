@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import NoData from "../../../shared/NoData";
 import Modal from "../../../shared/Modal";
 import PropTypes from "prop-types";
-import { FaEdit } from "react-icons/fa";
+import { FaEdit, FaTrash } from "react-icons/fa";
 
 class BussinessHourList extends Component {
   constructor(props) {
@@ -33,24 +33,20 @@ class BussinessHourList extends Component {
           </thead>
           <tbody>
             {bussinessHours && bussinessHours.map((item, index) => (
-            <tr key={index}>
+            <tr 
+              key={index}
+              onClick={() => this.props.editBussinessHourClick(item)}
+              >
               <td>{item.storeId}</td>
               <td>{item.dayOfWeek}</td>
               <td>{item.startTime}</td>
               <td>{item.endTime}</td>
               <td>
                 <button
-                  className="btn btn-sm text-primary"
-                  onClick={() => this.props.editBussinessHourClick(item)}
-                >
-                  <FaEdit />
-                </button>
-                <button
                   className="btn btn-sm btn-danger"
                   onClick={() => this.props.removeBussinessHourClick(item)}
                 >
-                  <i className="fa fa-trash" />
-                  ?
+                  <FaTrash />
                 </button>
               </td>
             </tr>
