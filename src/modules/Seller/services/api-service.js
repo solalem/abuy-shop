@@ -22,10 +22,6 @@ class ApiService {
   }
 
 
-  getByDepartmentId(id) {
-    return http.get(`/sellers/get-sellers-by-department-id?id=${id}`);
-  }
-
 }
 
 export default new ApiService();

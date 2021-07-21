@@ -14,8 +14,8 @@ class SellerDetails extends Component {
     super(props);
     this.onChangeId = this.onChangeId.bind(this);
     this.onChangeName = this.onChangeName.bind(this);
-    this.onChangeDepartmentId = this.onChangeDepartmentId.bind(this);
-    this.onChangeCommodyIds = this.onChangeCommodyIds.bind(this);
+    this.onChangeEmail = this.onChangeEmail.bind(this);
+    this.onChangePhone = this.onChangePhone.bind(this);
     this.getSeller = this.getSeller.bind(this);
     this.updateSeller = this.updateSeller.bind(this);
     this.removeSeller = this.removeSeller.bind(this);
@@ -56,26 +56,26 @@ class SellerDetails extends Component {
       };
     });
   }
-  onChangeDepartmentId(e) {
-    const departmentId = e.target.value;
+  onChangeEmail(e) {
+    const email = e.target.value;
 
     this.setState(function (prevState) {
       return {
         currentSeller: {
           ...prevState.currentSeller,
-          departmentId: departmentId,
+          email: email,
         },
       };
     });
   }
-  onChangeCommodyIds(e) {
-    const commodyIds = e.target.value;
+  onChangePhone(e) {
+    const phone = e.target.value;
 
     this.setState(function (prevState) {
       return {
         currentSeller: {
           ...prevState.currentSeller,
-          commodyIds: commodyIds,
+          phone: phone,
         },
       };
     });
@@ -158,26 +158,26 @@ class SellerDetails extends Component {
                 </div>
               </div>
               <div className="row mb-3">
-                <label className="col-sm-2 col-form-label" htmlFor="name">DepartmentId</label>
+                <label className="col-sm-2 col-form-label" htmlFor="name">Email</label>
                 <div className="col-sm-10">
                   <input
                     type="string"
                     className="form-control"
-                    id="departmentId"
-                    value={currentSeller.departmentId}
-                    onChange={this.onChangeDepartmentId}
+                    id="email"
+                    value={currentSeller.email}
+                    onChange={this.onChangeEmail}
                   />
                 </div>
               </div>
               <div className="row mb-3">
-                <label className="col-sm-2 col-form-label" htmlFor="name">CommodyIds</label>
+                <label className="col-sm-2 col-form-label" htmlFor="name">Phone</label>
                 <div className="col-sm-10">
                   <input
                     type="string"
                     className="form-control"
-                    id="commodyIds"
-                    value={currentSeller.commodyIds}
-                    onChange={this.onChangeCommodyIds}
+                    id="phone"
+                    value={currentSeller.phone}
+                    onChange={this.onChangePhone}
                   />
                 </div>
               </div>

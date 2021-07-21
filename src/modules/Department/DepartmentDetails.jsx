@@ -4,7 +4,6 @@ import { updateDepartment, deleteDepartment } from "./states/actions";
 import DepartmentsService from "./services/api-service";
 import CategoryList from "../Category/components/CategoryList";
 import BusinessTemplateList from "../BusinessTemplate/components/BusinessTemplateList";
-import SellerList from "../Seller/components/SellerList";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import Search from "../../shared/Search";
 import Modal from "../../shared/Modal";
@@ -208,7 +207,6 @@ class DepartmentDetails extends Component {
             <TabList>
               <Tab>Categories</Tab>
               <Tab>BusinessTemplates</Tab>
-              <Tab>Sellers</Tab>
               <Tab>More</Tab>
             </TabList>
 
@@ -221,11 +219,6 @@ class DepartmentDetails extends Component {
               <Search />
               
               <BusinessTemplateList />
-            </TabPanel>
-            <TabPanel>
-              <Search />
-              
-              <SellerList />
             </TabPanel>
 
             <TabPanel>

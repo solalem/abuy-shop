@@ -25,8 +25,8 @@ class SellerList extends Component {
           <thead>
             <tr>
               <td>Name</td>
-              <td>DepartmentId</td>
-              <td>CommodyIds</td>
+              <td>Email</td>
+              <td>Phone</td>
               <td></td>
             </tr>
           </thead>
@@ -37,8 +37,8 @@ class SellerList extends Component {
               onClick={() => this.props.editSellerClick(item)}
               >
               <td>{item.name}</td>
-              <td>{item.departmentId}</td>
-              <td>{item.commodyIds}</td>
+              <td>{item.email}</td>
+              <td>{item.phone}</td>
               <td>
                 <button
                   className="btn btn-sm btn-danger"

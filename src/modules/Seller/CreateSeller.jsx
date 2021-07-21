@@ -13,8 +13,8 @@ class CreateSeller extends Component {
     this.state = {
       id: '',
       name: '',
-      departmentId: '',
-      commodyIds: '',
+      email: '',
+      phone: '',
       message: "",
     };
   }
@@ -27,12 +27,12 @@ class CreateSeller extends Component {
   }
 
   createSeller() {
-    ApiService.createSeller(
+    ApiService.create(
       {
         id: this.state.id,
         name: this.state.name,
-        departmentId: this.state.departmentId,
-        commodyIds: this.state.commodyIds,
+        email: this.state.email,
+        phone: this.state.phone,
       }).then((reponse) => {
         console.log(reponse);
         
@@ -63,26 +63,26 @@ class CreateSeller extends Component {
                 </div>
               </div>
               <div className="row mb-3">
-                <label className="col-sm-2 col-form-label" htmlFor="name">DepartmentId</label>
+                <label className="col-sm-2 col-form-label" htmlFor="name">Email</label>
                 <div className="col-sm-10">
                   <input
                     type="string"
                     className="form-control"
-                    id="departmentId"
-                    value={this.state.departmentId}
-                    onChange={(e) => this.handleChange({ departmentId: e.target.value })}
+                    id="email"
+                    value={this.state.email}
+                    onChange={(e) => this.handleChange({ email: e.target.value })}
                   />
                 </div>
               </div>
               <div className="row mb-3">
-                <label className="col-sm-2 col-form-label" htmlFor="name">CommodyIds</label>
+                <label className="col-sm-2 col-form-label" htmlFor="name">Phone</label>
                 <div className="col-sm-10">
                   <input
                     type="string"
                     className="form-control"
-                    id="commodyIds"
-                    value={this.state.commodyIds}
-                    onChange={(e) => this.handleChange({ commodyIds: e.target.value })}
+                    id="phone"
+                    value={this.state.phone}
+                    onChange={(e) => this.handleChange({ phone: e.target.value })}
                   />
                 </div>
               </div>
